@@ -1,0 +1,25 @@
+﻿<div>
+    Nu in de bioscoop:
+</div>
+<div>
+    <div data-ng-repeat="m in movies">
+        {{m.date}}
+        <div class="wrapper">
+            <div class="scrolls">
+                <div class="moviebox" id="{{y.ImdbId}}" data-ng-repeat="y in m.movies">
+                    <div class="title" title="{{y.Title}}">
+                        <a ng-href="/#/Movie/{{y.ImdbId}}">{{y.Title}}</a>
+                    </div>
+                    <div movie-tooltip class="poster">
+                        <movie-thumb imdb="{{y.ImdbId}}"></movie-thumb>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary btn-xs" data-ng-click="addMovieToFollowList(y)" title="Volgen">
+                            <i class="fa fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    

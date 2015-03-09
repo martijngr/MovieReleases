@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/other")
+    <script src="signalr/hubs/"></script>
+
+    <script src="~/Scripts/min/all.js"></script>
+
+    <script>
+       
+        // Declare a proxy to reference the hub. 
+        var notificationHub = $.connection.notificationHub;
+
+        // Create a function that the hub can call to broadcast messages.
+        notificationHub.client.movieReleased = function (movieIds) {
+            console.log(movieIds);
+        };
+
+        $.connection.hub.start().done(function () {
+                
+        });
+    </script>
+
+    <title>@ViewBag.Title</title>
+</head>
+<body data-ng-app="movieApp" data-ng-controller="HomeController as homeCtrl">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Film shizzle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li data-ng-class="{active: active == 'SoonInCinema'}"><a href="/#/SoonInCinema">Binnenkort in de bioscoop</a></li>
+                    <li data-ng-class="{active: active == 'Cinema'}"><a href="/#/Cinema">Nu in de bioscoop</a></li>
+                    <li data-ng-class="{active: active == 'Rent'}"><a href="/#/Rent">Nu te huur</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                        @*<a href="javascript:toggleDownloadList()">Downloadlijst ({{moviesToDownload.length}})<b class="caret"></b></a>
+                        <ul class="movie-dropdown" id="download-list">
+                            <li data-ng-repeat="m in moviesToDownload" class="to-download-item">
+                                <div class="clearfix">
+                                    <div class="col-sm-1">
+                                        <i class="fa fa-trash-o" data-ng-click="deleteMovieFromDownloadList(m)" title="Verwijder uit lijst"></i>
+                                    </div>
+                                    <div data-ng-class="{'col-sm-9': true, 'striked': m.Downloaded}">
+                                        {{m.Title}}
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-success btn-xs" data-ng-click="markMovieAsDownloaded(m)" title="Markeer als gedownload" data-ng-show="!m.Downloaded">
+                                            <i class="fa fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>*@
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    @RenderBody()
+</body>
+</html>

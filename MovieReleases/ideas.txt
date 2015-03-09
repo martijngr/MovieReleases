@@ -1,0 +1,16 @@
+﻿- Detailpagina voor films
+
+- toastr tonen bij toevoegen aan downloadlijst
+- titel kopieeren in geheugen (plakken in spot lite)
+- In downloadlijst dropdown kleine posters tonen
+- Reacties laden van moviemeter
+- Filmposter slepen in downloadlijst
+- Melding als bioscoopfilm te huur wordt aangeboden
+
+
+
+===
+- Decoration pattern toepassen voor notificaties
+	1) ophalen van de data
+	2) versturen naar de clients
+	3) update dat notificatie is verstuurd zodat hij niet dubbel wordt verstuurd

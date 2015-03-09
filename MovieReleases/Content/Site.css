@@ -1,0 +1,108 @@
+﻿body, h1{
+    margin: 0;
+    padding:0;
+}
+.wrapper
+{
+    width: 100%;
+    background: #F4F4F4;
+    margin-bottom:25px;
+}
+
+.scrolls
+{
+    width: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding:5px;
+}
+
+div.moviebox
+{
+    display: inline-block;
+    width: 175px;
+    margin-right: 20px;
+    text-align: center;
+    min-height: 290px;
+}
+
+    div.moviebox div
+    {
+        border-bottom: 1px solid black;
+        padding: 5px;
+    }
+
+    div.moviebox .poster
+    {
+        height: 242px;
+    }
+
+    div.moviebox .title
+    {
+        width: 175px;
+        overflow:hidden;
+    }
+
+div.movie-tooltip{
+    position:absolute;
+    background-color:#FFF;
+    width:400px;
+    border: 1px solid #b48c8c;
+    border-radius:10px;
+    padding:10px;
+}
+
+.to-download-item{
+   padding:10px 0;
+}
+
+.to-download-item:hover{
+    background-color: #e7e7e7;
+}
+
+.fa-trash-o{
+    cursor: pointer;
+}
+
+.striked{
+    text-decoration: line-through;
+}
+
+.movie-dropdown{
+    
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    background-color: #fff;
+    /*border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;*/
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    background-clip: padding-box;
+}
+
+/*.movie-dropdown{
+    position: absolute;
+    top: 100%;
+    right:0;
+    width:360px;
+    z-index: 1000;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    background-clip: padding-box;
+    height: 400px;
+    overflow: auto;
+}*/

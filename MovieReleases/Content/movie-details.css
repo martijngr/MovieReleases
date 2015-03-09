@@ -1,0 +1,35 @@
+﻿#movie-details {
+}
+
+    #movie-details #movie-details-container {
+        padding: 20px;
+    }
+
+    #movie-details #poster {
+        float: left;
+        width: 400px;
+        margin-right: 20px;
+    }
+    #movie-details #general-movie-info {
+        color:#A5A2A2;
+        font-size: 0.9em;
+        margin-bottom:20px;
+    }
+    #movie-details #info {
+        float: left;
+        width: 250px;
+    }
+
+    #movie-details .title {
+        padding: 5px;
+        text-align: center;
+    }
+
+    #movie-details .horizontal-line {
+        height: 5px;
+        border-top: 1px solid black;
+    }
+
+    #movie-details img {
+        width: 400px;
+    }
