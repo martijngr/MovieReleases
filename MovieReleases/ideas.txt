@@ -1,5 +1,4 @@
-﻿- Detailpagina voor films
-
+﻿- Detailpagina voor films uitbreiden met: acteurs, rate, eigen mening, reacties van anderen (imdb, moviemeter)
 - toastr tonen bij toevoegen aan downloadlijst
 - titel kopieeren in geheugen (plakken in spot lite)
 - In downloadlijst dropdown kleine posters tonen

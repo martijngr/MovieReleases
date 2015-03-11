@@ -1,57 +1,18 @@
-﻿<script type="text/javascript">
-    function createImage(imdb) {
-        var img = new Image();
-
-        $.get("https://api.themoviedb.org/3/movie/tt" + imdb + "?api_key=980071c1008d3dd64ab4a0893fe5a727", function (response) {
-            console.log('response', response);
-
-            img.src = "http://image.tmdb.org/t/p/w154" + response.poster_path;
-
-            $('#' + imdb).append(img);
-        });
-
-    }
-
-    function loadImage(element, imdb) {
-        $.get("https://api.themoviedb.org/3/movie/tt" + imdb + "?api_key=980071c1008d3dd64ab4a0893fe5a727", function (response) {
-            console.log('element', element);
-            console.log('response', response);
-        });
-    }
-
-    function toggleDownloadList() {
-        if ($("#view-container").css("padding-right") == "200px") {
-            $("#view-container").css("padding-right", '');
-            $("#download-list").hide();
-        }
-        else {
-            $("#view-container").css("padding-right", "200px");
-            $("#download-list").show();
-        }
-    }
-</script>
-
-<div data-ng-view id="view-container" style="margin-right:360px;margin-top:51px;"></div>
+﻿<div data-ng-view id="view-container" style="margin-right:360px;margin-top:51px;"></div>
 
 <div style="position: fixed;top: 49px;right: 0;width: 360px;min-width: 160px;overflow: auto;bottom: 0;">
     <ul class="movie-dropdown" id="download-list">
         <li>
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" title="Binnenkort in de bioscoop">
-                        <img src="~/Images/SoonInCinema.png" />
-                    </button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" title="In de bioscoop">
-                        <img src="~/Images/InCinema.png" />
-                    </button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" title="Uit op DVD">
-                        <img src="~/Images/Dvd.png" />
-                    </button>
-                </div>
+                <a class="btn btn-default" title="Binnenkort in de bioscoop">
+                    <img src="~/Images/SoonInCinema.png" /> <span class="badge alert-success">2</span>
+                </a>
+                <a class="btn btn-default" title="In de bioscoop">
+                    <img src="~/Images/InCinema.png" /> <span class="badge alert-danger">0</span>
+                </a>
+                <a class="btn btn-default" title="Uit op DVD">
+                    <img src="~/Images/Dvd.png" /> <span class="badge alert-warning">12</span>
+                </a>
             </div>
         </li>
         <li data-ng-repeat="m in homeCtrl.moviesToDownload" class="to-download-item">
@@ -61,7 +22,7 @@
                 </div>
                 <div data-ng-class="{'col-sm-9': true, 'striked': m.Downloaded}">
                     <a ng-href="/#/Movie/{{m.ImdbId}}">{{m.Title}}</a>
-                    
+
                 </div>
                 <div class="col-sm-1">
                     <button class="btn btn-success btn-xs" data-ng-click="homeCtrl.markMovieAsDownloaded(m)" title="Markeer als gedownload" data-ng-show="!m.Downloaded">

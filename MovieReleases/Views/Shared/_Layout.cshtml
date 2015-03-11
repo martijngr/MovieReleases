@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
@@ -23,7 +22,7 @@
 
         // Create a function that the hub can call to broadcast messages.
         notificationHub.client.movieReleased = function (movieIds) {
-            console.log(movieIds);
+            toastr.info(movieIds.length + " films zijn uitgekomen");
         };
 
         $.connection.hub.start().done(function () {

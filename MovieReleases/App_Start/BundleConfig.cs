@@ -10,7 +10,8 @@ namespace MovieReleases
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                    "~/Scripts/jquery.signalR-{version}.js"));
+                    "~/Scripts/jquery.signalR-{version}.js",
+                    "~/Scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
@@ -52,7 +53,8 @@ namespace MovieReleases
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/bootstrap.css",
-                        "~/Content/themes/base/jquery.ui.theme.css"));
+                        "~/Content/themes/base/jquery.ui.theme.css",
+                        "~/Content/toastr.css"));
         }
     }
 }

@@ -26,8 +26,8 @@ namespace MovieReleases
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            var runner = new NotificationTaskRunner(new Notifier());
-            runner.StartNotificationServive(0.5);
+            //var runner = new NotificationTaskRunner(new Notifier());
+            //runner.StartNotificationServive(0.5);
         }
     }
 }
