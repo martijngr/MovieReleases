@@ -1,18 +1,23 @@
 ﻿<div id="movie-details">
     <div id="movie-details-container">
         <div id="poster">
-            <movie-poster imdb="{{movieCtrl.movieDetails.ImdbId}}"></movie-poster>
+            <movie-poster imdb="{{movieCtrl.movieDetails.Imdb}}"></movie-poster>
         </div>
+
+        
 
         <h1>{{movieCtrl.movieDetails.Title}}</h1>
 
         <div id="general-movie-info">
             Duur:
-            {{movieCtrl.movieDetails.Duration}} | ImdbId: {{movieCtrl.movieDetails.ImdbId}}  | Jaar: {{movieCtrl.movieDetails.Year}}
+            {{movieCtrl.movieDetails.Duration}} | ImdbId: {{movieCtrl.movieDetails.Imdb}}  | Jaar: {{movieCtrl.movieDetails.Year}}
         </div>
-
-        {{movieCtrl.movieDetails.Plot}}
-
+        <div id="trailer-container">
+            <iframe width="430" height="230" src="//v.traileraddict.com/99979" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no" frameborder="0"></iframe>
+        </div>
+        <br />
+        <br />
+        <!--{{movieCtrl.movieDetails.Plot}}-->
         <div style="clear:both;"></div>
     </div>
 </div>

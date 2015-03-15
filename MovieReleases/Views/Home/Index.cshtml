@@ -23,7 +23,7 @@
                         <a ng-href="/#/Movie/{{m.Imdb}}">{{m.Title}}</a>
                     </div>
                     <div class="col-sm-1">
-                        <button class="btn btn-success btn-xs" data-ng-click="homeCtrl.markMovieAsDownloaded(m)" title="Markeer als gedownload" data-ng-show="!m.Downloaded">
+                        <button class="btn btn-download btn-xs" data-ng-click="homeCtrl.markMovieAsDownloaded(m)" title="Markeer als gedownload" data-ng-show="!m.Downloaded">
                             <i class="fa fa-download"></i>
                         </button>
                     </div>

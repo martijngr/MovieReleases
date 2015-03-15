@@ -2,7 +2,7 @@
 }
 
     #movie-details #movie-details-container {
-        padding: 20px;
+        padding: 20px 140px;
     }
 
     #movie-details #poster {
@@ -32,4 +32,7 @@
 
     #movie-details img {
         width: 400px;
+    }
+
+    #movie-details #trailer-container {
     }
