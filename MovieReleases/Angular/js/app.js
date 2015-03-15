@@ -6,6 +6,16 @@
 var app = angular.module('movieApp', ['ngRoute']);
 
 app.run([
-    '$http', function ($http) {
+    '$http', '$rootScope', '$timeout', function ($http, $rootScope, $timeout) {
         $http.get("/Home/StartNotificationService");
+
+        $rootScope.$on('$routeChangeStart', function () {
+            $("#page-loader").show();
+        });
+
+        $rootScope.$on('$routeChangeSuccess', function () {
+            $timeout(function () {
+                $("#page-loader").hide();
+            });
+        });
     }]);

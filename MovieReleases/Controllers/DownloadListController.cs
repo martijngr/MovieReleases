@@ -5,33 +5,34 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using MovieReleases.Business;
+using MovieReleases.Business.DownloadList;
 using MovieReleases.DTO;
 
 namespace MovieReleases.Controllers
 {
     public class DownloadListController : ApiController
     {
-        private MovieService _movieService;
+        private DownloadListService _downloadListService;
 
         public DownloadListController()
         {
-            _movieService = new MovieService();
+            _downloadListService = new DownloadListService();
         }
 
         public void Post(MovieDto movie)
         {
-            _movieService.AddMovieToDownloadList(movie);
+            _downloadListService.AddMovieToDownloadList(movie);
         }
 
         public MovieDto[] Get()
         {
-            var movies = _movieService.GetMoviesToDownload();
+            var movies = _downloadListService.GetMoviesToDownload();
             return movies;
         }
 
-        public HttpResponseMessage Delete(string imdbId)
+        public HttpResponseMessage Delete(string id)
         {
-            _movieService.DeleteMovieFromDownloadList(imdbId);
+            _downloadListService.DeleteMovieFromDownloadList(id);
 
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }

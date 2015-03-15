@@ -14,19 +14,6 @@
             configurable: true
         });
 
-
-        Object.defineProperty(Movie.prototype, "Title", {
-            get: function () {
-                return this._title;
-            },
-            set: function (title) {
-                this._title = title;
-            },
-            enumerable: true,
-            configurable: true
-        });
-
-
         Object.defineProperty(Movie.prototype, "Year", {
             get: function () {
                 return this._year;
@@ -37,7 +24,6 @@
             enumerable: true,
             configurable: true
         });
-
 
         Object.defineProperty(Movie.prototype, "Thumbnail", {
             get: function () {
@@ -50,19 +36,6 @@
             configurable: true
         });
 
-
-        Object.defineProperty(Movie.prototype, "ImdbId", {
-            get: function () {
-                return this._imdbId;
-            },
-            set: function (imdbId) {
-                this._imdbId = imdbId;
-            },
-            enumerable: true,
-            configurable: true
-        });
-
-
         Object.defineProperty(Movie.prototype, "Plot", {
             get: function () {
                 return this._plot;
@@ -73,7 +46,6 @@
             enumerable: true,
             configurable: true
         });
-
 
         Object.defineProperty(Movie.prototype, "Duration", {
             get: function () {
@@ -86,7 +58,6 @@
             configurable: true
         });
 
-
         Object.defineProperty(Movie.prototype, "Downloaded", {
             get: function () {
                 return this._downloaded;
@@ -98,6 +69,49 @@
             configurable: true
         });
 
+        Object.defineProperty(Movie.prototype, "Title", {
+            get: function () {
+                return this._title;
+            },
+            set: function (title) {
+                this._title = title;
+            },
+            enumerable: true,
+            configurable: true
+        });
+
+        Object.defineProperty(Movie.prototype, "MovieType", {
+            get: function () {
+                return this._movieType;
+            },
+            set: function (movieType) {
+                this._movieType = movieType;
+            },
+            enumerable: true,
+            configurable: true
+        });
+
+        Object.defineProperty(Movie.prototype, "Imdb", {
+            get: function () {
+                return this._imdb;
+            },
+            set: function (imdb) {
+                this._imdb = imdb;
+            },
+            enumerable: true,
+            configurable: true
+        });
+
+        Object.defineProperty(Movie.prototype, "InDownloadList", {
+            get: function () {
+                return this._inDownloadList;
+            },
+            set: function (inDownloadList) {
+                this._inDownloadList = inDownloadList;
+            },
+            enumerable: true,
+            configurable: true
+        });
         return Movie;
     })();
     MovieApp.Movie = Movie;

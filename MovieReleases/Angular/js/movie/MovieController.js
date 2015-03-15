@@ -6,10 +6,7 @@
             this.$routeParams = $routeParams;
             this.MovieService = MovieService;
             this.movie = movie;
-            //var imdb = $routeParams.imdb;
-            //MovieService.GetMovieByImdb(imdb).then(response => {
             this.movieDetails = this.movie;
-            //});
         }
         MovieController.$inject = ['$scope', '$routeParams', 'MovieService', 'movie'];
         return MovieController;

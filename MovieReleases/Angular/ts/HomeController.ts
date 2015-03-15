@@ -2,6 +2,7 @@
     export interface IHomeControllerScope extends ng.IScope {
         moviesToDownload: Movie[];
         active: string;
+        movieTypeFilter: number;
 
         deleteMovieFromDownloadList(movie: Movie);
 
@@ -12,15 +13,17 @@
         public static $inject = [
             '$scope',
             '$location',
-            'DownloadListService'
+            'DownloadListRepository'
         ];
 
-        constructor(private $scope: IHomeControllerScope, private $location: ng.ILocationService, private downloadListService: DownloadListService) {
+        constructor(private $scope: IHomeControllerScope, private $location: ng.ILocationService, private downloadListRepository: DownloadListRepository) {
             this.$scope.$on('$locationChangeSuccess', (event) => {
                 this.setActiveUrlPart();
             });
 
-            downloadListService.GetMoviesToDownload().then(response => {
+            $scope.movieTypeFilter = 3;
+
+            downloadListRepository.GetMoviesToDownload().then(response => {
                 this.$scope.moviesToDownload = response;
             });
         }
@@ -38,11 +41,7 @@
             movie.Downloaded = true;
         }
 
-        public deleteMovieFromDownloadList(movie: Movie) {
-            this.downloadListService.DeleteMovieFromDownloadList(movie).then(() => {
-                this.$scope.moviesToDownload = _.without(this.$scope.moviesToDownload, movie);
-            });
-        }
+        
     }
 }
 

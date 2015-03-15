@@ -24,5 +24,6 @@ namespace MovieReleases.Business
         public string Year { get; set; }
         public Nullable<System.DateTime> ReleaseDate { get; set; }
         public Nullable<MovieReleases.Business.Movies.ReleaseDateType> ReleaseDateType { get; set; }
+        public MovieReleases.Core.Movies.MovieType MovieType { get; set; }
     }
 }

@@ -38,7 +38,7 @@ namespace MovieReleases.Business.MovieScrapers.MovieMeter
                                          Title = jObject.GetValue<string>("title"),
                                          Year = jObject.GetValue<string>("year"),
                                          Duration = jObject.GetValue<string>("duration"),
-                                         ImdbId = jObject.GetValue<string>("imdb"),
+                                         Imdb = jObject.GetValue<string>("imdb"),
                                          Plot = jObject.GetValue<string>("plot")
                                      };
 

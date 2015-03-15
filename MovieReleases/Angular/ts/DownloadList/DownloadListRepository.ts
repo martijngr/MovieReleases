@@ -1,5 +1,5 @@
 ﻿module MovieApp {
-    export class DownloadListService {
+    export class DownloadListRepository {
         public static $inject = ['$http', '$q', '$window'];
 
         constructor(private $http: ng.IHttpService, private $q: ng.IQService, private $window: ng.IWindowService) {
@@ -19,11 +19,11 @@
         }
 
         public DeleteMovieFromDownloadList = function (movie: Movie) {
-            return this.$http.delete("/api/DownloadList/" + movie.ImdbId).then(function (response) {
+            return this.$http.delete("/api/DownloadList/" + movie.Imdb).then(function (response) {
                 return response;
             });
         }
     }
 } 
 
-app.service("DownloadListService", MovieApp.DownloadListService);
+app.service("DownloadListRepository", MovieApp.DownloadListRepository);

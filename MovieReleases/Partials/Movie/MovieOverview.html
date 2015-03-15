@@ -1,0 +1,32 @@
+﻿<div>
+    <div data-ng-repeat="m in movies">
+        {{m.date}}
+        <div class="wrapper">
+            <div class="scrolls">
+                <div data-ng-repeat="y in m.movies" data-ng-class="{'moviebox': true}" id="{{y.Imdb}}">
+                    <div data-ng-class="{'title': true, 'in-download-list': y.InDownloadList}" title="{{y.Title}}">
+                        <a ng-href="/#/Movie/{{y.Imdb}}">{{y.Title}}</a>
+                    </div>
+                    <div movie-tooltip class="poster">
+                        <movie-thumb imdb="{{y.Imdb}}"></movie-thumb>
+                    </div>
+                    <div class="poster-button-bar">
+                        <button 
+                                class="btn btn-primary btn-xs" 
+                                data-ng-click="movieCtrl.addMovieToDownloadList(y)" 
+                                data-ng-show="!y.InDownloadList"
+                                title="Volgen">
+                            <i class="fa fa-download"></i>
+                        </button>
+                        <button class="btn btn-warning btn-xs"
+                                data-ng-click="movieCtrl.deleteMovieFromDownloadList(y)"
+                                data-ng-show="y.InDownloadList"
+                                title="Verwijder uit downloadlijst">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>   

@@ -213,6 +213,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\ajax-loader.gif" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -286,6 +287,7 @@
     <Content Include="Images\SoonInCinema.png" />
     <Content Include="Images\Dvd.png" />
     <Content Include="Images\InCinema.png" />
+    <Content Include="Partials\Movie\MovieOverview.html" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular.js" />
@@ -350,7 +352,9 @@
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -379,8 +383,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Cinema.cshtml" />
-    <Content Include="Views\Home\Rent.cshtml" />
     <Content Include="Scripts\underscore-min.map" />
     <Content Include="Scripts\min\maps\all.min.js.map" />
     <Content Include="Partials\Movie\Details.html" />
@@ -406,7 +408,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Angular\ts\app.ts" />
-    <TypeScriptCompile Include="Angular\ts\DownloadList\DownloadListService.ts" />
+    <TypeScriptCompile Include="Angular\ts\DownloadList\DownloadListRepository.ts" />
     <TypeScriptCompile Include="Angular\ts\HomeController.ts" />
     <TypeScriptCompile Include="Angular\ts\Interceptors\SignalRInterceptor.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\Movie.ts" />
@@ -416,6 +418,7 @@
     <TypeScriptCompile Include="Angular\ts\movie\MoviePosterRepository.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MovieService.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MovieToolTip.ts" />
+    <TypeScriptCompile Include="Angular\ts\Overview\MovieOverview.ts" />
     <TypeScriptCompile Include="Angular\ts\Overview\MovieOverviewController.ts" />
     <TypeScriptCompile Include="Angular\ts\routings.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />

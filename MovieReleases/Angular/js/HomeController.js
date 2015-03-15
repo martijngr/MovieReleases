@@ -1,16 +1,18 @@
 ﻿var MovieApp;
 (function (MovieApp) {
     var HomeController = (function () {
-        function HomeController($scope, $location, downloadListService) {
+        function HomeController($scope, $location, downloadListRepository) {
             var _this = this;
             this.$scope = $scope;
             this.$location = $location;
-            this.downloadListService = downloadListService;
+            this.downloadListRepository = downloadListRepository;
             this.$scope.$on('$locationChangeSuccess', function (event) {
                 _this.setActiveUrlPart();
             });
 
-            downloadListService.GetMoviesToDownload().then(function (response) {
+            $scope.movieTypeFilter = 3;
+
+            downloadListRepository.GetMoviesToDownload().then(function (response) {
                 _this.$scope.moviesToDownload = response;
             });
         }
@@ -30,17 +32,10 @@
         HomeController.prototype.markMovieAsDownloaded = function (movie) {
             movie.Downloaded = true;
         };
-
-        HomeController.prototype.deleteMovieFromDownloadList = function (movie) {
-            var _this = this;
-            this.downloadListService.DeleteMovieFromDownloadList(movie).then(function () {
-                _this.$scope.moviesToDownload = _.without(_this.$scope.moviesToDownload, movie);
-            });
-        };
         HomeController.$inject = [
             '$scope',
             '$location',
-            'DownloadListService'
+            'DownloadListRepository'
         ];
         return HomeController;
     })();

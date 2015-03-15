@@ -1,25 +1,23 @@
-﻿body, h1{
+﻿body, h1 {
     margin: 0;
-    padding:0;
-}
-.wrapper
-{
-    width: 100%;
-    background: #F4F4F4;
-    margin-bottom:25px;
+    padding: 0;
 }
 
-.scrolls
-{
+.wrapper {
+    width: 100%;
+    background: #F4F4F4;
+    margin-bottom: 25px;
+}
+
+.scrolls {
     width: auto;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
-    padding:5px;
+    padding: 5px;
 }
 
-div.moviebox
-{
+div.moviebox {
     display: inline-block;
     width: 175px;
     margin-right: 20px;
@@ -27,50 +25,66 @@ div.moviebox
     min-height: 290px;
 }
 
-    div.moviebox div
-    {
+    div.moviebox div {
         border-bottom: 1px solid black;
         padding: 5px;
     }
 
-    div.moviebox .poster
-    {
+    div.moviebox .poster {
         height: 242px;
     }
 
-    div.moviebox .title
-    {
-        width: 175px;
-        overflow:hidden;
+    div.moviebox .poster-button-bar {
+        text-align: left;
     }
 
-div.movie-tooltip{
-    position:absolute;
-    background-color:#FFF;
-    width:400px;
+    div.moviebox .title {
+        width: 175px;
+        overflow: hidden;
+    }
+
+div.in-download-list {
+    /*background-color: #5abd1e;*/
+    background: #1e5799; /* Old browsers */
+    background: -moz-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #5abd1e 96%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(0%,#f4f4f4), color-stop(96%,#5abd1e), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#5abd1e 96%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#5abd1e 96%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#5abd1e 96%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #1e5799 0%,#f4f4f4 0%,#5abd1e 96%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+    div.in-download-list a {
+        color: #371F45;
+    }
+
+div.movie-tooltip {
+    position: absolute;
+    background-color: #FFF;
+    width: 400px;
     border: 1px solid #b48c8c;
-    border-radius:10px;
-    padding:10px;
+    border-radius: 10px;
+    padding: 10px;
 }
 
-.to-download-item{
-   padding:10px 0;
+.to-download-item {
+    padding: 10px 0;
 }
 
-.to-download-item:hover{
-    background-color: #e7e7e7;
-}
+    .to-download-item:hover {
+        background-color: #e7e7e7;
+    }
 
-.fa-trash-o{
+.fa-trash-o {
     cursor: pointer;
 }
 
-.striked{
+.striked {
     text-decoration: line-through;
 }
 
-.movie-dropdown{
-    
+.movie-dropdown {
     padding: 5px 0;
     margin: 2px 0 0;
     list-style: none;
@@ -84,25 +98,25 @@ div.movie-tooltip{
     background-clip: padding-box;
 }
 
-/*.movie-dropdown{
-    position: absolute;
-    top: 100%;
-    right:0;
-    width:360px;
-    z-index: 1000;
-    float: left;
-    min-width: 160px;
-    padding: 5px 0;
-    margin: 2px 0 0;
-    list-style: none;
-    font-size: 14px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0,0,0,.15);
-    border-radius: 4px;
-    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    background-clip: padding-box;
-    height: 400px;
-    overflow: auto;
-}*/
+
+
+    #page-loader .centered {
+        background: #EAEAEA;
+        opacity: 0.5;
+        color: #FFF;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 10001;
+    }
+
+    #page-loader img {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+    }

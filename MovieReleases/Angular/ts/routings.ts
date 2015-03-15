@@ -1,8 +1,9 @@
 ﻿app.config(["$routeProvider", ($routeProvider: ng.route.IRouteProvider) => {
     $routeProvider.
         when('/Cinema', {
-            templateUrl: '/Home/Cinema',
+            templateUrl: '/Partials/Movie/MovieOverview.html',
             controller: 'MovieOverviewController',
+            controllerAs: 'movieCtrl',
             resolve: {
                 movies: ['MovieService', function (MovieService: MovieApp.MovieService) {
                     return MovieService.GetMoviesInCinema();
@@ -10,7 +11,7 @@
             }
         }).
         when('/SoonInCinema', {
-            templateUrl: '/Home/Cinema',
+            templateUrl: '/Partials/Movie/MovieOverview.html',
             controller: 'MovieOverviewController',
             controllerAs: 'movieCtrl',
             resolve: {
@@ -20,7 +21,7 @@
             }
         }).
         when('/Rent', {
-            templateUrl: '/Home/Rent',
+            templateUrl: '/Partials/Movie/MovieOverview.html',
             controller: 'MovieOverviewController',
             controllerAs: 'movieCtrl',
             resolve: {

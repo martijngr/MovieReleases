@@ -1,33 +1,27 @@
-﻿    module MovieApp {
-        export interface IMovieControllerScope extends ng.IScope {
-            movie: Movie;
-        }
+﻿module MovieApp {
+    export interface IMovieControllerScope extends ng.IScope {
+        movie: Movie;
+    }
 
-        export interface RouteParams extends ng.route.IRouteParamsService {
-            imdb: string;
-        }
+    export interface RouteParams extends ng.route.IRouteParamsService {
+        imdb: string;
+    }
 
-        export class MovieController {
-            public static $inject = ['$scope', '$routeParams', 'MovieService', 'movie'];
+    export class MovieController {
+        public static $inject = ['$scope', '$routeParams', 'MovieService', 'movie'];
 
-            movieDetails: Movie;
+        movieDetails: Movie;
 
-            constructor(
-                private $scope: IMovieControllerScope,
-                private $routeParams: RouteParams,
-                private MovieService: MovieService,
-                private movie : MovieApp.Movie) {
+        constructor(
+            private $scope: IMovieControllerScope,
+            private $routeParams: RouteParams,
+            private MovieService: MovieService,
+            private movie: MovieApp.Movie) {
 
-                //var imdb = $routeParams.imdb;
-                //MovieService.GetMovieByImdb(imdb).then(response => {
-                this.movieDetails = this.movie;
-                //});
-            
-            }
-
-            //private movie: Movie;
+            this.movieDetails = this.movie;
 
         }
+    }
 
-        app.controller("MovieController", MovieApp.MovieController);
-    } 
+    app.controller("MovieController", MovieApp.MovieController);
+} 

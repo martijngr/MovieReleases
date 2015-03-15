@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CookComputing.XmlRpc;
+﻿using System.Collections.Generic;
+using MovieReleases.Business.DownloadList;
 using MovieReleases.Business.MovieScrapers;
 using MovieReleases.Business.MovieScrapers.MovieMeter;
 using MovieReleases.Business.MovieScrapers.RottenTomatoes;
@@ -23,29 +21,6 @@ namespace MovieReleases.Business
             _movieRepository = new MovieRepository(_context);
             _scraper = new RottenTomatoesScraper();
             _dutchMovieScraper = new MovieMeterScraper();
-        }
-
-        public void AddMovieToDownloadList(MovieDto movieDto)
-        {
-            var movie = FromDto(movieDto);
-
-            _movieRepository.AddMovie(movie);
-            SaveChanges();
-        }
-
-        public MovieDto[] GetMoviesToDownload()
-        {
-            var movies = from m in _movieRepository.Movies()
-                         select new MovieDto
-                         {
-                             Duration = m.Duration,
-                             ImdbId = m.Imdb,
-                             Plot = m.Plot,
-                             Title = m.Title,
-                             Year = m.Year,
-                         };
-
-            return movies.ToArray();
         }
 
         public Dictionary<string, MovieDto[]> GetMoviesOutOnDvd()
@@ -76,29 +51,6 @@ namespace MovieReleases.Business
         public void SaveChanges()
         {
             _context.SaveChanges();
-        }
-
-        private Movie FromDto(MovieDto movie)
-        {
-            return new Movie
-            {
-                Downloaded = false,
-                Duration = movie.Duration,
-                Imdb = movie.ImdbId,
-                Plot = movie.Plot,
-                PosterUrl = movie.Thumbnail,
-                Title = movie.Title,
-                Year = movie.Year
-            };
-        }
-
-        public void DeleteMovieFromDownloadList(string imdbId)
-        {
-            var movie = _context.Movies.FirstOrDefault(m => m.Imdb == imdbId);
-            _context.Movies.Remove(movie);
-
-            SaveChanges();
-                 
         }
     }
 }

@@ -16,16 +16,6 @@ namespace MovieReleases.Controllers
             return View();
         }
 
-        public ActionResult Cinema()
-        {
-            return PartialView();
-        }
-
-        public ActionResult Rent()
-        {
-            return PartialView();
-        }
-
         public void StartNotificationService()
         {
             var dec1 = new MoviesToNotifyDecorator();

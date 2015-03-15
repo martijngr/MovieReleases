@@ -4,30 +4,29 @@
     <ul class="movie-dropdown" id="download-list">
         <li>
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <a class="btn btn-default" title="Binnenkort in de bioscoop">
-                    <img src="~/Images/SoonInCinema.png" /> <span class="badge alert-success">2</span>
+                <a class="btn btn-default" title="Binnenkort in de bioscoop" data-ng-click="movieTypeFilter = 1">
+                    <img src="~/Images/SoonInCinema.png" /> <span class="badge alert-success">{{ (homeCtrl.moviesToDownload | filter: {MovieType: 1}).length }}</span>
                 </a>
-                <a class="btn btn-default" title="In de bioscoop">
-                    <img src="~/Images/InCinema.png" /> <span class="badge alert-danger">0</span>
+                <a class="btn btn-default" title="In de bioscoop" data-ng-click="movieTypeFilter = 2">
+                    <img src="~/Images/InCinema.png" /> <span class="badge alert-danger">{{ (homeCtrl.moviesToDownload | filter: {MovieType: 2}).length }}</span>
                 </a>
-                <a class="btn btn-default" title="Uit op DVD">
-                    <img src="~/Images/Dvd.png" /> <span class="badge alert-warning">12</span>
+                <a class="btn btn-default" title="Uit op DVD" data-ng-click="movieTypeFilter = 3">
+                    <img src="~/Images/Dvd.png" /> <span class="badge alert-warning">{{ (homeCtrl.moviesToDownload | filter: {MovieType: 3}).length }}</span>
                 </a>
             </div>
-        </li>
-        <li data-ng-repeat="m in homeCtrl.moviesToDownload" class="to-download-item">
-            <div class="clearfix">
-                <div class="col-sm-1">
-                    <i class="fa fa-trash-o" data-ng-click="homeCtrl.deleteMovieFromDownloadList(m)" title="Verwijder uit lijst"></i>
-                </div>
-                <div data-ng-class="{'col-sm-9': true, 'striked': m.Downloaded}">
-                    <a ng-href="/#/Movie/{{m.ImdbId}}">{{m.Title}}</a>
-
-                </div>
-                <div class="col-sm-1">
-                    <button class="btn btn-success btn-xs" data-ng-click="homeCtrl.markMovieAsDownloaded(m)" title="Markeer als gedownload" data-ng-show="!m.Downloaded">
-                        <i class="fa fa-download"></i>
-                    </button>
+            <div data-ng-repeat="m in homeCtrl.moviesToDownload | filter: {MovieType: movieTypeFilter}" class="to-download-item">
+                <div class="clearfix">
+                    <div class="col-sm-1">
+                        <i class="fa fa-trash-o" data-ng-click="homeCtrl.deleteMovieFromDownloadList(m)" title="Verwijder uit lijst"></i>
+                    </div>
+                    <div data-ng-class="{'col-sm-9': true, 'striked': m.Downloaded}">
+                        <a ng-href="/#/Movie/{{m.Imdb}}">{{m.Title}}</a>
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-success btn-xs" data-ng-click="homeCtrl.markMovieAsDownloaded(m)" title="Markeer als gedownload" data-ng-show="!m.Downloaded">
+                            <i class="fa fa-download"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </li>

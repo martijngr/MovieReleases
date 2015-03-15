@@ -5,9 +5,9 @@
     }
 
     export class MovieOverviewController {
-        public static $inject = ['$scope', 'movies', 'DownloadListService'];
+        public static $inject = ['$scope', 'movies', 'DownloadListRepository'];
 
-        constructor(private $scope: IMovieOverviewControllerScope, private movies: any, private DownloadListService: DownloadListService) {
+        constructor(private $scope: IMovieOverviewControllerScope, private movies: any, private downloadListRepository: DownloadListRepository) {
             this.$scope.movies = [];
 
             for (var date in this.movies) {
@@ -18,9 +18,17 @@
             }
         }
 
-        public addMovieToDownloadList(movie : Movie) {
-            this.DownloadListService.AddMovieToDownloadList(movie);
+        public addMovieToDownloadList(movie: Movie) {
+            movie.InDownloadList = true;
+            this.downloadListRepository.AddMovieToDownloadList(movie);
             this.$scope.moviesToDownload.push(movie);
+        }
+
+        public deleteMovieFromDownloadList(movie: Movie) {
+            this.downloadListRepository.DeleteMovieFromDownloadList(movie).then(() => {
+                movie.InDownloadList = false;
+                angular.copy(_.without(this.$scope.moviesToDownload, movie), this.$scope.moviesToDownload);
+            });
         }
     }
 

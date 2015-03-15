@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieReleases.Business.Services
+namespace MovieReleases.Business.Notification
 {
-    public class DownloadListService
+    public abstract class NotifierDecoratorBase
     {
+        public abstract int[] Notify();
     }
 }

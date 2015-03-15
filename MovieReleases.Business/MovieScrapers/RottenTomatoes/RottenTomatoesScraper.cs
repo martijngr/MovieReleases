@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using MovieReleases.Business.DownloadList;
+using MovieReleases.Core.Movies;
 using MovieReleases.DTO;
 using Newtonsoft.Json.Linq;
 
@@ -15,8 +17,12 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
 
         public RottenTomatoesScraper()
         {
-
         }
+
+        private Lazy<MovieDto[]> DownloadList = new Lazy<MovieDto[]>(() =>
+        {
+            return new DownloadListService().GetMoviesToDownload();
+        });
 
         public Dictionary<string, DTO.MovieDto[]> GetMoviesOutOnDvd()
         {
@@ -29,16 +35,19 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
                 var jarray = (JArray)jObject["movies"];
 
                 var rentals = (from r in jarray
-                              select new MovieDto
-                              {
-                                  Id = r.GetValue<int>("id"),
-                                  Title = r.GetValue<string>("title"),
-                                  Year = r.GetValue<string>("year"),
-                                  Duration = r.GetValue<string>("runtime"),
-                                  ReleaseDate = r.GetValue<string>("release_dates", "dvd"),
-                                  ImdbId = string.Format("tt{0}", r.GetValue<string>("alternate_ids", "imdb")),
-                                  Plot = r.GetValue<string>("synopsis")
-                              }).GroupBy(r => r.ReleaseDate).ToDictionary(c => c.Key, c => c.ToArray());
+                               let imdb = string.Format("tt{0}", r.GetValue<string>("alternate_ids", "imdb"))
+                               select new MovieDto
+                               {
+                                   Id = r.GetValue<int>("id"),
+                                   Title = r.GetValue<string>("title"),
+                                   Year = r.GetValue<string>("year"),
+                                   Duration = r.GetValue<string>("runtime"),
+                                   ReleaseDate = r.GetValue<string>("release_dates", "dvd"),
+                                   Imdb = imdb,
+                                   Plot = r.GetValue<string>("synopsis"),
+                                   MovieType = MovieType.Dvd,
+                                   InDownloadList = DownloadList.Value.Any(m => m.Imdb == imdb)
+                               }).GroupBy(r => r.ReleaseDate).ToDictionary(c => c.Key, c => c.ToArray());
 
                 return rentals;
             }
@@ -55,6 +64,7 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
                 var jarray = (JArray)jObject["movies"];
 
                 var cinemaMovies = (from r in jarray
+                                    let imdb = string.Format("tt{0}", r.GetValue<string>("alternate_ids", "imdb"))
                                     select new MovieDto
                                     {
                                         Id = r.GetValue<int>("id"),
@@ -62,8 +72,10 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
                                         Year = r.GetValue<string>("year"),
                                         Duration = r.GetValue<string>("runtime"),
                                         ReleaseDate = r.GetValue<string>("release_dates", "theater"),
-                                        ImdbId = string.Format("tt{0}", r.GetValue<string>("alternate_ids", "imdb")),
-                                        Plot = r.GetValue<string>("synopsis")
+                                        Imdb = imdb,
+                                        Plot = r.GetValue<string>("synopsis"),
+                                        MovieType = MovieType.InCinema,
+                                        InDownloadList = DownloadList.Value.Any(m => m.Imdb == imdb)
                                     }).GroupBy(r => r.ReleaseDate).ToDictionary(c => c.Key, c => c.ToArray());
 
                 return cinemaMovies;
@@ -81,6 +93,7 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
                 var jarray = (JArray)jObject["movies"];
 
                 var cinemaMovies = (from r in jarray
+                                    let imdb = string.Format("tt{0}", r.GetValue<string>("alternate_ids", "imdb"))
                                     select new MovieDto
                                     {
                                         Id = r.GetValue<int>("id"),
@@ -88,8 +101,10 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
                                         Year = r.GetValue<string>("year"),
                                         Duration = r.GetValue<string>("runtime"),
                                         ReleaseDate = r.GetValue<string>("release_dates", "theater"),
-                                        ImdbId = string.Format("tt{0}", r.GetValue<string>("alternate_ids", "imdb")),
-                                        Plot = r.GetValue<string>("synopsis")
+                                        Imdb = imdb,
+                                        Plot = r.GetValue<string>("synopsis"),
+                                        MovieType = MovieType.SoonInCinema,
+                                        InDownloadList = DownloadList.Value.Any(m => m.Imdb == imdb)
                                     }).GroupBy(r => r.ReleaseDate).ToDictionary(c => c.Key, c => c.ToArray());
 
                 return cinemaMovies;

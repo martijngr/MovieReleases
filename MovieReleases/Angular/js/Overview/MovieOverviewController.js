@@ -1,10 +1,10 @@
 ﻿var MovieApp;
 (function (MovieApp) {
     var MovieOverviewController = (function () {
-        function MovieOverviewController($scope, movies, DownloadListService) {
+        function MovieOverviewController($scope, movies, downloadListRepository) {
             this.$scope = $scope;
             this.movies = movies;
-            this.DownloadListService = DownloadListService;
+            this.downloadListRepository = downloadListRepository;
             this.$scope.movies = [];
 
             for (var date in this.movies) {
@@ -15,10 +15,19 @@
             }
         }
         MovieOverviewController.prototype.addMovieToDownloadList = function (movie) {
-            this.DownloadListService.AddMovieToDownloadList(movie);
+            movie.InDownloadList = true;
+            this.downloadListRepository.AddMovieToDownloadList(movie);
             this.$scope.moviesToDownload.push(movie);
         };
-        MovieOverviewController.$inject = ['$scope', 'movies', 'DownloadListService'];
+
+        MovieOverviewController.prototype.deleteMovieFromDownloadList = function (movie) {
+            var _this = this;
+            this.downloadListRepository.DeleteMovieFromDownloadList(movie).then(function () {
+                movie.InDownloadList = false;
+                angular.copy(_.without(_this.$scope.moviesToDownload, movie), _this.$scope.moviesToDownload);
+            });
+        };
+        MovieOverviewController.$inject = ['$scope', 'movies', 'DownloadListRepository'];
         return MovieOverviewController;
     })();
     MovieApp.MovieOverviewController = MovieOverviewController;

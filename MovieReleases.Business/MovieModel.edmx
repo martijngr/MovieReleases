@@ -22,6 +22,7 @@
     <Property Name="Year" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ReleaseDate" Type="datetime" Nullable="true" />
     <Property Name="ReleaseDateType" Type="int" Nullable="true" />
+    <Property Name="MovieType" Type="int" Nullable="false" />
   </EntityType>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -44,10 +45,16 @@
           <Property Type="String" Name="Year" Nullable="false" />
           <Property Name="ReleaseDate" Type="DateTime" Nullable="true" />
           <Property Name="ReleaseDateType" Type="MovieModel.ReleaseDateType" Nullable="true" />
+          <Property Name="MovieType" Type="MovieModel.MovieType" Nullable="false" />
         </EntityType>
         <EnumType Name="ReleaseDateType" cg:ExternalTypeName="MovieReleases.Business.Movies.ReleaseDateType">
           <Member Name="InCinema" Value="1" />
           <Member Name="OnDvd" Value="2" />
+        </EnumType>
+        <EnumType Name="MovieType" cg:ExternalTypeName="MovieReleases.Core.Movies.MovieType">
+          <Member Name="SoonInCinema" Value="1" />
+          <Member Name="InCinema" Value="2" />
+          <Member Name="Dvd" Value="3" />
         </EnumType>
       </Schema>
     </edmx:ConceptualModels>
@@ -68,6 +75,7 @@
           <ScalarProperty Name="Year" ColumnName="Year" />
           <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
           <ScalarProperty Name="ReleaseDateType" ColumnName="ReleaseDateType" />
+          <ScalarProperty Name="MovieType" ColumnName="MovieType" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
