@@ -459,6 +459,7 @@ var MovieApp;
 
                 moviePosterFactory.GetMoviePoster(scope.imdb).then(function (imageUrl) {
                     img.src = imageUrl;
+                    img.style.height = "530px";
                     element.parent().append(img);
                     element.remove();
                 });
@@ -471,24 +472,6 @@ var MovieApp;
 MovieApp.MoviePoster.$inject = ['moviePosterFactory'];
 
 app.directive("moviePoster", MovieApp.MoviePoster);
-//angular.module('movieApp').directive("moviePoster", ['MovieService', function (MovieService) {
-//    return {
-//        restrict: 'E',
-//        replace: true,
-//        scope: {
-//            imdb: '@',
-//        },
-//        link: function (scope, element, attributes) {
-//            var x = scope.imdb;
-//            var img = new Image();
-//            $.get("https://api.themoviedb.org/3/movie/tt" + scope.imdb + "?api_key=980071c1008d3dd64ab4a0893fe5a727", function (response) {
-//                img.src = "http://image.tmdb.org/t/p/w154" + response.poster_path;
-//                element.parent().append(img);
-//                element.remove();
-//            });
-//        }
-//    }
-//}])
 
 var MovieApp;
 (function (MovieApp) {
@@ -512,6 +495,9 @@ var MovieApp;
             return defer.promise;
         };
 
+        //public GetMovieTrailer(imdb: string): ng.IPromise<string> {
+        //    var
+        //}
         MoviePosterFactory.prototype.GetMovieThumb = function (imdb) {
             var movieDetailsUrl = this.baseUrlMovie + imdb + "?api_key=" + this.apikey;
             var defer = this.$q.defer();
@@ -821,3 +807,31 @@ app.directive("movieTooltip", MovieApp.MovieTooltip);
 //        }
 //    }
 //}]);
+
+var MovieApp;
+(function (MovieApp) {
+    function MovieTrailer() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                url: '@'
+            },
+            link: function (scope, element, attributes) {
+                var iframe = document.createElement("IFRAME");
+
+                iframe.src = scope.url;
+                iframe.width = "680px";
+                iframe.height = "383px";
+                iframe.frameBorder = "0";
+                iframe.scrolling = "false";
+
+                element.parent().append(iframe);
+                element.remove();
+            }
+        };
+    }
+    MovieApp.MovieTrailer = MovieTrailer;
+})(MovieApp || (MovieApp = {}));
+
+app.directive("movieTrailer", MovieApp.MovieTrailer);

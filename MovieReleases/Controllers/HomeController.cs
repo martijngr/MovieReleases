@@ -22,7 +22,7 @@ namespace MovieReleases.Controllers
             var dec2 = new SendNotificationsDecorator(dec1, new Notifier());
             var dec3 = new HandleNotificationSendDecorator(dec2);
             var timer = new TimerNotificationDecorator(dec3);
-            timer.Notify(1);
+            //timer.Notify(1);
         }
     }
 }

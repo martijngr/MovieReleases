@@ -2,19 +2,23 @@
 }
 
     #movie-details #movie-details-container {
-        padding: 20px 140px;
+        /*  padding: 20px 140px;*/
+        padding: 20px;
     }
 
     #movie-details #poster {
         float: left;
         width: 400px;
         margin-right: 20px;
+        padding-top: 95px;
     }
+
     #movie-details #general-movie-info {
-        color:#A5A2A2;
+        color: #A5A2A2;
         font-size: 0.9em;
-        margin-bottom:20px;
+        margin-bottom: 20px;
     }
+
     #movie-details #info {
         float: left;
         width: 250px;
@@ -35,4 +39,44 @@
     }
 
     #movie-details #trailer-container {
+    }
+
+    #movie-details #button-bar {
+        float: left;
+        width: 149px;
+        font-size: 2em;
+        text-align: center;
+    }
+
+        #movie-details #button-bar ul {
+            padding: 0;
+        }
+
+            #movie-details #button-bar ul li {
+                list-style-type: none;
+                padding: 20px 0 20px 0;
+            }
+
+                #movie-details #button-bar ul li:hover {
+                    cursor: pointer;
+                    background-color: #C3C3C3;
+                }
+
+.movie-detail-box {
+    display: inline-block;
+    margin-right: 20px;
+    height: 530px;
+    background: #000;
+    border-radius: 5px;
+    overflow: auto;
+    white-space: normal;
+}
+
+    .movie-detail-box.text-content {
+        padding: 20px;
+        color: silver;
+    }
+
+    .movie-detail-box iframe {
+        margin-top: 95px;
     }

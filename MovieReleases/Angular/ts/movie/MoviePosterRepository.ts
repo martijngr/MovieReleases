@@ -21,6 +21,10 @@
             return defer.promise;
         }
 
+        //public GetMovieTrailer(imdb: string): ng.IPromise<string> {
+        //    var 
+        //}
+
         public GetMovieThumb(imdb: string): ng.IPromise<string> {
             var movieDetailsUrl = this.baseUrlMovie + imdb + "?api_key=" + this.apikey;
             var defer = this.$q.defer();

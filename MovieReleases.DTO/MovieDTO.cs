@@ -20,5 +20,6 @@ namespace MovieReleases.DTO
         public MovieType MovieType { get; set; }
         public bool Downloaded { get; set; }
         public bool InDownloadList { get; set; }
+        public string TrailerUrl { get; set; }
     }
 }

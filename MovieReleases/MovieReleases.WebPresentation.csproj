@@ -418,6 +418,7 @@
     <TypeScriptCompile Include="Angular\ts\movie\MoviePosterRepository.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MovieService.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MovieToolTip.ts" />
+    <TypeScriptCompile Include="Angular\ts\movie\MovieTrailer.ts" />
     <TypeScriptCompile Include="Angular\ts\Overview\MovieOverview.ts" />
     <TypeScriptCompile Include="Angular\ts\Overview\MovieOverviewController.ts" />
     <TypeScriptCompile Include="Angular\ts\routings.ts" />

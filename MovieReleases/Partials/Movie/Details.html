@@ -1,10 +1,9 @@
-﻿<div id="movie-details">
+﻿<!--<div id="movie-details">
     <div id="movie-details-container">
         <div id="poster">
             <movie-poster imdb="{{movieCtrl.movieDetails.Imdb}}"></movie-poster>
+            {{movieCtrl.movieDetails.Plot}}
         </div>
-
-        
 
         <h1>{{movieCtrl.movieDetails.Title}}</h1>
 
@@ -13,11 +12,61 @@
             {{movieCtrl.movieDetails.Duration}} | ImdbId: {{movieCtrl.movieDetails.Imdb}}  | Jaar: {{movieCtrl.movieDetails.Year}}
         </div>
         <div id="trailer-container">
-            <iframe width="430" height="230" src="//v.traileraddict.com/99979" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no" frameborder="0"></iframe>
+            <iframe width="680" height="383" src="//v.traileraddict.com/99979" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no" frameborder="0"></iframe>
         </div>
         <br />
         <br />
-        <!--{{movieCtrl.movieDetails.Plot}}-->
         <div style="clear:both;"></div>
     </div>
+</div>-->
+
+
+<div id="movie-details">
+    <div id="button-bar">
+        <ul>
+            <li onclick="scrollToPart(0)">
+                <i class="fa fa-leanpub"></i>
+            </li>
+            <li onclick="scrollToPart(220)">
+                <i class="fa fa-file-image-o"></i>
+            </li>
+            <li onclick="scrollToPart(670)">
+                <i class="fa fa-file-video-o"></i>
+            </li>
+            <li onclick="scrollToPart(800)">
+                <i class="fa fa-quote-right"></i>
+            </li>
+        </ul>
+    </div>
+    <div style="margin-left:150px;">
+        <h1>{{movieCtrl.movieDetails.Title}}</h1>
+
+        <div id="general-movie-info">
+            Duur:
+            {{movieCtrl.movieDetails.Duration}} | Imdb: {{movieCtrl.movieDetails.Imdb}}  | Jaar: {{movieCtrl.movieDetails.Year}}
+        </div>
+
+        <div class="wrapper">
+            <div class="scrolls">
+                <div class="movie-detail-box text-content" style="width:450px">
+                    <p>{{movieCtrl.movieDetails.Plot}}</p>
+                </div>
+                <div class="movie-detail-box">
+                    <movie-poster imdb="{{movieCtrl.movieDetails.Imdb}}"></movie-poster>
+                </div>
+                <div class="movie-detail-box">
+                    <movie-trailer data-url="{{movieCtrl.movieDetails.TrailerUrl}}"></movie-trailer>
+                    <!--<iframe width="680" height="383" src="//v.traileraddict.com/99979" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no" frameborder="0"></iframe>-->
+                </div>
+                <div class="movie-detail-box text-content">
+                    Hier de recenties.... ;)
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    function scrollToPart(no) {
+        $(".scrolls").animate({ "scrollLeft": no }, 800);
+    }
+</script>

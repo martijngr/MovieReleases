@@ -70,9 +70,11 @@
       <DependentUpon>MovieModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="MovieScrapers\IMovieScraper.cs" />
+    <Compile Include="MovieScrapers\IMovieTrailerScraper.cs" />
     <Compile Include="MovieScrapers\MovieMeter\MovieMeterScraper.cs" />
     <Compile Include="MovieScrapers\JTokenExtensions.cs" />
     <Compile Include="MovieScrapers\RottenTomatoes\RottenTomatoesScraper.cs" />
+    <Compile Include="MovieScrapers\TrailerAddictTrailerScraper.cs" />
     <Compile Include="Movies\ReleaseDateType.cs" />
     <Compile Include="Notification\HandleNotificationSendDecorator.cs" />
     <Compile Include="Notification\MoviesToNotifyDecorator.cs" />
