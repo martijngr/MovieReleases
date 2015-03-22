@@ -54,7 +54,9 @@ namespace MovieReleases
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/bootstrap.css",
                         "~/Content/themes/base/jquery.ui.theme.css",
-                        "~/Content/toastr.css"));
+                        "~/Content/toastr.css",
+                        "~/Content/slick-theme.css",
+                        "~/Content/slick.css"));
         }
     }
 }

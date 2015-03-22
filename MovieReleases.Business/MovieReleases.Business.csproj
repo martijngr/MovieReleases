@@ -69,11 +69,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MovieModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="MovieScrapers\IFindScraper.cs" />
     <Compile Include="MovieScrapers\IMovieScraper.cs" />
     <Compile Include="MovieScrapers\IMovieTrailerScraper.cs" />
+    <Compile Include="MovieScrapers\IPlotScraper.cs" />
+    <Compile Include="MovieScrapers\MovieDTO.cs" />
+    <Compile Include="MovieScrapers\MovieMeter\MovieMeterFindScraper.cs" />
+    <Compile Include="MovieScrapers\MovieMeter\MovieMeterPlotScraper.cs" />
     <Compile Include="MovieScrapers\MovieMeter\MovieMeterScraper.cs" />
     <Compile Include="MovieScrapers\JTokenExtensions.cs" />
     <Compile Include="MovieScrapers\RottenTomatoes\RottenTomatoesScraper.cs" />
+    <Compile Include="MovieScrapers\TheMovieDB\TheMovieDBScraper.cs" />
     <Compile Include="MovieScrapers\TrailerAddictTrailerScraper.cs" />
     <Compile Include="Movies\ReleaseDateType.cs" />
     <Compile Include="Notification\HandleNotificationSendDecorator.cs" />

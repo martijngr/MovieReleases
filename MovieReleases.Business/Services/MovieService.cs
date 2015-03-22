@@ -3,6 +3,7 @@ using MovieReleases.Business.DownloadList;
 using MovieReleases.Business.MovieScrapers;
 using MovieReleases.Business.MovieScrapers.MovieMeter;
 using MovieReleases.Business.MovieScrapers.RottenTomatoes;
+using MovieReleases.Business.MovieScrapers.TheMovieDB;
 using MovieReleases.Business.Repositories;
 using MovieReleases.DTO;
 
@@ -15,14 +16,19 @@ namespace MovieReleases.Business
         private IMovieScraper _scraper;
         private IMovieScraper _dutchMovieScraper;
         private IMovieTrailerScraper _trailerScraper;
+        private IPlotScraper _plotScraper;
+        private IFindScraper _findScraper;
 
         public MovieService()
         {
             _context = new MovieContainer();
             _movieRepository = new MovieRepository(_context);
-            _scraper = new RottenTomatoesScraper();
+            //_scraper = new RottenTomatoesScraper();
+            _scraper = new TheMovieDBScraper();
             _dutchMovieScraper = new MovieMeterScraper();
             _trailerScraper = new TrailerAddictTrailerScraper();
+            _plotScraper = new MovieMeterPlotScraper();
+            _findScraper = new MovieMeterFindScraper();
         }
 
         public Dictionary<string, MovieDto[]> GetMoviesOutOnDvd()
@@ -33,8 +39,8 @@ namespace MovieReleases.Business
 
         public Dictionary<string, MovieDto[]> GetMoviesInCinema()
         {
-            var rentals = _scraper.GetMoviesInCinema();
-            return rentals;
+            var inCiname = _scraper.GetMoviesInCinema();
+            return inCiname;
         }
 
         public Dictionary<string, MovieDto[]> GetMoviesSoonInCinema()
@@ -45,10 +51,17 @@ namespace MovieReleases.Business
 
         public MovieDto GetFilmById(string id)
         {
-            var movie = _dutchMovieScraper.GetMovieById(id);
+            var movie = _scraper.GetMovieById(id);// _dutchMovieScraper.GetMovieById(id);
             movie.TrailerUrl = _trailerScraper.GetTrailerUrl(movie.Imdb);
 
             return movie;
+        }
+
+        public IEnumerable<MovieFindDTO> SearchMovie(string name)
+        {
+            var movies = _findScraper.Find(name);
+
+            return movies;
         }
 
         public void SaveChanges()

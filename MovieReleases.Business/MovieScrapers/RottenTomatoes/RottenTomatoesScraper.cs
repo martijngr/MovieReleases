@@ -115,5 +115,11 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
         {
             throw new NotImplementedException();
         }
+
+
+        public Dictionary<string, MovieDto[]> GetMoviesInCinema(IPlotScraper plotScraper)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

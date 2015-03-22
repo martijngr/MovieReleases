@@ -10,6 +10,11 @@
                     return response;
                 });
             };
+            this.SearchMovie = function (movieName) {
+                return this.HandleGetRequest("api/Movie/search?movieName=" + movieName).then(function (response) {
+                    return response;
+                });
+            };
             this.GetMoviesForRent = function () {
                 var defer = this.$q.defer();
                 var movies = this.$window.sessionStorage.getItem('movies');

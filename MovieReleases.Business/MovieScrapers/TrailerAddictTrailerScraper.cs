@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace MovieReleases.Business.MovieScrapers
 {
+    // http://www.traileraddict.com/trailerapi
     public class TrailerAddictTrailerScraper : IMovieTrailerScraper
     {
         public string GetTrailerUrl(string imdb)

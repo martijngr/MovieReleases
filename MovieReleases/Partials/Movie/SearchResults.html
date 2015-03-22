@@ -1,0 +1,24 @@
+﻿<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Titel
+                </th>
+                <th>
+                    Jaar
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="m in movies | orderBy:'-Year'">
+                <td>
+                    {{m.Title}}
+                </td>
+                <td>
+                    {{m.Year}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

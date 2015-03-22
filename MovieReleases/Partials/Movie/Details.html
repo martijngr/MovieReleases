@@ -19,22 +19,26 @@
         <div style="clear:both;"></div>
     </div>
 </div>-->
-
-
-<div id="movie-details">
+<!--<div id="movie-details">
     <div id="button-bar">
         <ul>
-            <li onclick="scrollToPart(0)">
+            <li onclick="scrollToPart(0)" title="Plot">
                 <i class="fa fa-leanpub"></i>
             </li>
-            <li onclick="scrollToPart(220)">
-                <i class="fa fa-file-image-o"></i>
+            <li onclick="scrollToPart(220)" title="Filmposter">
+                <i class="fa fa-camera"></i>
             </li>
-            <li onclick="scrollToPart(670)">
-                <i class="fa fa-file-video-o"></i>
+            <li onclick="scrollToPart(670)" title="Trailer">
+                <i class="fa fa-video-camera"></i>
             </li>
-            <li onclick="scrollToPart(800)">
-                <i class="fa fa-quote-right"></i>
+            <li onclick="scrollToPart(1240)" title="Recenties">
+                <i class="fa fa-comments"></i>
+            </li>
+            <li onclick="scrollToPart(1480)" title="Acteurs">
+                <i class="fa fa-users"></i>
+            </li>
+            <li onclick="scrollToPart(1780)" title="Filminformatie">
+                <i class="fa fa-info"></i>
             </li>
         </ul>
     </div>
@@ -43,12 +47,12 @@
 
         <div id="general-movie-info">
             Duur:
-            {{movieCtrl.movieDetails.Duration}} | Imdb: {{movieCtrl.movieDetails.Imdb}}  | Jaar: {{movieCtrl.movieDetails.Year}}
+            {{movieCtrl.movieDetails.Duration}} | Imdb  : {{movieCtrl.movieDetails.Imdb}}  | Jaar: {{movieCtrl.movieDetails.Year}}
         </div>
 
         <div class="wrapper">
             <div class="scrolls">
-                <div class="movie-detail-box text-content" style="width:450px">
+                <div class="movie-detail-box text-content big">
                     <p>{{movieCtrl.movieDetails.Plot}}</p>
                 </div>
                 <div class="movie-detail-box">
@@ -56,17 +60,208 @@
                 </div>
                 <div class="movie-detail-box">
                     <movie-trailer data-url="{{movieCtrl.movieDetails.TrailerUrl}}"></movie-trailer>
-                    <!--<iframe width="680" height="383" src="//v.traileraddict.com/99979" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no" frameborder="0"></iframe>-->
+                </div>
+                <div class="movie-detail-box text-content big">
+                    Hier de recenties.... ;)
                 </div>
                 <div class="movie-detail-box text-content">
-                    Hier de recenties.... ;)
+                    Acteurs:
+                    <br />
+                    <div data-ng-repeat="actor in movieCtrl.movieDetails.Actors">
+                        {{actor}}
+                    </div>
+                </div>
+                <div class="movie-detail-box text-content big">
+                    <dl>
+                        <dt>Regisseurs</dt>
+                        <dd>
+                            <span data-ng-repeat="director in movieCtrl.movieDetails.Directors">
+                                {{director}}<span data-ng-hide="$last">,</span>
+                            </span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>Duur</dt>
+                        <dd>{{movieCtrl.movieDetails.Duration}}</dd>
+                    </dl>
+                    <dl>
+                        <dt>Jaar</dt>
+                        <dd>{{movieCtrl.movieDetails.Year}}</dd>
+                    </dl>
+                    <dl>
+                        <dt>Alternatieve titel</dt>
+                        <dd>{{movieCtrl.movieDetails.AlternativeTitle}}</dd>
+                    </dl>
+                    <dl>
+                        <dt>Uit op DVD</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>Release bioscoop</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>Genre</dt>
+                        <dd>
+                            <span data-ng-repeat="genre in movieCtrl.movieDetails.Genres">
+                                {{genre}}<span data-ng-hide="$last">,</span>
+                            </span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>Landen</dt>
+                        <dd>
+                            <span data-ng-repeat="country in movieCtrl.movieDetails.Countries">
+                                {{country}}<span data-ng-hide="$last">,</span>
+                            </span>
+                        </dd>
+                    </dl>
                 </div>
             </div>
         </div>
     </div>
+</div>-->
+
+<div id="movie-details">
+    <div id="button-bar">
+        <ul>
+            <li onclick="showSlide(0)" title="Plot">
+                <i class="fa fa-leanpub"></i>
+            </li>
+            <li onclick="showSlide(1)" title="Filmposter">
+                <i class="fa fa-camera"></i>
+            </li>
+            <li onclick="showSlide(2)" title="Recenties">
+                <i class="fa fa-comments"></i>
+            </li>
+            <li onclick="showSlide(3)" title="Trailer">
+                <i class="fa fa-video-camera"></i>
+            </li>
+            <li onclick="showSlide(4)" title="Acteurs">
+                <i class="fa fa-users"></i>
+            </li>
+            <li onclick="showSlide(5)" title="Filminformatie">
+                <i class="fa fa-info"></i>
+            </li>
+        </ul>
+    </div>
+    <div style="margin-left:150px;">
+        <h1>{{movieCtrl.movieDetails.Title}}</h1>
+
+        <div id="general-movie-info">
+            Duur:
+            {{movieCtrl.movieDetails.Duration}} | Imdb  : {{movieCtrl.movieDetails.Imdb}}  | Jaar: {{movieCtrl.movieDetails.Year}}
+        </div>
+        <div id="carousel">
+            <div style="width:459px;" class="movie-detail-box text-content"><p>{{movieCtrl.movieDetails.Plot}}</p></div>
+            <div style="width:400px;" class="movie-detail-box"><span><movie-poster imdb="{{movieCtrl.movieDetails.Imdb}}"></movie-poster></span></div>
+            <div style="width:200px;" class="movie-detail-box text-content">
+                Hier de recenties.... ;)
+            </div>
+            <div style="width:700px;text-align:center" class="movie-detail-box">
+                <span><movie-trailer data-url="{{movieCtrl.movieDetails.TrailerUrl}}"></movie-trailer></span>
+            </div>
+            <div style="width:200px;" class="movie-detail-box text-content">
+                Acteurs:
+                <br />
+                <div data-ng-repeat="actor in movieCtrl.movieDetails.Actors">
+                    {{actor}}
+                </div>
+            </div>
+            <div style="width:300px;" class="movie-detail-box text-content">
+                <dl>
+                    <dt>Regisseurs</dt>
+                    <dd>
+                        <span data-ng-repeat="director in movieCtrl.movieDetails.Directors">
+                            {{director}}<span data-ng-hide="$last">,</span>
+                        </span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>Duur</dt>
+                    <dd>{{movieCtrl.movieDetails.Duration}}</dd>
+                </dl>
+                <dl>
+                    <dt>Jaar</dt>
+                    <dd>{{movieCtrl.movieDetails.Year}}</dd>
+                </dl>
+                <dl>
+                    <dt>Alternatieve titel</dt>
+                    <dd>{{movieCtrl.movieDetails.AlternativeTitle}}</dd>
+                </dl>
+                <dl>
+                    <dt>Uit op DVD</dt>
+                    <dd></dd>
+                </dl>
+                <dl>
+                    <dt>Release bioscoop</dt>
+                    <dd></dd>
+                </dl>
+                <dl>
+                    <dt>Genre</dt>
+                    <dd>
+                        <span data-ng-repeat="genre in movieCtrl.movieDetails.Genres">
+                            {{genre}}<span data-ng-hide="$last">,</span>
+                        </span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>Landen</dt>
+                    <dd>
+                        <span data-ng-repeat="country in movieCtrl.movieDetails.Countries">
+                            {{country}}<span data-ng-hide="$last">,</span>
+                        </span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
 </div>
-<script>
-    function scrollToPart(no) {
-        $(".scrolls").animate({ "scrollLeft": no }, 800);
-    }
-</script>
+
+    <style>
+        .slick-prev:before, .slick-next:before {
+            color: red !important;
+        }
+
+        .slick-prev {
+            margin-left: 40px;
+        }
+
+        .slick-next {
+            margin-right: 40px;
+        }
+
+        .slick-initialized .slick-slide {
+            margin: 0px 20px;
+        }
+
+        .slick-dots li button:before {
+            opacity:1;
+            font-size: 15px;
+        }
+
+        .slick-dots li.slick-active button:before {
+            opacity: 0.4;
+        }
+
+    </style>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../Scripts/slick.js"></script>
+    <script>
+        function showSlide(no) {
+            $('#carousel').slick('slickGoTo', no);
+        }
+
+        $(document).ready(function () {
+            $('#carousel').slick({
+                centerMode: true,
+                centerPadding: '120px',
+                slidesToShow: 3,
+                arrows: true,
+                variableWidth: true,
+                dots: true,
+                infinite: true,
+            });
+        });
+    </script>

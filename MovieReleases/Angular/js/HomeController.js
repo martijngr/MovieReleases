@@ -6,6 +6,9 @@
             this.$scope = $scope;
             this.$location = $location;
             this.downloadListRepository = downloadListRepository;
+            this.search = {
+                movieName: ""
+            };
             this.$scope.$on('$locationChangeSuccess', function (event) {
                 _this.setActiveUrlPart();
             });
@@ -31,6 +34,10 @@
 
         HomeController.prototype.markMovieAsDownloaded = function (movie) {
             movie.Downloaded = true;
+        };
+
+        HomeController.prototype.searchMovie = function () {
+            this.$location.path('/Movie/Search/' + this.search.movieName);
         };
         HomeController.$inject = [
             '$scope',

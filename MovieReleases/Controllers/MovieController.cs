@@ -9,6 +9,7 @@ using MovieReleases.DTO;
 
 namespace MovieReleases.Controllers
 {
+    [RoutePrefix("api/Movie")]
     public class MovieController : ApiController
     {
         private MovieService _movieService;
@@ -23,6 +24,14 @@ namespace MovieReleases.Controllers
             var movie = _movieService.GetFilmById(movieMeterId);
 
             return movie;
+        }
+
+        [HttpGet]
+        [Route("search{movieName}")]
+        public IEnumerable<MovieFindDTO> Search(string movieName)
+        {
+            var movies = _movieService.SearchMovie(movieName);
+            return movies;
         }
     }
 }

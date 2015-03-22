@@ -65,7 +65,7 @@
 .movie-detail-box {
     display: inline-block;
     margin-right: 20px;
-    height: 530px;
+    height: 530px !important;
     background: #000;
     border-radius: 5px;
     overflow: auto;
@@ -76,6 +76,15 @@
         padding: 20px;
         color: silver;
     }
+
+        .movie-detail-box.text-content.big {
+            width: 450px;
+        }
+
+        .movie-detail-box.text-content.small {
+            width: 250px;
+            font-size:100%;
+        }
 
     .movie-detail-box iframe {
         margin-top: 95px;

@@ -222,6 +222,8 @@
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\movie-details.css" />
+    <Content Include="Content\slick-theme.css" />
+    <Content Include="Content\slick.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -288,6 +290,7 @@
     <Content Include="Images\Dvd.png" />
     <Content Include="Images\InCinema.png" />
     <Content Include="Partials\Movie\MovieOverview.html" />
+    <Content Include="Partials\Movie\SearchResults.html" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular.js" />
@@ -347,6 +350,8 @@
     <Content Include="Scripts\min\all.js" />
     <Content Include="Scripts\min\all.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\slick.js" />
+    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\tests\FirstTest.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
@@ -413,6 +418,7 @@
     <TypeScriptCompile Include="Angular\ts\Interceptors\SignalRInterceptor.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\Movie.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MovieController.ts" />
+    <TypeScriptCompile Include="Angular\ts\movie\MovieSearchController.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MovieThumb.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MoviePoster.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MoviePosterRepository.ts" />

@@ -13,8 +13,12 @@
         public static $inject = [
             '$scope',
             '$location',
-            'DownloadListRepository'
+            'DownloadListRepository',
         ];
+
+        private search = {
+            movieName:"",
+        };
 
         constructor(private $scope: IHomeControllerScope, private $location: ng.ILocationService, private downloadListRepository: DownloadListRepository) {
             this.$scope.$on('$locationChangeSuccess', (event) => {
@@ -41,7 +45,9 @@
             movie.Downloaded = true;
         }
 
-        
+        public searchMovie() {
+            this.$location.path('/Movie/Search/' + this.search.movieName);
+        }
     }
 }
 

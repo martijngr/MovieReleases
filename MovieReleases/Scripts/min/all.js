@@ -28,6 +28,9 @@ var MovieApp;
             this.$scope = $scope;
             this.$location = $location;
             this.downloadListRepository = downloadListRepository;
+            this.search = {
+                movieName: ""
+            };
             this.$scope.$on('$locationChangeSuccess', function (event) {
                 _this.setActiveUrlPart();
             });
@@ -53,6 +56,10 @@ var MovieApp;
 
         HomeController.prototype.markMovieAsDownloaded = function (movie) {
             movie.Downloaded = true;
+        };
+
+        HomeController.prototype.searchMovie = function () {
+            this.$location.path('/Movie/Search/' + this.search.movieName);
         };
         HomeController.$inject = [
             '$scope',
@@ -106,6 +113,16 @@ app.config([
                 movie: [
                     '$route', 'MovieService', function ($route, MovieService) {
                         return MovieService.GetMovieByImdb($route.current.params.imdb);
+                    }]
+            }
+        }).when('/Movie/Search/:movieName', {
+            templateUrl: '/Partials/Movie/SearchResults.html',
+            controller: 'MovieSearchController',
+            controllerAs: 'movieCtrl',
+            resolve: {
+                movies: [
+                    '$route', 'MovieService', function ($route, MovieService) {
+                        return MovieService.SearchMovie($route.current.params.movieName);
                     }]
             }
         }).otherwise({
@@ -524,6 +541,22 @@ app.factory('moviePosterFactory', MovieApp.MoviePosterFactory.MoviePosterFactory
 
 var MovieApp;
 (function (MovieApp) {
+    var MovieSearchController = (function () {
+        function MovieSearchController($scope, movies) {
+            this.$scope = $scope;
+            this.movies = movies;
+            this.$scope.movies = movies;
+        }
+        MovieSearchController.$inject = ['$scope', 'movies'];
+        return MovieSearchController;
+    })();
+    MovieApp.MovieSearchController = MovieSearchController;
+
+    app.controller("MovieSearchController", MovieApp.MovieSearchController);
+})(MovieApp || (MovieApp = {}));
+
+var MovieApp;
+(function (MovieApp) {
     var MovieService = (function () {
         function MovieService($http, $q, $window) {
             this.$http = $http;
@@ -531,6 +564,11 @@ var MovieApp;
             this.$window = $window;
             this.GetMovieByImdb = function (imdb) {
                 return this.HandleGetRequest("api/Movie?movieMeterId=" + imdb).then(function (response) {
+                    return response;
+                });
+            };
+            this.SearchMovie = function (movieName) {
+                return this.HandleGetRequest("api/Movie/search?movieName=" + movieName).then(function (response) {
                     return response;
                 });
             };

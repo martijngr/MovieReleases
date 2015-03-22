@@ -33,5 +33,25 @@ namespace MovieReleases.Business.MovieScrapers
                 return default(T);
             }
         }
+
+        public static IEnumerable<string> GetListValues(this JToken token, string key, string subkey="")
+        {
+            JToken value = token;
+
+            if (value[key] != null)
+            {
+                value = value[key];
+
+                foreach (var item in value)
+                {
+                    if(string.IsNullOrEmpty(subkey))
+                        yield return item.ToString();
+                    else
+                        yield return item[subkey].ToString();
+                }
+            }
+
+            yield break;
+        }
     }
 }

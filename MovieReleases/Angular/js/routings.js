@@ -40,6 +40,16 @@
                         return MovieService.GetMovieByImdb($route.current.params.imdb);
                     }]
             }
+        }).when('/Movie/Search/:movieName', {
+            templateUrl: '/Partials/Movie/SearchResults.html',
+            controller: 'MovieSearchController',
+            controllerAs: 'movieCtrl',
+            resolve: {
+                movies: [
+                    '$route', 'MovieService', function ($route, MovieService) {
+                        return MovieService.SearchMovie($route.current.params.movieName);
+                    }]
+            }
         }).otherwise({
             redirectTo: '/Rent'
         });

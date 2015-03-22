@@ -29,25 +29,45 @@ namespace MovieReleases.Business.MovieScrapers.MovieMeter
             var url = string.Format("http://www.moviemeter.nl/api/film/{0}&api_key={1}", id, _apikey);
             using (var client = new WebClient())
             {
-                var jsonString = client.DownloadString(url).Trim();
+                try
+                {
+                    var jsonString = client.DownloadString(url).Trim();
 
-                var jObject = JObject.Parse(jsonString);
-                var movie = new MovieDto
-                                     {
-                                         Id = jObject.GetValue<int>("id"),
-                                         Title = jObject.GetValue<string>("title"),
-                                         Year = jObject.GetValue<string>("year"),
-                                         Duration = jObject.GetValue<string>("duration"),
-                                         Imdb = jObject.GetValue<string>("imdb"),
-                                         Plot = jObject.GetValue<string>("plot")
-                                     };
+                    var jObject = JObject.Parse(jsonString);
+                    var movie = new MovieDetailsDto
+                                         {
+                                             Id = jObject.GetValue<int>("id"),
+                                             Title = jObject.GetValue<string>("title"),
+                                             Year = jObject.GetValue<string>("year"),
+                                             Duration = jObject.GetValue<string>("duration"),
+                                             Imdb = jObject.GetValue<string>("imdb"),
+                                             Plot = jObject.GetValue<string>("plot"),
+                                             AlternativeTitle = jObject.GetValue<string>("alternative_title"),
+                                             VotesCount = jObject.GetValue<int>("votes_count"),
+                                             AverageScore = jObject.GetValue<double>("average"),
+                                             Countries = jObject.GetListValues("countries"),
+                                             Genres = jObject.GetListValues("genres"),
+                                             Actors = jObject.GetListValues("actors", "name"),
+                                             Directors = jObject.GetListValues("directors"),
+                                         };
 
-                return movie;
+                    return movie;
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
 
         public Dictionary<string, MovieDto[]> GetMoviesSoonInCinema()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Dictionary<string, MovieDto[]> GetMoviesInCinema(IPlotScraper plotScraper)
         {
             throw new NotImplementedException();
         }
