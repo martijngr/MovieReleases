@@ -9,7 +9,6 @@
         private _title: string;
         private _movieType: number;
         private _imdb: string;
-        private _inDownloadList: boolean;
 
         public get Url(): string {
             return this._url;
@@ -72,13 +71,6 @@
         }
         public set Imdb(imdb: string) {
             this._imdb = imdb;
-        }
-
-        public get InDownloadList(): boolean {
-            return this._inDownloadList;
-        }
-        public set InDownloadList(inDownloadList: boolean) {
-            this._inDownloadList = inDownloadList;
         }
     }
 }

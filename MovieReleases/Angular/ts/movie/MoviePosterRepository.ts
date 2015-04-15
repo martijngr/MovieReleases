@@ -21,9 +21,20 @@
             return defer.promise;
         }
 
-        //public GetMovieTrailer(imdb: string): ng.IPromise<string> {
-        //    var 
-        //}
+        public GetLargeMoviePoster(imdb: string): ng.IPromise<string> {
+            var movieDetailsUrl = this.baseUrlMovie + imdb + "?api_key=" + this.apikey;
+            var defer = this.$q.defer();
+
+            $.get(movieDetailsUrl, function (response) {
+                var imageUrl = "http://image.tmdb.org/t/p/w500" + response.poster_path;
+
+                defer.resolve(imageUrl);
+            });
+
+            return defer.promise;
+
+            //https://www.themoviedb.org/talk/53c11d4ec3a3684cf4006400
+        }
 
         public GetMovieThumb(imdb: string): ng.IPromise<string> {
             var movieDetailsUrl = this.baseUrlMovie + imdb + "?api_key=" + this.apikey;

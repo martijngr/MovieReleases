@@ -105,7 +105,6 @@ namespace MovieReleases.Business.MovieScrapers.TheMovieDB
                     Imdb = jObject.GetValue<string>("imdb_id"),
                     Plot = _plotScraper.GetPlot(jObject.GetValue<string>("imdb_id")),
                     MovieType = MovieType.InCinema,
-                    InDownloadList = false,
                     Actors = jObject["credits"]["cast"].Select(c => (string)c["name"]),
                     Directors = jObject["credits"]["crew"].Select(d => (string)d["name"]),
                     Genres = jObject["genres"].Select(g => (string)g["name"]),

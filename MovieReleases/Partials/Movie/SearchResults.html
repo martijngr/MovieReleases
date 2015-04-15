@@ -13,7 +13,7 @@
         <tbody>
             <tr data-ng-repeat="m in movies | orderBy:'-Year'">
                 <td>
-                    {{m.Title}}
+                    <a href="#/Movie/{{m.Id}}">{{m.Title}}</a>
                 </td>
                 <td>
                     {{m.Year}}

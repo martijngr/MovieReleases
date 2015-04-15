@@ -101,17 +101,6 @@
             enumerable: true,
             configurable: true
         });
-
-        Object.defineProperty(Movie.prototype, "InDownloadList", {
-            get: function () {
-                return this._inDownloadList;
-            },
-            set: function (inDownloadList) {
-                this._inDownloadList = inDownloadList;
-            },
-            enumerable: true,
-            configurable: true
-        });
         return Movie;
     })();
     MovieApp.Movie = Movie;

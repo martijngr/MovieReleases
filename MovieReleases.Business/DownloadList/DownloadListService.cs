@@ -38,7 +38,6 @@ namespace MovieReleases.Business.DownloadList
                              Imdb = m.Imdb,
                              Downloaded = m.Downloaded,
                              MovieType = m.MovieType,
-                             InDownloadList= true,
                              //ReleaseDate= m.ReleaseDate.ToString(),
                          }).ToArray();
 

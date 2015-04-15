@@ -7,3 +7,11 @@
 - Melding als bioscoopfilm te huur wordt aangeboden
 - bij wisselen van pagina een loader tonen
 - bij toevoegen van film aan downloadlist, de betreffende lijst actief maken (filter)
+- Bij toevoegen film aan download list effect tonen/animatie
+
+
+Actie
+			Overzicht in bios					Zoeken			GetByImdb
+Rotten			IMDB							  -				Nee
+The movieDB		IMDB							  -  			Ja
+Moviemeter		nvt												Ja

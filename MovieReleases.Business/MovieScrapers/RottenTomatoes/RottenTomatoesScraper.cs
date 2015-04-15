@@ -19,11 +19,6 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
         {
         }
 
-        private Lazy<MovieDto[]> DownloadList = new Lazy<MovieDto[]>(() =>
-        {
-            return new DownloadListService().GetMoviesToDownload();
-        });
-
         public Dictionary<string, DTO.MovieDto[]> GetMoviesOutOnDvd()
         {
             var url = string.Format("http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json?apikey={0}", _apikey);
@@ -45,8 +40,7 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
                                    ReleaseDate = r.GetValue<string>("release_dates", "dvd"),
                                    Imdb = imdb,
                                    Plot = r.GetValue<string>("synopsis"),
-                                   MovieType = MovieType.Dvd,
-                                   InDownloadList = DownloadList.Value.Any(m => m.Imdb == imdb)
+                                   MovieType = MovieType.Dvd
                                }).GroupBy(r => r.ReleaseDate).ToDictionary(c => c.Key, c => c.ToArray());
 
                 return rentals;
@@ -74,8 +68,7 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
                                         ReleaseDate = r.GetValue<string>("release_dates", "theater"),
                                         Imdb = imdb,
                                         Plot = r.GetValue<string>("synopsis"),
-                                        MovieType = MovieType.InCinema,
-                                        InDownloadList = DownloadList.Value.Any(m => m.Imdb == imdb)
+                                        MovieType = MovieType.InCinema
                                     }).GroupBy(r => r.ReleaseDate).ToDictionary(c => c.Key, c => c.ToArray());
 
                 return cinemaMovies;
@@ -103,8 +96,7 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
                                         ReleaseDate = r.GetValue<string>("release_dates", "theater"),
                                         Imdb = imdb,
                                         Plot = r.GetValue<string>("synopsis"),
-                                        MovieType = MovieType.SoonInCinema,
-                                        InDownloadList = DownloadList.Value.Any(m => m.Imdb == imdb)
+                                        MovieType = MovieType.SoonInCinema
                                     }).GroupBy(r => r.ReleaseDate).ToDictionary(c => c.Key, c => c.ToArray());
 
                 return cinemaMovies;
@@ -113,7 +105,30 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
 
         public DTO.MovieDto GetMovieById(string id)
         {
-            throw new NotImplementedException();
+            var url = string.Format("http://api.rottentomatoes.com/api/public/v1.0/movies/{0}.json?apikey={1}&country=nl", id,_apikey);
+            using (var client = new WebClient())
+            {
+                var jsonString = client.DownloadString(url).Trim();
+
+                var jObject = JObject.Parse(jsonString);
+
+                var movie = new MovieDetailsDto
+                                    {
+                                        Id = jObject.GetValue<int>("id"),
+                                        Title = jObject.GetValue<string>("title"),
+                                        Year = jObject.GetValue<string>("year"),
+                                        Duration = jObject.GetValue<string>("runtime"),
+                                        ReleaseDate = jObject.GetValue<string>("release_dates", "theater"),
+                                        Imdb = jObject.GetValue<string>("alternate_ids", "imdb"),
+                                        Plot = jObject.GetValue<string>("synopsis"),
+                                        MovieType = MovieType.SoonInCinema,
+                                        Actors = jObject["abridged_cast"].Select(c => (string)c["name"]),
+                                        Genres = jObject["genres"].Select(c => (string)c),
+                                        Directors = jObject["abridged_directors"].Select(c => (string)c["name"]),
+                                    };
+
+                return movie;
+            }
         }
 
 

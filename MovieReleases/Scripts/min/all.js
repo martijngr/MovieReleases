@@ -40,10 +40,32 @@ var MovieApp;
             downloadListRepository.GetMoviesToDownload().then(function (response) {
                 _this.$scope.moviesToDownload = response;
             });
+
+            $scope.$on("onDragStart", function (event, data) {
+                _this.dragPending = true;
+            });
+
+            $scope.$on("onDragDrop", function (event, data) {
+                var movie = angular.fromJson(data);
+
+                if (!_this.downloadListRepository.IsMovieInDownloadList(movie)) {
+                    _this.downloadListRepository.AddMovieToDownloadList(movie);
+                    _this.$scope.moviesToDownload.push(movie);
+                }
+
+                _this.dragPending = false;
+            });
         }
         HomeController.prototype.setActiveUrlPart = function () {
             var parts = this.$location.path().split('/');
             this.$scope.active = parts[1];
+        };
+
+        HomeController.prototype.deleteMovieFromDownloadList = function (movie) {
+            var _this = this;
+            this.downloadListRepository.DeleteMovieFromDownloadList(movie).then(function () {
+                angular.copy(_.without(_this.$scope.moviesToDownload, movie), _this.$scope.moviesToDownload);
+            });
         };
 
         Object.defineProperty(HomeController.prototype, "moviesToDownload", {
@@ -138,20 +160,35 @@ var MovieApp;
             this.$q = $q;
             this.$window = $window;
             this.GetMoviesToDownload = function () {
+                var _this = this;
                 return this.$http.get("/api/DownloadList/").then(function (response) {
-                    return response.data;
+                    _this.downloadList = response.data;
+
+                    return _this.downloadList;
                 });
             };
             this.DeleteMovieFromDownloadList = function (movie) {
+                var _this = this;
                 return this.$http.delete("/api/DownloadList/" + movie.Imdb).then(function (response) {
+                    angular.copy(_.without(_this.downloadList, movie), _this.downloadList);
+
                     return response;
                 });
             };
+            this.downloadList = new Array();
         }
         DownloadListRepository.prototype.AddMovieToDownloadList = function (movie) {
+            var _this = this;
             return this.$http.post("/api/DownloadList/", movie).then(function (response) {
-                return response.data;
+                _this.downloadList.push(movie);
+                //return response.data;
             });
+        };
+
+        DownloadListRepository.prototype.IsMovieInDownloadList = function (movie) {
+            var enlistedMovie = _.findWhere(this.downloadList, { Imdb: movie.Imdb });
+
+            return angular.isDefined(enlistedMovie);
         };
         DownloadListRepository.$inject = ['$http', '$q', '$window'];
         return DownloadListRepository;
@@ -261,6 +298,94 @@ var MovieApp;
 
 var MovieApp;
 (function (MovieApp) {
+    function Draggable($rootScope) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attributes) {
+                // this gives us the native JS object
+                var el = element[0];
+
+                el.draggable = true;
+
+                el.addEventListener('dragstart', function (e) {
+                    e.dataTransfer.effectAllowed = 'copy';
+                    e.dataTransfer.setData('Text', attributes.draggable);
+
+                    this.classList.add('drag');
+
+                    $rootScope.$apply(function () {
+                        $rootScope.$broadcast("onDragStart", "");
+                    });
+
+                    return false;
+                }, false);
+
+                el.addEventListener('dragend', function (e) {
+                    this.classList.remove('drag');
+                    return false;
+                }, false);
+            }
+        };
+    }
+    MovieApp.Draggable = Draggable;
+})(MovieApp || (MovieApp = {}));
+
+app.directive("draggable", MovieApp.Draggable);
+
+var MovieApp;
+(function (MovieApp) {
+    function Droppable($rootScope) {
+        return {
+            scope: {},
+            link: function (scope, element) {
+                // again we need the native object
+                var el = element[0];
+
+                el.addEventListener('dragover', function (e) {
+                    e.dataTransfer.dropEffect = 'copy';
+
+                    // allows us to drop
+                    if (e.preventDefault)
+                        e.preventDefault();
+                    this.classList.add('over');
+                    return false;
+                }, false);
+
+                el.addEventListener('dragenter', function (e) {
+                    this.classList.add('over');
+                    return false;
+                }, false);
+
+                el.addEventListener('dragleave', function (e) {
+                    this.classList.remove('over');
+                    return false;
+                }, false);
+
+                el.addEventListener('drop', function (e) {
+                    // Stops some browsers from redirecting.
+                    if (e.stopPropagation)
+                        e.stopPropagation();
+
+                    this.classList.remove('over');
+
+                    $rootScope.$apply(function () {
+                        $rootScope.$broadcast('onDragDrop', e.dataTransfer.getData('Text'));
+                    });
+
+                    //var item = document.getElementById(e.dataTransfer.getData('Text'));
+                    //this.appendChild(item);
+                    return false;
+                }, false);
+            }
+        };
+    }
+    MovieApp.Droppable = Droppable;
+})(MovieApp || (MovieApp = {}));
+
+app.directive("droppable", MovieApp.Droppable);
+
+var MovieApp;
+(function (MovieApp) {
     var SignalRInterceptor = (function () {
         function SignalRInterceptor() {
         }
@@ -291,10 +416,11 @@ app.directive("movieOverview", MovieApp.MovieOverview);
 var MovieApp;
 (function (MovieApp) {
     var MovieOverviewController = (function () {
-        function MovieOverviewController($scope, movies, downloadListRepository) {
+        function MovieOverviewController($scope, movies, downloadListRepository, moviePosterFactory) {
             this.$scope = $scope;
             this.movies = movies;
             this.downloadListRepository = downloadListRepository;
+            this.moviePosterFactory = moviePosterFactory;
             this.$scope.movies = [];
 
             for (var date in this.movies) {
@@ -303,21 +429,29 @@ var MovieApp;
 
                 this.$scope.movies.push(obj);
             }
+
+            var index = Math.floor((Math.random() * this.$scope.movies.length));
+            var movieIndex = Math.floor((Math.random() * this.$scope.movies[index].movies.length));
+            var backgroundImdb = this.$scope.movies[index].movies[movieIndex].Imdb;
+            this.moviePosterFactory.GetLargeMoviePoster(backgroundImdb).then(function (response) {
+                var style = "<style>#overview-background:before{background-image:url(" + response + ")}</style>";
+                $("#overview-background").append(style);
+            });
         }
         MovieOverviewController.prototype.addMovieToDownloadList = function (movie) {
-            movie.InDownloadList = true;
             this.downloadListRepository.AddMovieToDownloadList(movie);
-            this.$scope.moviesToDownload.push(movie);
         };
 
         MovieOverviewController.prototype.deleteMovieFromDownloadList = function (movie) {
-            var _this = this;
             this.downloadListRepository.DeleteMovieFromDownloadList(movie).then(function () {
-                movie.InDownloadList = false;
-                angular.copy(_.without(_this.$scope.moviesToDownload, movie), _this.$scope.moviesToDownload);
+                //angular.copy(_.without(this.$scope.moviesToDownload, movie), this.$scope.moviesToDownload);
             });
         };
-        MovieOverviewController.$inject = ['$scope', 'movies', 'DownloadListRepository'];
+
+        MovieOverviewController.prototype.IsMoviePresentInDownloadlist = function (movie) {
+            return this.downloadListRepository.IsMovieInDownloadList(movie);
+        };
+        MovieOverviewController.$inject = ['$scope', 'movies', 'DownloadListRepository', 'moviePosterFactory'];
         return MovieOverviewController;
     })();
     MovieApp.MovieOverviewController = MovieOverviewController;
@@ -428,17 +562,6 @@ var MovieApp;
             enumerable: true,
             configurable: true
         });
-
-        Object.defineProperty(Movie.prototype, "InDownloadList", {
-            get: function () {
-                return this._inDownloadList;
-            },
-            set: function (inDownloadList) {
-                this._inDownloadList = inDownloadList;
-            },
-            enumerable: true,
-            configurable: true
-        });
         return Movie;
     })();
     MovieApp.Movie = Movie;
@@ -512,9 +635,20 @@ var MovieApp;
             return defer.promise;
         };
 
-        //public GetMovieTrailer(imdb: string): ng.IPromise<string> {
-        //    var
-        //}
+        MoviePosterFactory.prototype.GetLargeMoviePoster = function (imdb) {
+            var movieDetailsUrl = this.baseUrlMovie + imdb + "?api_key=" + this.apikey;
+            var defer = this.$q.defer();
+
+            $.get(movieDetailsUrl, function (response) {
+                var imageUrl = "http://image.tmdb.org/t/p/w500" + response.poster_path;
+
+                defer.resolve(imageUrl);
+            });
+
+            return defer.promise;
+            //https://www.themoviedb.org/talk/53c11d4ec3a3684cf4006400
+        };
+
         MoviePosterFactory.prototype.GetMovieThumb = function (imdb) {
             var movieDetailsUrl = this.baseUrlMovie + imdb + "?api_key=" + this.apikey;
             var defer = this.$q.defer();
@@ -729,7 +863,6 @@ var MovieApp;
             },
             link: function (scope, element, attributes) {
                 var img = new Image();
-                console.log("thumb...");
                 moviePosterFactory.GetMovieThumb(scope.imdb).then(function (imageUrl) {
                     img.src = imageUrl;
                     element.parent().append(img);
@@ -744,24 +877,6 @@ var MovieApp;
 MovieApp.MovieThumb.$inject = ['moviePosterFactory'];
 
 app.directive("movieThumb", MovieApp.MovieThumb);
-//angular.module('movieApp').directive("moviePoster", ['MovieService', function (MovieService) {
-//    return {
-//        restrict: 'E',
-//        replace: true,
-//        scope: {
-//            imdb: '@',
-//        },
-//        link: function (scope, element, attributes) {
-//            var x = scope.imdb;
-//            var img = new Image();
-//            $.get("https://api.themoviedb.org/3/movie/tt" + scope.imdb + "?api_key=980071c1008d3dd64ab4a0893fe5a727", function (response) {
-//                img.src = "http://image.tmdb.org/t/p/w154" + response.poster_path;
-//                element.parent().append(img);
-//                element.remove();
-//            });
-//        }
-//    }
-//}])
 
 var MovieApp;
 (function (MovieApp) {

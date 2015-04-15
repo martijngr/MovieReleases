@@ -14,7 +14,7 @@ namespace MovieReleases.Business
         private MovieRepository _movieRepository;
         private MovieContainer _context;
         private IMovieScraper _scraper;
-        private IMovieScraper _dutchMovieScraper;
+        private IMovieScraper _detailsMovieScraper;
         private IMovieTrailerScraper _trailerScraper;
         private IPlotScraper _plotScraper;
         private IFindScraper _findScraper;
@@ -23,12 +23,14 @@ namespace MovieReleases.Business
         {
             _context = new MovieContainer();
             _movieRepository = new MovieRepository(_context);
-            //_scraper = new RottenTomatoesScraper();
-            _scraper = new TheMovieDBScraper();
-            _dutchMovieScraper = new MovieMeterScraper();
+            _scraper = new RottenTomatoesScraper();
+            //_scraper = new TheMovieDBScraper();
+            _detailsMovieScraper = new TheMovieDBScraper();
+            //_dutchMovieScraper = new MovieMeterScraper();
             _trailerScraper = new TrailerAddictTrailerScraper();
             _plotScraper = new MovieMeterPlotScraper();
-            _findScraper = new MovieMeterFindScraper();
+            //_findScraper = new MovieMeterFindScraper();
+            _findScraper = new RottenTomatiesFindScraper();
         }
 
         public Dictionary<string, MovieDto[]> GetMoviesOutOnDvd()
@@ -51,7 +53,7 @@ namespace MovieReleases.Business
 
         public MovieDto GetFilmById(string id)
         {
-            var movie = _scraper.GetMovieById(id);// _dutchMovieScraper.GetMovieById(id);
+            var movie = _detailsMovieScraper.GetMovieById(id);// _dutchMovieScraper.GetMovieById(id);
             movie.TrailerUrl = _trailerScraper.GetTrailerUrl(movie.Imdb);
 
             return movie;

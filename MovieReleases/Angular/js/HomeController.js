@@ -18,10 +18,32 @@
             downloadListRepository.GetMoviesToDownload().then(function (response) {
                 _this.$scope.moviesToDownload = response;
             });
+
+            $scope.$on("onDragStart", function (event, data) {
+                _this.dragPending = true;
+            });
+
+            $scope.$on("onDragDrop", function (event, data) {
+                var movie = angular.fromJson(data);
+
+                if (!_this.downloadListRepository.IsMovieInDownloadList(movie)) {
+                    _this.downloadListRepository.AddMovieToDownloadList(movie);
+                    _this.$scope.moviesToDownload.push(movie);
+                }
+
+                _this.dragPending = false;
+            });
         }
         HomeController.prototype.setActiveUrlPart = function () {
             var parts = this.$location.path().split('/');
             this.$scope.active = parts[1];
+        };
+
+        HomeController.prototype.deleteMovieFromDownloadList = function (movie) {
+            var _this = this;
+            this.downloadListRepository.DeleteMovieFromDownloadList(movie).then(function () {
+                angular.copy(_.without(_this.$scope.moviesToDownload, movie), _this.$scope.moviesToDownload);
+            });
         };
 
         Object.defineProperty(HomeController.prototype, "moviesToDownload", {

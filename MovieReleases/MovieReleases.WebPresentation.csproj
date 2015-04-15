@@ -285,6 +285,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
+    <Content Include="Icon.png" />
     <Content Include="ideas.txt" />
     <Content Include="Images\SoonInCinema.png" />
     <Content Include="Images\Dvd.png" />
@@ -323,9 +324,12 @@
     <Content Include="Content\fonts\FontAwesome.otf" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -350,6 +354,7 @@
     <Content Include="Scripts\min\all.js" />
     <Content Include="Scripts\min\all.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\tests\FirstTest.js" />
@@ -414,6 +419,8 @@
   <ItemGroup>
     <TypeScriptCompile Include="Angular\ts\app.ts" />
     <TypeScriptCompile Include="Angular\ts\DownloadList\DownloadListRepository.ts" />
+    <TypeScriptCompile Include="Angular\ts\DragAndDrop\draggable.ts" />
+    <TypeScriptCompile Include="Angular\ts\DragAndDrop\droppable.ts" />
     <TypeScriptCompile Include="Angular\ts\HomeController.ts" />
     <TypeScriptCompile Include="Angular\ts\Interceptors\SignalRInterceptor.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\Movie.ts" />

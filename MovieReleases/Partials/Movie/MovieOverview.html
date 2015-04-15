@@ -1,26 +1,28 @@
-﻿<div>
+﻿<div id="overview-background">
     <div data-ng-repeat="m in movies">
         {{m.date}}
         <div class="wrapper">
             <div class="scrolls">
-                <div data-ng-repeat="y in m.movies" data-ng-class="{'moviebox': true}" id="{{y.Imdb}}">
-                    <div data-ng-class="{'title': true, 'in-download-list': y.InDownloadList}" title="{{y.Title}}">
-                        <a ng-href="/#/Movie/{{y.Imdb}}">{{y.Title}}</a>
+                <div data-ng-repeat="y in m.movies"
+                     data-ng-class="{'moviebox': true}"
+                     id="{{y.Imdb}}">
+                    <div data-ng-class="{'title': true, 'in-download-list': movieCtrl.IsMoviePresentInDownloadlist(y)}" title="{{y.Title }}">
+                        <a ng-href="/#/Movie/{{y.Imdb}}">{{y.Title}} - {{y.InDownloadList}}</a>
                     </div>
-                    <div movie-tooltip class="poster">
+                    <div movie-tooltip class="poster"
+                         draggable="{{y}}">
                         <movie-thumb imdb="{{y.Imdb}}"></movie-thumb>
                     </div>
                     <div class="poster-button-bar">
-                        <button 
-                                class="btn btn-primary btn-xs" 
-                                data-ng-click="movieCtrl.addMovieToDownloadList(y)" 
-                                data-ng-show="!y.InDownloadList"
+                        <button class="btn btn-primary btn-xs"
+                                data-ng-click="movieCtrl.addMovieToDownloadList(y)"
+                                data-ng-hide="movieCtrl.IsMoviePresentInDownloadlist(y)"
                                 title="Volgen">
                             <i class="fa fa-download"></i>
                         </button>
                         <button class="btn btn-warning btn-xs"
                                 data-ng-click="movieCtrl.deleteMovieFromDownloadList(y)"
-                                data-ng-show="y.InDownloadList"
+                                data-ng-show="movieCtrl.IsMoviePresentInDownloadlist(y)"
                                 title="Verwijder uit downloadlijst">
                             <i class="fa fa-trash-o"></i>
                         </button>

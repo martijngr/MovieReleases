@@ -1,10 +1,11 @@
 ﻿var MovieApp;
 (function (MovieApp) {
     var MovieOverviewController = (function () {
-        function MovieOverviewController($scope, movies, downloadListRepository) {
+        function MovieOverviewController($scope, movies, downloadListRepository, moviePosterFactory) {
             this.$scope = $scope;
             this.movies = movies;
             this.downloadListRepository = downloadListRepository;
+            this.moviePosterFactory = moviePosterFactory;
             this.$scope.movies = [];
 
             for (var date in this.movies) {
@@ -13,21 +14,29 @@
 
                 this.$scope.movies.push(obj);
             }
+
+            var index = Math.floor((Math.random() * this.$scope.movies.length));
+            var movieIndex = Math.floor((Math.random() * this.$scope.movies[index].movies.length));
+            var backgroundImdb = this.$scope.movies[index].movies[movieIndex].Imdb;
+            this.moviePosterFactory.GetLargeMoviePoster(backgroundImdb).then(function (response) {
+                var style = "<style>#overview-background:before{background-image:url(" + response + ")}</style>";
+                $("#overview-background").append(style);
+            });
         }
         MovieOverviewController.prototype.addMovieToDownloadList = function (movie) {
-            movie.InDownloadList = true;
             this.downloadListRepository.AddMovieToDownloadList(movie);
-            this.$scope.moviesToDownload.push(movie);
         };
 
         MovieOverviewController.prototype.deleteMovieFromDownloadList = function (movie) {
-            var _this = this;
             this.downloadListRepository.DeleteMovieFromDownloadList(movie).then(function () {
-                movie.InDownloadList = false;
-                angular.copy(_.without(_this.$scope.moviesToDownload, movie), _this.$scope.moviesToDownload);
+                //angular.copy(_.without(this.$scope.moviesToDownload, movie), this.$scope.moviesToDownload);
             });
         };
-        MovieOverviewController.$inject = ['$scope', 'movies', 'DownloadListRepository'];
+
+        MovieOverviewController.prototype.IsMoviePresentInDownloadlist = function (movie) {
+            return this.downloadListRepository.IsMovieInDownloadList(movie);
+        };
+        MovieOverviewController.$inject = ['$scope', 'movies', 'DownloadListRepository', 'moviePosterFactory'];
         return MovieOverviewController;
     })();
     MovieApp.MovieOverviewController = MovieOverviewController;

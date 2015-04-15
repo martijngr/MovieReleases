@@ -27,7 +27,7 @@ namespace MovieReleases.Controllers
         }
 
         [HttpGet]
-        [Route("search{movieName}")]
+        //[Route("search{movieName}")]
         public IEnumerable<MovieFindDTO> Search(string movieName)
         {
             var movies = _movieService.SearchMovie(movieName);
