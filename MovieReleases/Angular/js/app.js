@@ -5,6 +5,11 @@
 /// <reference path="../../scripts/typings/toastr/toastr.d.ts" />
 var app = angular.module('movieApp', ['ngRoute']);
 
+app.config([
+    '$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+    }]);
+
 app.run([
     '$http', '$rootScope', '$timeout', function ($http, $rootScope, $timeout) {
         $http.get("/Home/StartNotificationService");
@@ -17,5 +22,12 @@ app.run([
             $timeout(function () {
                 $("#page-loader").hide();
             });
+
+            hideMobileMenu();
         });
     }]);
+
+function hideMobileMenu() {
+    // check if window is small enough so dropdown is created
+    jQuery(".navbar-collapse").removeClass("in").addClass("collapse");
+}

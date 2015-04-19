@@ -7,7 +7,7 @@
                      data-ng-class="{'moviebox': true}"
                      id="{{y.Imdb}}">
                     <div data-ng-class="{'title': true, 'in-download-list': movieCtrl.IsMoviePresentInDownloadlist(y)}" title="{{y.Title }}">
-                        <a ng-href="/#/Movie/{{y.Imdb}}">{{y.Title}} - {{y.InDownloadList}}</a>
+                        <a ng-href="/#/Movie/{{y.Imdb}}">{{y.Title}}</a>
                     </div>
                     <div movie-tooltip class="poster"
                          draggable="{{y}}">

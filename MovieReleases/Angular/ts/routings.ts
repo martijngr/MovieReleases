@@ -31,7 +31,7 @@
             }
         }).
         when('/Movie/:imdb', {
-            templateUrl: '/Partials/Movie/Details.html',
+            templateUrl: '/Partials/Movie/Movie-Details.html',
             controller: 'MovieController',
             controllerAs: 'movieCtrl',
             resolve: {

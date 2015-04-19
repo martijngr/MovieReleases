@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieReleases.Business.Movies
+namespace MovieReleases.Core.Movies
 {
     public enum ReleaseDateType
     {

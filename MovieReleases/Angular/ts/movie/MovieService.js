@@ -1,22 +1,24 @@
 ﻿var MovieApp;
 (function (MovieApp) {
     var MovieService = (function () {
-        function MovieService($http, $q, $window) {
+        function MovieService($http, $q, $window, $location) {
             this.$http = $http;
             this.$q = $q;
             this.$window = $window;
-            this.DeleteMovieFromDownloadList = function (movie) {
-                return this.$http.delete("/api/MoviesApi/DeleteMovieFromDownloadList?imdbId=" + movie.ImdbId).then(function (response) {
+            this.$location = $location;
+            this.GetMovieByImdb = function (imdb) {
+                return this.HandleGetRequest("api/Movie?movieMeterId=" + imdb).then(function (response) {
+                    return response;
+                }, function (rejection) {
+                    return rejection.data;
+                });
+            };
+            this.SearchMovie = function (movieName) {
+                return this.HandleGetRequest("api/Movie/search?movieName=" + movieName).then(function (response) {
                     return response;
                 });
             };
             this.GetMoviesForRent = function () {
-                //var item = {'2014-04-27': [{MovieMeterId: 83495,
-                //    Title: 'Samsara',
-                //    Thumbnail: "",
-                //    ImdbId: "0770802"}]};
-                //var items = [item];
-                //return item;
                 var defer = this.$q.defer();
                 var movies = this.$window.sessionStorage.getItem('movies');
 
@@ -24,7 +26,7 @@
                     var data = angular.fromJson(movies);
                     defer.resolve(data);
                 } else {
-                    this.HandleGetRequest("GetMoviesOutOnDvd").then(function (response) {
+                    this.HandleGetRequest("/api/Rent").then(function (response) {
                         var data = angular.toJson(response);
                         sessionStorage.setItem('movies', data);
 
@@ -42,9 +44,27 @@
                     var data = angular.fromJson(movies);
                     defer.resolve(data);
                 } else {
-                    this.HandleGetRequest("GetMoviesInCinema").then(function (response) {
+                    this.HandleGetRequest("api/Cinema").then(function (response) {
                         var data = angular.toJson(response);
                         sessionStorage.setItem('cinemaMovies', data);
+
+                        defer.resolve(response);
+                    });
+                }
+
+                return defer.promise;
+            };
+            this.GetMoviesSoonInCinema = function () {
+                var defer = this.$q.defer();
+                var movies;
+
+                if (movies) {
+                    var data = angular.fromJson(movies);
+                    defer.resolve(data);
+                } else {
+                    this.HandleGetRequest("api/SoonInCinema").then(function (response) {
+                        var data = angular.toJson(response);
+                        sessionStorage.setItem('soonInCinemaMovies', data);
 
                         defer.resolve(response);
                     });
@@ -57,30 +77,17 @@
                     return response.data;
                 });
             };
-            this.GetMoviesToDownload = function () {
-                return this.HandleGetRequest("GetMoviesToDownload");
-            };
         }
-        MovieService.prototype.AddMovieToDownloadList = function (movie) {
-            return this.HandlePostRequest("AddMovieToDownloadList", movie);
-        };
-
         MovieService.prototype.ClearSessionStorage = function () {
             sessionStorage.clear();
         };
 
-        MovieService.prototype.HandleGetRequest = function (action, data) {
-            return this.$http.get("/api/MoviesApi/" + action, data).then(function (response) {
+        MovieService.prototype.HandleGetRequest = function (path) {
+            return this.$http.get(path).then(function (response) {
                 return response.data;
             });
         };
-
-        MovieService.prototype.HandlePostRequest = function (action, data) {
-            return this.$http.post("/api/MoviesApi/" + action, data).then(function (response) {
-                return response.data;
-            });
-        };
-        MovieService.$inject = ['$http', '$q', '$window'];
+        MovieService.$inject = ['$http', '$q', '$window', '$location'];
         return MovieService;
     })();
     MovieApp.MovieService = MovieService;

@@ -5,6 +5,11 @@
 /// <reference path="../../scripts/typings/toastr/toastr.d.ts" />
 var app = angular.module('movieApp', ['ngRoute']);
 
+app.config([
+    '$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+    }]);
+
 app.run([
     '$http', '$rootScope', '$timeout', function ($http, $rootScope, $timeout) {
         $http.get("/Home/StartNotificationService");
@@ -17,8 +22,15 @@ app.run([
             $timeout(function () {
                 $("#page-loader").hide();
             });
+
+            hideMobileMenu();
         });
     }]);
+
+function hideMobileMenu() {
+    // check if window is small enough so dropdown is created
+    jQuery(".navbar-collapse").removeClass("in").addClass("collapse");
+}
 
 var MovieApp;
 (function (MovieApp) {
@@ -128,7 +140,7 @@ app.config([
                     }]
             }
         }).when('/Movie/:imdb', {
-            templateUrl: '/Partials/Movie/Details.html',
+            templateUrl: '/Partials/Movie/Movie-Details.html',
             controller: 'MovieController',
             controllerAs: 'movieCtrl',
             resolve: {
@@ -296,103 +308,35 @@ var MovieApp;
     MovieApp.MovieToFollow = MovieToFollow;
 })(MovieApp || (MovieApp = {}));
 
-var MovieApp;
-(function (MovieApp) {
-    function Draggable($rootScope) {
-        return {
-            restrict: 'A',
-            link: function (scope, element, attributes) {
-                // this gives us the native JS object
-                var el = element[0];
-
-                el.draggable = true;
-
-                el.addEventListener('dragstart', function (e) {
-                    e.dataTransfer.effectAllowed = 'copy';
-                    e.dataTransfer.setData('Text', attributes.draggable);
-
-                    this.classList.add('drag');
-
-                    $rootScope.$apply(function () {
-                        $rootScope.$broadcast("onDragStart", "");
-                    });
-
-                    return false;
-                }, false);
-
-                el.addEventListener('dragend', function (e) {
-                    this.classList.remove('drag');
-                    return false;
-                }, false);
-            }
-        };
-    }
-    MovieApp.Draggable = Draggable;
-})(MovieApp || (MovieApp = {}));
-
-app.directive("draggable", MovieApp.Draggable);
-
-var MovieApp;
-(function (MovieApp) {
-    function Droppable($rootScope) {
-        return {
-            scope: {},
-            link: function (scope, element) {
-                // again we need the native object
-                var el = element[0];
-
-                el.addEventListener('dragover', function (e) {
-                    e.dataTransfer.dropEffect = 'copy';
-
-                    // allows us to drop
-                    if (e.preventDefault)
-                        e.preventDefault();
-                    this.classList.add('over');
-                    return false;
-                }, false);
-
-                el.addEventListener('dragenter', function (e) {
-                    this.classList.add('over');
-                    return false;
-                }, false);
-
-                el.addEventListener('dragleave', function (e) {
-                    this.classList.remove('over');
-                    return false;
-                }, false);
-
-                el.addEventListener('drop', function (e) {
-                    // Stops some browsers from redirecting.
-                    if (e.stopPropagation)
-                        e.stopPropagation();
-
-                    this.classList.remove('over');
-
-                    $rootScope.$apply(function () {
-                        $rootScope.$broadcast('onDragDrop', e.dataTransfer.getData('Text'));
-                    });
-
-                    //var item = document.getElementById(e.dataTransfer.getData('Text'));
-                    //this.appendChild(item);
-                    return false;
-                }, false);
-            }
-        };
-    }
-    MovieApp.Droppable = Droppable;
-})(MovieApp || (MovieApp = {}));
-
-app.directive("droppable", MovieApp.Droppable);
-
-var MovieApp;
-(function (MovieApp) {
-    var SignalRInterceptor = (function () {
-        function SignalRInterceptor() {
-        }
-        return SignalRInterceptor;
-    })();
-    MovieApp.SignalRInterceptor = SignalRInterceptor;
-})(MovieApp || (MovieApp = {}));
+//module MovieApp {
+//    export class ServerErrorInterceptor {
+//        public static Factory($q: ng.IQService) {
+//            return new ServerErrorInterceptor();
+//        }
+//        public requestError = (rejection) => {
+//            console.warn(rejection);
+//        };
+//        //public responseError(rejection) {
+//        //    console.log(rejection.status);
+//        //    // Otherwise, default behavior
+//        //    //return this.$q.reject(rejection);
+//        //}
+//    }
+//}
+//app.service('serverErrorInterceptor',
+//app.config(['$httpProvider', ($httpProvider: ng.IHttpProvider) => {
+//    $httpProvider.interceptors.push(function ($location) {
+//        return {
+//            'requestError': function (rejection) {
+//                console.warn(rejection);
+//            },
+//            'responseError': function (rejection) {
+//                console.warn(rejection);
+//                return rejection;
+//            }
+//        }
+//    });
+//}]);
 
 var MovieApp;
 (function (MovieApp) {
@@ -575,7 +519,19 @@ var MovieApp;
             this.$routeParams = $routeParams;
             this.MovieService = MovieService;
             this.movie = movie;
-            this.movieDetails = this.movie;
+            this.vm = {
+                viewtype: {
+                    carousel: false,
+                    mobile: true
+                }
+            };
+            if (!_.isString(movie)) {
+                this.movieDetails = this.movie;
+            } else {
+                this.vm.viewtype.carousel = false;
+                this.vm.viewtype.mobile = false;
+                this.showError = true;
+            }
         }
         MovieController.$inject = ['$scope', '$routeParams', 'MovieService', 'movie'];
         return MovieController;
@@ -587,6 +543,37 @@ var MovieApp;
 
 var MovieApp;
 (function (MovieApp) {
+    function MovieDetailsCarousel() {
+        return {
+            restrict: 'E',
+            templateUrl: '/Partials/Movie/Movie-Details-Carousel.html',
+            link: function (scope, element, attributes) {
+            }
+        };
+    }
+    MovieApp.MovieDetailsCarousel = MovieDetailsCarousel;
+})(MovieApp || (MovieApp = {}));
+
+app.directive("movieDetailsCarousel", MovieApp.MovieDetailsCarousel);
+
+var MovieApp;
+(function (MovieApp) {
+    function MovieDetailsMobile() {
+        return {
+            restrict: 'E',
+            replace: true,
+            templateUrl: '/Partials/Movie/Movie-Details-Mobile.html',
+            link: function (scope, element, attributes) {
+            }
+        };
+    }
+    MovieApp.MovieDetailsMobile = MovieDetailsMobile;
+})(MovieApp || (MovieApp = {}));
+
+app.directive("movieDetailsMobile", MovieApp.MovieDetailsMobile);
+
+var MovieApp;
+(function (MovieApp) {
     function MoviePoster(moviePosterFactory) {
         return {
             restrict: 'E',
@@ -595,6 +582,8 @@ var MovieApp;
                 imdb: '@'
             },
             link: function (scope, element, attributes) {
+                if (!scope.imdb)
+                    return;
                 var img = new Image();
 
                 moviePosterFactory.GetMoviePoster(scope.imdb).then(function (imageUrl) {
@@ -692,13 +681,16 @@ var MovieApp;
 var MovieApp;
 (function (MovieApp) {
     var MovieService = (function () {
-        function MovieService($http, $q, $window) {
+        function MovieService($http, $q, $window, $location) {
             this.$http = $http;
             this.$q = $q;
             this.$window = $window;
+            this.$location = $location;
             this.GetMovieByImdb = function (imdb) {
                 return this.HandleGetRequest("api/Movie?movieMeterId=" + imdb).then(function (response) {
                     return response;
+                }, function (rejection) {
+                    return rejection.data;
                 });
             };
             this.SearchMovie = function (movieName) {
@@ -775,7 +767,7 @@ var MovieApp;
                 return response.data;
             });
         };
-        MovieService.$inject = ['$http', '$q', '$window'];
+        MovieService.$inject = ['$http', '$q', '$window', '$location'];
         return MovieService;
     })();
     MovieApp.MovieService = MovieService;
@@ -971,6 +963,9 @@ var MovieApp;
                 url: '@'
             },
             link: function (scope, element, attributes) {
+                if (!scope.url)
+                    return;
+
                 var iframe = document.createElement("IFRAME");
 
                 iframe.src = scope.url;
@@ -988,3 +983,91 @@ var MovieApp;
 })(MovieApp || (MovieApp = {}));
 
 app.directive("movieTrailer", MovieApp.MovieTrailer);
+
+var MovieApp;
+(function (MovieApp) {
+    function Draggable($rootScope) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attributes) {
+                // this gives us the native JS object
+                var el = element[0];
+
+                el.draggable = true;
+
+                el.addEventListener('dragstart', function (e) {
+                    e.dataTransfer.effectAllowed = 'copy';
+                    e.dataTransfer.setData('Text', attributes.draggable);
+
+                    this.classList.add('drag');
+
+                    $rootScope.$apply(function () {
+                        $rootScope.$broadcast("onDragStart", "");
+                    });
+
+                    return false;
+                }, false);
+
+                el.addEventListener('dragend', function (e) {
+                    this.classList.remove('drag');
+                    return false;
+                }, false);
+            }
+        };
+    }
+    MovieApp.Draggable = Draggable;
+})(MovieApp || (MovieApp = {}));
+
+app.directive("draggable", MovieApp.Draggable);
+
+var MovieApp;
+(function (MovieApp) {
+    function Droppable($rootScope) {
+        return {
+            scope: {},
+            link: function (scope, element) {
+                // again we need the native object
+                var el = element[0];
+
+                el.addEventListener('dragover', function (e) {
+                    e.dataTransfer.dropEffect = 'copy';
+
+                    // allows us to drop
+                    if (e.preventDefault)
+                        e.preventDefault();
+                    this.classList.add('over');
+                    return false;
+                }, false);
+
+                el.addEventListener('dragenter', function (e) {
+                    this.classList.add('over');
+                    return false;
+                }, false);
+
+                el.addEventListener('dragleave', function (e) {
+                    this.classList.remove('over');
+                    return false;
+                }, false);
+
+                el.addEventListener('drop', function (e) {
+                    // Stops some browsers from redirecting.
+                    if (e.stopPropagation)
+                        e.stopPropagation();
+
+                    this.classList.remove('over');
+
+                    $rootScope.$apply(function () {
+                        $rootScope.$broadcast('onDragDrop', e.dataTransfer.getData('Text'));
+                    });
+
+                    //var item = document.getElementById(e.dataTransfer.getData('Text'));
+                    //this.appendChild(item);
+                    return false;
+                }, false);
+            }
+        };
+    }
+    MovieApp.Droppable = Droppable;
+})(MovieApp || (MovieApp = {}));
+
+app.directive("droppable", MovieApp.Droppable);

@@ -1,8 +1,8 @@
 ﻿module MovieApp {
     export class MovieService {
-        public static $inject = ['$http', '$q', '$window'];
+        public static $inject = ['$http', '$q', '$window', '$location'];
 
-        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private $window: ng.IWindowService) {
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private $window: ng.IWindowService, private $location : ng.ILocationService) {
 
         }
 
@@ -13,6 +13,8 @@
         public GetMovieByImdb = function (imdb: string) {
             return this.HandleGetRequest("api/Movie?movieMeterId=" + imdb).then(function (response) {
                 return response;
+            }, function (rejection) {
+                return rejection.data; // this will contain the error message.
             });
         }
 

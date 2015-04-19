@@ -1,37 +1,37 @@
 ﻿using System;
 using System.Linq;
+using MovieReleases.Domain;
 using MovieReleases.DTO;
 
 namespace MovieReleases.Business.DownloadList
 {
     public class DownloadListService
     {
-        private MovieContainer _context;
+        private DownloadListRepository _downloadListRepository;
 
-        public DownloadListService()
+        public DownloadListService(DownloadListRepository downloadListRepository)
         {
-            _context = new MovieContainer();
+            _downloadListRepository = downloadListRepository;
         }
 
         public void AddMovieToDownloadList(MovieDto movieDto)
         {
             var movie = FromDto(movieDto);
 
-            _context.Movies.Add(movie);
-            _context.SaveChanges();
+            _downloadListRepository.Add(movie);
+            _downloadListRepository.SaveChanges();
         }
 
-        public void DeleteMovieFromDownloadList(string imdbId)
+        public void DeleteMovieFromDownloadList(string imdb)
         {
-            var movie = _context.Movies.FirstOrDefault(m => m.Imdb == imdbId);
-            _context.Movies.Remove(movie);
+            _downloadListRepository.Delete(imdb);
 
-            _context.SaveChanges();
+            _downloadListRepository.SaveChanges();
         }
 
         public MovieDto[] GetMoviesToDownload()
         {
-            var movies = (from m in _context.Movies
+            var movies = (from m in _downloadListRepository.GetMoviesToDownload()
                          select new MovieDto
                          {
                              Title = m.Title,

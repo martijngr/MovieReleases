@@ -1,0 +1,17 @@
+﻿<div id="movie-details">
+    <div data-ng-show="movieCtrl.showError">
+        Er zijn geen filmdetails gevonden voor de opgevraagde film...
+    </div>
+    <div data-ng-hide="movieCtrl.showError">    
+        <div id="viewtype-block">
+            <i class="fa fa-mobile" data-ng-click="movieCtrl.vm.viewtype.mobile = true;movieCtrl.vm.viewtype.carousel = false"></i>
+            <i class="fa fa-laptop" data-ng-click="movieCtrl.vm.viewtype.mobile = false;movieCtrl.vm.viewtype.carousel = true"></i>
+        </div>
+        <span data-ng-show="movieCtrl.vm.viewtype.carousel">
+            <movie-details-carousel></movie-details-carousel>
+        </span>
+        <span data-ng-show="movieCtrl.vm.viewtype.mobile">
+            <movie-details-mobile current-view="mobile"></movie-details-mobile>
+        </span>
+    </div>
+</div>

@@ -13,9 +13,9 @@ namespace MovieReleases.Controllers
     {
         private MovieService _movieService;
 
-        public CinemaController()
+        public CinemaController(MovieService movieService)
         {
-            _movieService = new MovieService();
+            _movieService = movieService;
         }
 
         public Dictionary<string, MovieDto[]> Get()

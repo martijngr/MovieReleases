@@ -10,7 +10,14 @@
     export class MovieController {
         public static $inject = ['$scope', '$routeParams', 'MovieService', 'movie'];
 
+        showError: boolean;
         movieDetails: Movie;
+        vm = {
+            viewtype: {
+                carousel: false,
+                mobile: true,
+            }
+        }
 
         constructor(
             private $scope: IMovieControllerScope,
@@ -18,8 +25,14 @@
             private MovieService: MovieService,
             private movie: MovieApp.Movie) {
 
-            this.movieDetails = this.movie;
-
+            if (!_.isString(movie)) {
+                this.movieDetails = this.movie;
+            }
+            else {
+                this.vm.viewtype.carousel = false;
+                this.vm.viewtype.mobile = false;
+                this.showError = true;
+            }
         }
     }
 

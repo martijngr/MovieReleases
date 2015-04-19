@@ -1,24 +1,26 @@
 ﻿var MovieApp;
 (function (MovieApp) {
     var MovieController = (function () {
-        function MovieController($scope, movies, MovieService) {
+        function MovieController($scope, $routeParams, MovieService, movie) {
             this.$scope = $scope;
-            this.movies = movies;
+            this.$routeParams = $routeParams;
             this.MovieService = MovieService;
-            this.$scope.movies = [];
-
-            for (var date in this.movies) {
-                var list = this.movies[date];
-                var obj = { date: date, movies: list };
-
-                this.$scope.movies.push(obj);
+            this.movie = movie;
+            this.vm = {
+                viewtype: {
+                    carousel: false,
+                    mobile: true
+                }
+            };
+            if (!_.isString(movie)) {
+                this.movieDetails = this.movie;
+            } else {
+                this.vm.viewtype.carousel = false;
+                this.vm.viewtype.mobile = false;
+                this.showError = true;
             }
         }
-        MovieController.prototype.addMovieToDownloadList = function (movie) {
-            this.MovieService.AddMovieToDownloadList(movie);
-            this.$scope.moviesToDownload.push(movie);
-        };
-        MovieController.$inject = ['$scope', 'movies', 'MovieService'];
+        MovieController.$inject = ['$scope', '$routeParams', 'MovieService', 'movie'];
         return MovieController;
     })();
     MovieApp.MovieController = MovieController;

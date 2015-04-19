@@ -92,26 +92,34 @@ namespace MovieReleases.Business.MovieScrapers.TheMovieDB
             {
                 // https://api.themoviedb.org/3/movie/550?api_key=###&append_to_response=similar_movies,alternative_titles,keywords,releases,trailers
                 var url = string.Format("http://api.themoviedb.org/3/movie/{0}?api_key={1}&language=nl&append_to_response=credits,rating,reviews,similar,alternative_titles", id, _apikey);
-                var jsonString = client.DownloadString(url).Trim();
-                var jObject = JObject.Parse(jsonString);
 
-                var movie = new MovieDetailsDto
+                try
                 {
-                    Id = jObject.GetValue<int>("id"),
-                    Title = jObject.GetValue<string>("title"),
-                    Year = "2015",
-                    Duration = jObject.GetValue<string>("runtime"),
-                    ReleaseDate = jObject.GetValue<string>("release_date"),
-                    Imdb = jObject.GetValue<string>("imdb_id"),
-                    Plot = _plotScraper.GetPlot(jObject.GetValue<string>("imdb_id")),
-                    MovieType = MovieType.InCinema,
-                    Actors = jObject["credits"]["cast"].Select(c => (string)c["name"]),
-                    Directors = jObject["credits"]["crew"].Select(d => (string)d["name"]),
-                    Genres = jObject["genres"].Select(g => (string)g["name"]),
-                    AlternativeTitle = jObject["alternative_titles"]["titles"].Select(g => (string)g["title"]).FirstOrDefault(),
-                };
+                    var jsonString = client.DownloadString(url).Trim();
+                    var jObject = JObject.Parse(jsonString);
 
-                return movie;
+                    var movie = new MovieDetailsDto
+                    {
+                        Id = jObject.GetValue<int>("id"),
+                        Title = jObject.GetValue<string>("title"),
+                        Year = "2015",
+                        Duration = jObject.GetValue<string>("runtime"),
+                        ReleaseDate = jObject.GetValue<string>("release_date"),
+                        Imdb = jObject.GetValue<string>("imdb_id"),
+                        Plot = _plotScraper.GetPlot(jObject.GetValue<string>("imdb_id")),
+                        MovieType = MovieType.InCinema,
+                        Actors = jObject["credits"]["cast"].Select(c => (string)c["name"]),
+                        Directors = jObject["credits"]["crew"].Select(d => (string)d["name"]).Distinct(),
+                        Genres = jObject["genres"].Select(g => (string)g["name"]),
+                        AlternativeTitle = jObject["alternative_titles"]["titles"].Select(g => (string)g["title"]).FirstOrDefault(),
+                    };
+
+                    return movie;
+                }
+                catch (WebException ex)
+                {
+                    throw new MovieNotFoundException(string.Format("Er zijn geen details gevonden voor de film met IMDB {0}", id), ex);
+                }
             }
         }
     }

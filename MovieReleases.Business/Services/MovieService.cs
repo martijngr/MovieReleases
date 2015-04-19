@@ -5,6 +5,7 @@ using MovieReleases.Business.MovieScrapers.MovieMeter;
 using MovieReleases.Business.MovieScrapers.RottenTomatoes;
 using MovieReleases.Business.MovieScrapers.TheMovieDB;
 using MovieReleases.Business.Repositories;
+using MovieReleases.Domain.Uow;
 using MovieReleases.DTO;
 
 namespace MovieReleases.Business
@@ -12,24 +13,19 @@ namespace MovieReleases.Business
     public class MovieService
     {
         private MovieRepository _movieRepository;
-        private MovieContainer _context;
         private IMovieScraper _scraper;
         private IMovieScraper _detailsMovieScraper;
         private IMovieTrailerScraper _trailerScraper;
         private IPlotScraper _plotScraper;
         private IFindScraper _findScraper;
 
-        public MovieService()
+        public MovieService(MovieRepository movieRepository)
         {
-            _context = new MovieContainer();
-            _movieRepository = new MovieRepository(_context);
+            _movieRepository = movieRepository;
             _scraper = new RottenTomatoesScraper();
-            //_scraper = new TheMovieDBScraper();
             _detailsMovieScraper = new TheMovieDBScraper();
-            //_dutchMovieScraper = new MovieMeterScraper();
             _trailerScraper = new TrailerAddictTrailerScraper();
             _plotScraper = new MovieMeterPlotScraper();
-            //_findScraper = new MovieMeterFindScraper();
             _findScraper = new RottenTomatiesFindScraper();
         }
 
@@ -64,11 +60,6 @@ namespace MovieReleases.Business
             var movies = _findScraper.Find(name);
 
             return movies;
-        }
-
-        public void SaveChanges()
-        {
-            _context.SaveChanges();
         }
     }
 }

@@ -4,19 +4,21 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using MovieReleases.Business;
 using MovieReleases.Business.DownloadList;
 using MovieReleases.DTO;
 
 namespace MovieReleases.Controllers
 {
+    [EnableCors(origins: "http://localhost", headers: "*", methods: "*")]
     public class DownloadListController : ApiController
     {
         private DownloadListService _downloadListService;
 
-        public DownloadListController()
+        public DownloadListController(DownloadListService downloadListService)
         {
-            _downloadListService = new DownloadListService();
+            _downloadListService = downloadListService;
         }
 
         public void Post(MovieDto movie)

@@ -11,6 +11,8 @@
                 imdb: '@',
             },
             link: function (scope: IMoviePosterScope, element : JQuery, attributes : any) {
+
+                if (!scope.imdb) return;
                 var img = new Image();
 
                 moviePosterFactory.GetMoviePoster(scope.imdb).then(function (imageUrl) {

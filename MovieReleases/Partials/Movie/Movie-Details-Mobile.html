@@ -1,0 +1,97 @@
+﻿<div id="movie-details">
+    <h2>{{movieCtrl.movieDetails.Title}}</h2>
+
+    <div id="general-movie-info">
+        Duur: {{movieCtrl.movieDetails.Duration}} |
+        Imdb: {{movieCtrl.movieDetails.Imdb}}  |
+        Jaar: {{movieCtrl.movieDetails.Year}}
+    </div>
+    <div class="btn-group btn-group-justified" role="group" data-ng-init="vm.tab.active='plot'">
+        <div class="btn-group" role="group" title="Plot">
+            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='plot'"><i class="fa fa-leanpub"></i></button>
+        </div>
+        <div class="btn-group" role="group" title="Filmposter">
+            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='poster'"><i class="fa fa-camera"></i></button>
+        </div>
+        <div class="btn-group" role="group" title="Recenties">
+            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='reviews'"><i class="fa fa-comments"></i></button>
+        </div>
+        <div class="btn-group" role="group" title="Trailer">
+            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='trailer'"><i class="fa fa-video-camera"></i></button>
+        </div>
+        <div class="btn-group" role="group" title="Acteurs">
+            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='actors'"><i class="fa fa-users"></i></button>
+        </div>
+        <div class="btn-group" role="group" title="Filminformatie">
+            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='info'"><i class="fa fa-info"></i></button>
+        </div>
+    </div>
+
+    <div style="margin-top:10px;">
+        <div data-ng-show="vm.tab.active == 'plot'">
+            <p>{{movieCtrl.movieDetails.Plot}}</p>
+        </div>
+        <div data-ng-show="vm.tab.active == 'poster'">
+            <span><movie-poster imdb="{{movieCtrl.movieDetails.Imdb}}"></movie-poster></span>
+        </div>
+        <div data-ng-show="vm.tab.active == 'reviews'">
+            Hier de recenties.... ;)
+        </div>
+        <div data-ng-show="vm.tab.active == 'trailer'">
+            <span><movie-trailer data-url="{{movieCtrl.movieDetails.TrailerUrl}}"></movie-trailer></span>
+        </div>
+        <div data-ng-show="vm.tab.active == 'actors'">
+            Acteurs:
+            <br />
+            <div data-ng-repeat="actor in movieCtrl.movieDetails.Actors">
+                {{actor}}
+            </div>
+        </div>
+        <div data-ng-show="vm.tab.active == 'info'">
+            <dl>
+                <dt>Regisseurs</dt>
+                <dd>
+                    <span data-ng-repeat="director in movieCtrl.movieDetails.Directors">
+                        {{director}}<span data-ng-hide="$last">,</span>
+                    </span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>Duur</dt>
+                <dd>{{movieCtrl.movieDetails.Duration}}</dd>
+            </dl>
+            <dl>
+                <dt>Jaar</dt>
+                <dd>{{movieCtrl.movieDetails.Year}}</dd>
+            </dl>
+            <dl>
+                <dt>Alternatieve titel</dt>
+                <dd>{{movieCtrl.movieDetails.AlternativeTitle}}</dd>
+            </dl>
+            <dl>
+                <dt>Uit op DVD</dt>
+                <dd></dd>
+            </dl>
+            <dl>
+                <dt>Release bioscoop</dt>
+                <dd></dd>
+            </dl>
+            <dl>
+                <dt>Genre</dt>
+                <dd>
+                    <span data-ng-repeat="genre in movieCtrl.movieDetails.Genres">
+                        {{genre}}<span data-ng-hide="$last">,</span>
+                    </span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>Landen</dt>
+                <dd>
+                    <span data-ng-repeat="country in movieCtrl.movieDetails.Countries">
+                        {{country}}<span data-ng-hide="$last">,</span>
+                    </span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>

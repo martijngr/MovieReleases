@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
 
-    @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Content/css")
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/angular")
@@ -51,20 +51,16 @@
                     <li data-ng-class="{active: active == 'SoonInCinema'}"><a href="/#/SoonInCinema">Binnenkort in de bioscoop</a></li>
                     <li data-ng-class="{active: active == 'Cinema'}"><a href="/#/Cinema">Nu in de bioscoop</a></li>
                     <li data-ng-class="{active: active == 'Rent'}"><a href="/#/Rent">Nu te huur</a></li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
+                    <li class="visible-xs-block">
+                        <form style="padding-left: 15px" role="search" data-ng-submit="homeCtrl.searchMovie()">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-default" placeholder="Search" data-ng-model="homeCtrl.search.movieName">
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                        </form>
                     </li>
                 </ul>
-                <form class="navbar-form navbar-left" role="search" data-ng-submit="homeCtrl.searchMovie()">
+                <form class="navbar-form navbar-left hidden-xs" role="search" data-ng-submit="homeCtrl.searchMovie()">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search" data-ng-model="homeCtrl.search.movieName">
                     </div>

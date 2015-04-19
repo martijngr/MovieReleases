@@ -9,7 +9,8 @@
 	var rename = require('gulp-rename');
 	var sourcemaps = require('gulp-sourcemaps');
 	var karma = require('gulp-karma');
-
+	var less = require('gulp-less');
+	
 	// Concatenate & Minify JS
 	gulp.task('scripts', function () {
 		return gulp.src(['Angular/js/app.js',  'Angular/js/**/*.js'])
@@ -21,7 +22,12 @@
 			.pipe(sourcemaps.write('maps'))
 			.pipe(gulp.dest('Scripts/min'));
 	});
-
+	
+	gulp.task('styles', function () {
+		return gulp.src(['Content/Site.less'])
+			.pipe(less())
+			.pipe(gulp.dest('Content'));
+	});
 	//gulp.task('scripts', function () {
 	//    return gulp.src(['Angular/js/app.js',  'Angular/js/**/*.js'])
 	//        .pipe(concat('all.js'))
@@ -52,8 +58,8 @@
 
 	// Watch Files For Changes
 	gulp.task('watch', function () {
-		gulp.watch(['Angular/js/**/*.js'], ['scripts']);
+		gulp.watch(['Angular/js/**/*.js', 'Content/Site.less'], ['scripts', 'styles']);
 	});
 	
 	// Default Task
-	gulp.task('default', ['scripts', 'watch']);
+	gulp.task('default', ['scripts', 'styles', 'watch']);

@@ -8,6 +8,9 @@
 - bij wisselen van pagina een loader tonen
 - bij toevoegen van film aan downloadlist, de betreffende lijst actief maken (filter)
 - Bij toevoegen film aan download list effect tonen/animatie
+- Implementeren van de IoC container -> UnitOfWork perweb request
+- Compatible voor iPad maken --> zokbalk
+- Zoekresultaten geven verkeerd IMDB terug... zonder tt er voor --> uitzoeken
 
 
 Actie

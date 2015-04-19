@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using MovieReleases.Business;
+using MovieReleases.Business.MovieScrapers;
 using MovieReleases.DTO;
 
 namespace MovieReleases.Controllers
@@ -14,16 +15,29 @@ namespace MovieReleases.Controllers
     {
         private MovieService _movieService;
 
-        public MovieController()
+        public MovieController(MovieService movieService)
         {
-            _movieService = new MovieService();
+            _movieService = movieService;
         }
 
         public MovieDto Get(string movieMeterId)
         {
-            var movie = _movieService.GetFilmById(movieMeterId);
+            // More on exception handling: http://www.asp.net/web-api/overview/error-handling/exception-handling
+            try
+            {
+                var movie = _movieService.GetFilmById(movieMeterId);
+                return movie;
+            }
+            catch (MovieNotFoundException ex)
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(ex.Message),
+                    ReasonPhrase = "Film niet gevonden"
+                };
 
-            return movie;
+                throw new HttpResponseException(resp);
+            }
         }
 
         [HttpGet]

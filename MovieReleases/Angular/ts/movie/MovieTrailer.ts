@@ -11,6 +11,8 @@
                 url: '@',
             },
             link: function (scope: IMovieTrailerScope, element: JQuery, attributes: any) {
+                if (!scope.url) return;
+
                 var iframe = <HTMLIFrameElement>document.createElement("IFRAME");
 
                 iframe.src = scope.url;

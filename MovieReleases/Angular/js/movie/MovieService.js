@@ -1,13 +1,16 @@
 ﻿var MovieApp;
 (function (MovieApp) {
     var MovieService = (function () {
-        function MovieService($http, $q, $window) {
+        function MovieService($http, $q, $window, $location) {
             this.$http = $http;
             this.$q = $q;
             this.$window = $window;
+            this.$location = $location;
             this.GetMovieByImdb = function (imdb) {
                 return this.HandleGetRequest("api/Movie?movieMeterId=" + imdb).then(function (response) {
                     return response;
+                }, function (rejection) {
+                    return rejection.data;
                 });
             };
             this.SearchMovie = function (movieName) {
@@ -84,7 +87,7 @@
                 return response.data;
             });
         };
-        MovieService.$inject = ['$http', '$q', '$window'];
+        MovieService.$inject = ['$http', '$q', '$window', '$location'];
         return MovieService;
     })();
     MovieApp.MovieService = MovieService;

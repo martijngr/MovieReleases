@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using MovieReleases.Business.Notification;
+using MovieReleases.IoC;
 using MovieReleases.Notification;
+using SimpleInjector;
+using SimpleInjector.Integration.Web.Mvc;
+using SimpleInjector.Integration.WebApi;
 
 namespace MovieReleases
 {
@@ -20,15 +25,27 @@ namespace MovieReleases
         {
             AreaRegistration.RegisterAllAreas();
 
-            // WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-
             //var runner = new NotificationTaskRunner(new Notifier());
             //runner.StartNotificationServive(0.5);
+
+            var container = new Container();
+
+            IoCRegistration.Register(container);
+
+            container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
+            container.RegisterMvcIntegratedFilterProvider();
+            container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
+
+            container.Verify();
+
+            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
+
         }
     }
 }

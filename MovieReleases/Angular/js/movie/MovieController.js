@@ -6,7 +6,19 @@
             this.$routeParams = $routeParams;
             this.MovieService = MovieService;
             this.movie = movie;
-            this.movieDetails = this.movie;
+            this.vm = {
+                viewtype: {
+                    carousel: false,
+                    mobile: true
+                }
+            };
+            if (!_.isString(movie)) {
+                this.movieDetails = this.movie;
+            } else {
+                this.vm.viewtype.carousel = false;
+                this.vm.viewtype.mobile = false;
+                this.showError = true;
+            }
         }
         MovieController.$inject = ['$scope', '$routeParams', 'MovieService', 'movie'];
         return MovieController;

@@ -14,14 +14,16 @@ namespace MovieReleases.Areas.HelpPage.Controllers
         private const string ErrorViewName = "Error";
 
         public HelpController()
-            : this(GlobalConfiguration.Configuration)
+            //: this(GlobalConfiguration.Configuration)
         {
+            this.Configuration = GlobalConfiguration.Configuration;
         }
 
-        public HelpController(HttpConfiguration config)
-        {
-            Configuration = config;
-        }
+        // Commented this out otherwise simple injector throws an exception that this controller has 2 public ctors
+        //public HelpController(HttpConfiguration config)
+        //{
+        //    Configuration = config;
+        //}
 
         public HttpConfiguration Configuration { get; private set; }
 

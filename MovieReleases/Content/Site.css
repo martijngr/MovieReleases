@@ -1,224 +1,233 @@
-﻿body, h1 {
-    margin: 0;
-    padding: 0;
+@import "bootstrap.css";
+body,
+h1 {
+  margin: 0;
+  padding: 0;
 }
-
 #view-container {
-    margin-top: 51px;
+  margin-top: 51px;
 }
-
 @media (max-width: 992px) {
-    #view-container {
-        margin-right: 0px;
-    }
+  #view-container {
+    margin-right: 0px;
+  }
 }
-
 @media (min-width: 992px) {
-    #view-container {
-        margin-right: 360px;
-    }
+  #view-container {
+    margin-right: 360px;
+  }
 }
-
 .full-view-container-width {
-    margin-right: 0 !important;
+  margin-right: 0 !important;
 }
-
 .wrapper {
-    width: 100%;
-    background: #F4F4F4;
-    margin-bottom: 25px;
-    opacity: 0.8;
+  width: 100%;
+  background: #F4F4F4;
+  margin-bottom: 25px;
+  opacity: 0.8;
 }
-
 .scrolls {
-    width: auto;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    padding: 5px;
+  width: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding: 5px;
 }
-
 div.moviebox {
-    display: inline-block;
-    width: 175px;
-    margin-right: 20px;
-    text-align: center;
-    min-height: 290px;
+  display: inline-block;
+  width: 175px;
+  margin-right: 20px;
+  text-align: center;
+  min-height: 290px;
 }
-
-    div.moviebox div {
-        border-bottom: 1px solid black;
-        padding: 5px;
-    }
-
-    div.moviebox .poster {
-        height: 242px;
-    }
-
-    div.moviebox .poster-button-bar {
-        text-align: left;
-    }
-
-    div.moviebox .title {
-        width: 175px;
-        overflow: hidden;
-    }
-
+div.moviebox div {
+  border-bottom: 1px solid black;
+  padding: 5px;
+}
+div.moviebox .poster {
+  height: 242px;
+}
+div.moviebox .poster-button-bar {
+  text-align: left;
+}
+div.moviebox .title {
+  width: 175px;
+  overflow: hidden;
+}
 div.in-download-list {
-    /*background-color: #5abd1e;*/
-    background: #1e5799; /* Old browsers */
-    background: -moz-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74D2CE 96%, #000000 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(0%,#f4f4f4), color-stop(96%,#74D2CE), color-stop(100%,#000000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+  /*background-color: #5abd1e;*/
+  background: #1e5799;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74d2ce 96%, #000000 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1e5799), color-stop(0%, #f4f4f4), color-stop(96%, #74d2ce), color-stop(100%, #000000));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74d2ce 96%, #000000 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74d2ce 96%, #000000 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74d2ce 96%, #000000 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #1e5799 0%, #f4f4f4 0%, #74d2ce 96%, #000000 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e5799', endColorstr='#000000', GradientType=0);
+  /* IE6-9 */
 }
-
-    div.in-download-list a {
-        color: #371F45;
-    }
-
+div.in-download-list a {
+  color: #371F45;
+}
 div.movie-tooltip {
-    position: absolute;
-    background-color: #FFF;
-    width: 400px;
-    border: 1px solid #b48c8c;
-    border-radius: 10px;
-    padding: 10px;
+  position: absolute;
+  background-color: #FFF;
+  width: 400px;
+  border: 1px solid #b48c8c;
+  border-radius: 10px;
+  padding: 10px;
 }
-
 .to-download-item {
-    height: 40px;
-    line-height: 40px;
+  height: 40px;
+  line-height: 40px;
 }
-
-    .to-download-item:hover {
-        background-color: #e7e7e7;
-    }
-
+.to-download-item:hover {
+  background-color: #e7e7e7;
+}
 .fa-trash-o {
-    cursor: pointer;
+  cursor: pointer;
 }
-
 .striked {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
-
 .movie-dropdown {
-    padding: 0;
-    margin: 2px 0 0;
-    list-style: none;
-    font-size: 14px;
-    background-color: #C3C3C3;
+  padding: 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  background-color: #C3C3C3;
 }
-
-    .movie-dropdown a {
-        color: #2D3A3A;
-    }
-
-    .movie-dropdown .btn-download {
-        /*background: #74D2CE;*/
-        background: #1e5799; /* Old browsers */
-        background: -moz-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74D2CE 96%, #000000 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(0%,#f4f4f4), color-stop(96%,#74D2CE), color-stop(100%,#000000)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* IE10+ */
-        background: linear-gradient(to bottom, #1e5799 0%,#f4f4f4 4%,#74D2CE 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
-    }
-
+.movie-dropdown a {
+  color: #2D3A3A;
+}
+.movie-dropdown .btn-download {
+  /*background: #74D2CE;*/
+  background: #1e5799;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74d2ce 96%, #000000 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1e5799), color-stop(0%, #f4f4f4), color-stop(96%, #74d2ce), color-stop(100%, #000000));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74d2ce 96%, #000000 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74d2ce 96%, #000000 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74d2ce 96%, #000000 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #1e5799 0%, #f4f4f4 4%, #74d2ce 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e5799', endColorstr='#000000', GradientType=0);
+  /* IE6-9 */
+}
 #page-loader .centered {
-    background: #EAEAEA;
-    opacity: 0.5;
-    color: #FFF;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 10001;
+  background: #EAEAEA;
+  opacity: 0.5;
+  color: #FFF;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10001;
 }
-
 #page-loader img {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    margin: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
 }
-
 #overview-background {
-    position: relative;
+  position: relative;
 }
-
-    #overview-background::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center 52px;
-        opacity: 0.5;
-        z-index: -1;
-    }
-
+#overview-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center 52px;
+  opacity: 0.5;
+  z-index: -1;
+}
 #download-list {
-    position: fixed;
-    top: 49px;
-    right: 0;
-    width: 360px;
-    overflow: auto;
-    bottom: 0;
+  position: fixed;
+  top: 49px;
+  right: 0;
+  width: 360px;
+  overflow: auto;
+  bottom: 0;
 }
-
-    #download-list #toggle-bar {
-        color: #337ab7;
-        height: 30px;
-        text-align: center;
-        font-size: 1.5em;
-        cursor: pointer;
-        background-color: #C3C3C3;
-        box-shadow: 0px 2px 8px 0px rgba(195, 195, 195,1);
-        opacity: 0.8;
-    }
-
+#download-list #toggle-bar {
+  color: #337ab7;
+  height: 30px;
+  text-align: center;
+  font-size: 1.5em;
+  cursor: pointer;
+  background-color: #C3C3C3;
+  box-shadow: 0px 2px 8px 0px #c3c3c3;
+  opacity: 0.8;
+}
 [ng-drop].drag-enter {
-    cursor: move;
+  cursor: move;
 }
-
 .dropzone {
-    background-color: #C3C3C3;
-    height:100%;
-    width:100%;
-    border: 1px dashed black;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    
-    -webkit-flex-pack:center;
-	-webkit-justify-content:center;
-	-moz-justify-content:center;
-	-ms-flex-pack:center;
-	justify-content:center;
-    
-    -webkit-flex-line-pack:center;
-	-ms-flex-line-pack:center;
-	-webkit-align-content:center;
-	align-content:center;
-    
-    -webkit-flex-direction:column;
-	-moz-flex-direction:column;
-	-ms-flex-direction:column;
-	flex-direction:column;
-    
-    text-align: center;
+  background-color: #C3C3C3;
+  height: 100%;
+  width: 100%;
+  border: 1px dashed black;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-line-pack: center;
+  -ms-flex-line-pack: center;
+  -webkit-align-content: center;
+  align-content: center;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  text-align: center;
+}
+#movie-details {
+  margin: 0 10px;
+  padding-top: 1px;
+}
+#movie-details #viewtype-block {
+  float: right;
+  font-size: 1.3em;
+}
+#movie-details #viewtype-block {
+  font-size: 1.3em;
+}
+@media (max-width: 768px) {
+  #movie-details #viewtype-block {
+    font-size: 2em;
+  }
+}
+#movie-details #viewtype-block i {
+  margin-right: 10px;
+  cursor: pointer;
+}
+.form-control-default {
+  width: auto ;
+  display: inline;
 }
