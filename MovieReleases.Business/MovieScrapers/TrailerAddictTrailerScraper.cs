@@ -12,7 +12,7 @@ namespace MovieReleases.Business.MovieScrapers
     // http://www.traileraddict.com/trailerapi
     public class TrailerAddictTrailerScraper : IMovieTrailerScraper
     {
-        public string GetTrailerUrl(string imdb)
+        public string GetTrailerUrl(string imdb, string movieName)
         {
             imdb = this.StripTTOfImdb(imdb);
             string url = string.Format("http://api.traileraddict.com/?imdb={0}", imdb);

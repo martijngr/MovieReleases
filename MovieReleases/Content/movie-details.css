@@ -1,4 +1,5 @@
 ﻿#movie-details {
+    position: relative;
 }
 
     #movie-details #movie-details-container {
@@ -42,10 +43,12 @@
     }
 
     #movie-details #button-bar {
-        float: left;
+        position: absolute;
         width: 149px;
         font-size: 2em;
         text-align: center;
+        background-color: #D58A00;
+        height: 100%;
     }
 
         #movie-details #button-bar ul {
@@ -59,7 +62,8 @@
 
                 #movie-details #button-bar ul li:hover {
                     cursor: pointer;
-                    background-color: #C3C3C3;
+                    background-color: #F8F8F8;
+                    color: black;
                 }
 
 .movie-detail-box {
@@ -83,9 +87,9 @@
 
         .movie-detail-box.text-content.small {
             width: 250px;
-            font-size:100%;
+            font-size: 100%;
         }
 
     .movie-detail-box iframe {
-        margin-top: 95px;
+        margin-top: 20px;
     }

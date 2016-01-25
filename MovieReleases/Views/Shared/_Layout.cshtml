@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html data-ng-app="movieApp">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -15,8 +15,8 @@
 
     <script src="~/Scripts/min/all.js"></script>
     <script>
-       
-        // Declare a proxy to reference the hub. 
+
+        // Declare a proxy to reference the hub.
         var notificationHub = $.connection.notificationHub;
 
         // Create a function that the hub can call to broadcast messages.
@@ -25,47 +25,73 @@
         };
 
         $.connection.hub.start().done(function () {
-                
+
         });
     </script>
 
     <title>@ViewBag.Title</title>
 </head>
-<body data-ng-app="movieApp" data-ng-controller="HomeController as homeCtrl">
+<body data-ng-controller="HomeController as homeCtrl">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Film shizzle</a>
+                <form class="navbar-form collapsed navbar-right visible-sm-block visible-xs-block" role="search" data-ng-submit="homeCtrl.searchMovie()" style="border:none;padding-left:15px; margin:0;">
+                    <input type="text" class="form-control" style="display:inline-block;width:200px" placeholder="Zoeken" data-ng-model="homeCtrl.search.movieName">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-left">
                     <li data-ng-class="{active: active == 'SoonInCinema'}"><a href="/#/SoonInCinema">Binnenkort in de bioscoop</a></li>
                     <li data-ng-class="{active: active == 'Cinema'}"><a href="/#/Cinema">Nu in de bioscoop</a></li>
                     <li data-ng-class="{active: active == 'Rent'}"><a href="/#/Rent">Nu te huur</a></li>
-                    <li class="visible-xs-block">
-                        <form style="padding-left: 15px" role="search" data-ng-submit="homeCtrl.searchMovie()">
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-default" placeholder="Search" data-ng-model="homeCtrl.search.movieName">
-                                <button type="submit" class="btn btn-default">Submit</button>
-                            </div>
-                        </form>
+                    <li data-ng-class="{active: active == 'MovieList'}">
+                        <a href="/#/MovieList">Filmlijst</a>
                     </li>
                 </ul>
-                <form class="navbar-form navbar-left hidden-xs" role="search" data-ng-submit="homeCtrl.searchMovie()">
+                <form class="navbar-form navbar-left hidden-xs hidden-sm" role="search" data-ng-submit="homeCtrl.searchMovie()">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search" data-ng-model="homeCtrl.search.movieName">
+                        <input type="text" class="form-control" placeholder="Zoeken" data-ng-model="homeCtrl.search.movieName">
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-search"></i>
+                    </button>
                 </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="friendsDropdown">
+                        <ul>
+                            <li data-ng-class="{'dropdown-button':true, 'active': showSubmenu}" data-ng-click="showSubmenu = !showSubmenu">
+                                <i class="fa fa-users" style="font-size:25px;"></i>
+
+                                <ul data-ng-class="{'friends-submenu': showSubmenu}">
+                                    <li>
+                                        <a href="javascript:void()">Filmavond inplannen</a>
+                                    </li>
+                                    <li>
+                                        <a href="/#/Friends">Vrienden</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void()">Instellingen</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void()">Uitloggen</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>

@@ -29,7 +29,7 @@ namespace MovieReleases.Business.MovieScrapers.MovieMeter
                     {
                         var movie = new MovieFindDTO
                         {
-                            Id = movieJson.GetValue<string>("id"),
+                            ProviderId = movieJson.GetValue<string>("id"),
                             Title = movieJson.GetValue<string>("title"),
                             Year = movieJson.GetValue<string>("year"),
                         };

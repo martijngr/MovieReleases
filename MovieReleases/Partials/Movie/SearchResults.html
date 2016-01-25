@@ -1,5 +1,8 @@
-﻿<div>
-    <table class="table table-striped">
+﻿<div style="padding:20px;">
+    <h2>
+        Er <span data-ng-show="movies.length == 1">is</span><span data-ng-show="movies.length > 1">zijn</span> {{movies.length}} film<span data-ng-show="movies.length > 1">s</span> gevonden.
+    </h2>
+    <table class="table">
         <thead>
             <tr>
                 <th>
@@ -13,7 +16,7 @@
         <tbody>
             <tr data-ng-repeat="m in movies | orderBy:'-Year'">
                 <td>
-                    <a href="#/Movie/{{m.Id}}">{{m.Title}}</a>
+                    <a href="#/Movie/{{m.Imdb}}">{{m.Title}}</a>
                 </td>
                 <td>
                     {{m.Year}}

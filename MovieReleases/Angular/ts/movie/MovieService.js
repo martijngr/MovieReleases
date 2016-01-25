@@ -1,4 +1,4 @@
-﻿var MovieApp;
+var MovieApp;
 (function (MovieApp) {
     var MovieService = (function () {
         function MovieService($http, $q, $window, $location) {
@@ -10,7 +10,7 @@
                 return this.HandleGetRequest("api/Movie?movieMeterId=" + imdb).then(function (response) {
                     return response;
                 }, function (rejection) {
-                    return rejection.data;
+                    return rejection.data; // this will contain the error message.
                 });
             };
             this.SearchMovie = function (movieName) {
@@ -21,55 +21,49 @@
             this.GetMoviesForRent = function () {
                 var defer = this.$q.defer();
                 var movies = this.$window.sessionStorage.getItem('movies');
-
                 if (movies) {
                     var data = angular.fromJson(movies);
                     defer.resolve(data);
-                } else {
+                }
+                else {
                     this.HandleGetRequest("/api/Rent").then(function (response) {
                         var data = angular.toJson(response);
                         sessionStorage.setItem('movies', data);
-
                         defer.resolve(response);
                     });
                 }
-
                 return defer.promise;
             };
             this.GetMoviesInCinema = function () {
                 var defer = this.$q.defer();
                 var movies = sessionStorage.getItem('cinemaMovies');
-
                 if (movies) {
                     var data = angular.fromJson(movies);
                     defer.resolve(data);
-                } else {
+                }
+                else {
                     this.HandleGetRequest("api/Cinema").then(function (response) {
                         var data = angular.toJson(response);
                         sessionStorage.setItem('cinemaMovies', data);
-
                         defer.resolve(response);
                     });
                 }
-
                 return defer.promise;
             };
             this.GetMoviesSoonInCinema = function () {
                 var defer = this.$q.defer();
-                var movies;
-
+                var movies; // = sessionStorage.getItem('soonInCinemaMovies');
                 if (movies) {
                     var data = angular.fromJson(movies);
                     defer.resolve(data);
-                } else {
+                }
+                else {
                     this.HandleGetRequest("api/SoonInCinema").then(function (response) {
                         var data = angular.toJson(response);
                         sessionStorage.setItem('soonInCinemaMovies', data);
-
                         defer.resolve(response);
                     });
                 }
-
                 return defer.promise;
             };
             this.GetMoviePoster = function (imdbId) {
@@ -77,11 +71,15 @@
                     return response.data;
                 });
             };
+            this.getMovieById = function (providerId) {
+                return this.$http.get("api/Movie/GetById?id=" + providerId).then(function (response) {
+                    return response.data;
+                });
+            };
         }
         MovieService.prototype.ClearSessionStorage = function () {
             sessionStorage.clear();
         };
-
         MovieService.prototype.HandleGetRequest = function (path) {
             return this.$http.get(path).then(function (response) {
                 return response.data;
@@ -92,7 +90,6 @@
     })();
     MovieApp.MovieService = MovieService;
 })(MovieApp || (MovieApp = {}));
-
 app.service("MovieService", MovieApp.MovieService);
 //angular.module('movieapp').service("movieservice", ['$http', '$q', function ($http, $q) {
 //    this.addmovietodownloadlist = function (movie) {
@@ -162,5 +159,5 @@ app.service("MovieService", MovieApp.MovieService);
 //            return response.data;
 //        });
 //    }
-//}]);
+//}]); 
 //# sourceMappingURL=MovieService.js.map

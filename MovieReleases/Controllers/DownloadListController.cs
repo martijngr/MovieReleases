@@ -11,6 +11,7 @@ using MovieReleases.DTO;
 
 namespace MovieReleases.Controllers
 {
+    [RoutePrefix("api/DownloadList")]
     [EnableCors(origins: "http://localhost", headers: "*", methods: "*")]
     public class DownloadListController : ApiController
     {
@@ -21,18 +22,32 @@ namespace MovieReleases.Controllers
             _downloadListService = downloadListService;
         }
 
-        public void Post(MovieDto movie)
+        public WatchListItemDTO Post(MovieDto movie)
         {
-            _downloadListService.AddMovieToDownloadList(movie);
+            var watchlistItem = _downloadListService.AddMovieToDownloadList(movie);
+
+            return watchlistItem;
         }
 
-        public MovieDto[] Get()
+        [HttpPost]
+        [Route("MarkMovieAsWatched/{id}")]
+        public void MarkMovieAsWatched(int id)
         {
-            var movies = _downloadListService.GetMoviesToDownload();
-            return movies;
+ 
         }
 
-        public HttpResponseMessage Delete(string id)
+        public void Put(WatchListItemDTO watchlistItem)
+        {
+            _downloadListService.Update(watchlistItem);
+        }
+
+        public IEnumerable<WatchListItemDTO> Get()
+        {
+            var watchlistItems = _downloadListService.GetMoviesInWatchlist();
+            return watchlistItems;
+        }
+
+        public HttpResponseMessage Delete(int id)
         {
             _downloadListService.DeleteMovieFromDownloadList(id);
 

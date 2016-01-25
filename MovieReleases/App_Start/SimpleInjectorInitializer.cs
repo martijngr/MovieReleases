@@ -39,7 +39,7 @@ namespace MovieReleases.App_Start
 
         private static void InitializeContainer(Container container)
         {
-            IoCRegistration.Register(container);
+            IoCRegistration.RegisterForWeb(container);
         }
     }
 }

@@ -9,17 +9,20 @@
             data-ng-show="showMovieDropdown">
             <li>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <a class="btn btn-default" title="Binnenkort in de bioscoop" data-ng-click="movieTypeFilter = 1">
-                        <img src="~/Images/SoonInCinema.png" /> <span class="badge alert-success">{{ (homeCtrl.moviesToDownload | filter: {MovieType: 1}).length }}</span>
+                    <a data-ng-class="{'btn':true, 'btn-default':true, 'active': movieTypeFilter == 1}" title="Binnenkort in de bioscoop" data-ng-click="movieTypeFilter = 1">
+                        <img src="~/Images/SoonInCinema.png" /> <span class="badge alert-success">{{ countMovieType(1) }}</span>
                     </a>
-                    <a class="btn btn-default" title="In de bioscoop" data-ng-click="movieTypeFilter = 2">
-                        <img src="~/Images/InCinema.png" /> <span class="badge alert-danger">{{ (homeCtrl.moviesToDownload | filter: {MovieType: 2}).length }}</span>
+                    <a data-ng-class="{'btn':true, 'btn-default':true, 'active': movieTypeFilter == 2}" title="In de bioscoop" data-ng-click="movieTypeFilter = 2">
+                        <img src="~/Images/InCinema.png" /> <span class="badge alert-danger">{{ countMovieType(2) }}</span>
                     </a>
-                    <a class="btn btn-default" title="Uit op DVD" data-ng-click="movieTypeFilter = 3">
-                        <img src="~/Images/Dvd.png" /> <span class="badge alert-warning">{{ (homeCtrl.moviesToDownload | filter: {MovieType: 3}).length }}</span>
+                    <a data-ng-class="{'btn':true, 'btn-default':true, 'active': movieTypeFilter == 3}" title="Uit op DVD" data-ng-click="movieTypeFilter = 3">
+                        <img src="~/Images/Dvd.png" /> <span class="badge alert-warning">{{ countMovieType(3) }}</span>
+                    </a>
+                    <a data-ng-class="{'btn':true, 'btn-default':true, 'active': movieTypeFilter == 4}" title="Uit op DVD" data-ng-click="movieTypeFilter = 4">
+                        <i class="fa fa-question"></i> <span class="badge alert-warning">{{ countMovieType(4) }}</span>
                     </a>
                 </div>
-                <div data-ng-repeat="m in homeCtrl.moviesToDownload | filter: {MovieType: movieTypeFilter} | orderBy: 'Title'"
+                <div data-ng-repeat="m in homeCtrl.moviesToDownload | filter: filter | orderBy: 'Movie.Title'"
                      class="to-download-item">
                     <div class="clearfix" data-ng-mouseover="rowHovered = true" data-ng-mouseleave="rowHovered = false">
                         <div class="col-sm-1">
@@ -28,14 +31,14 @@
                                title="Verwijder uit lijst"
                                data-ng-show="rowHovered"></i>
                         </div>
-                        <div data-ng-class="{'col-sm-9': true, 'striked': m.Downloaded}">
-                            <a ng-href="/#/Movie/{{m.Imdb}}">{{m.Title}}</a>
+                        <div data-ng-class="{'col-sm-9': true, 'striked': m.Movie.Downloaded}">
+                            <a ng-href="/#/Movie/{{m.Movie.Imdb}}">{{m.Movie.Title}}</a>
                         </div>
                         <div class="col-sm-1">
                             <button class="btn btn-download btn-xs"
                                     data-ng-click="homeCtrl.markMovieAsDownloaded(m)"
                                     title="Markeer als gedownload"
-                                    data-ng-show="!m.Downloaded && rowHovered">
+                                    data-ng-show="!m.Movie.Downloaded && rowHovered">
                                 <i class="fa fa-download"></i>
                             </button>
                         </div>
@@ -43,10 +46,6 @@
                 </div>
             </li>
         </ul>
-        <div id="toggle-bar" data-ng-click="showMovieDropdown = !showMovieDropdown">
-            <i class="fa fa-arrow-circle-up" data-ng-show="showMovieDropdown"></i>
-            <i class="fa fa-arrow-circle-down" data-ng-hide="showMovieDropdown"></i>
-        </div>
     </div>
     <div data-ng-show="homeCtrl.dragPending" class="dropzone">
         Drop hier de film om hem toe te voegen aan de lijst.

@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using MovieReleases.Business;
-using MovieReleases.Business.Notification;
-using MovieReleases.Notification;
+﻿using System.Web.Mvc;
+using MovieReleases.Business.Users;
 
 namespace MovieReleases.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly MoviesToNotifyDecorator _notifier;
+        private readonly UserService _userService;
 
-        public HomeController(MoviesToNotifyDecorator notifier)
+        public HomeController(UserService userService)
         {
-            _notifier = notifier;
+            _userService = userService;
         }
 
         public ActionResult Index()
@@ -23,12 +17,20 @@ namespace MovieReleases.Controllers
             return View();
         }
 
-        public void StartNotificationService()
+        public JsonResult GetStartupData()
         {
-            var dec2 = new SendNotificationsDecorator(_notifier, new Notifier());
-            var dec3 = new HandleNotificationSendDecorator(dec2);
-            var timer = new TimerNotificationDecorator(dec3);
-            //timer.Notify(1);
+            var user = _userService.GetUser(1);
+
+            return new JsonResult
+            {
+                Data = new 
+                {
+                    userId = user.UserId,
+                    username = user.Username,
+                    friends = user.Friends,
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+            };
         }
     }
 }

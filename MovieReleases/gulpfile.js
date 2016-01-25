@@ -13,7 +13,7 @@
 	
 	// Concatenate & Minify JS
 	gulp.task('scripts', function () {
-		return gulp.src(['Angular/js/app.js',  'Angular/js/**/*.js'])
+		return gulp.src(['Angular/js/**/*.js'])
 			.pipe(sourcemaps.init())
 				.pipe(concat('all.js'))
 				.pipe(gulp.dest('Scripts/min'))
@@ -24,7 +24,7 @@
 	});
 	
 	gulp.task('styles', function () {
-		return gulp.src(['Content/Site.less'])
+		return gulp.src(['Content/Site.less', 'Content/bootstrap/bootstrap.less'])
 			.pipe(less())
 			.pipe(gulp.dest('Content'));
 	});
@@ -58,7 +58,7 @@
 
 	// Watch Files For Changes
 	gulp.task('watch', function () {
-		gulp.watch(['Angular/js/**/*.js', 'Content/Site.less'], ['scripts', 'styles']);
+		gulp.watch(['Angular/js/**/*.js', 'Content/Site.less', 'Content/bootstrap/variables.less'], ['scripts', 'styles', 'styles']);
 	});
 	
 	// Default Task

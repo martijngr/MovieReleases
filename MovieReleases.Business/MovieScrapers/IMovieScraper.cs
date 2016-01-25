@@ -9,11 +9,9 @@ namespace MovieReleases.Business.MovieScrapers
 {
     public interface IMovieScraper
     {
-        Dictionary<string, MovieDto[]> GetMoviesOutOnDvd();
+        Dictionary<DateTime, MovieDto[]> GetMoviesInCinema();
 
-        Dictionary<string, MovieDto[]> GetMoviesInCinema();
-
-        Dictionary<string, MovieDto[]> GetMoviesSoonInCinema();
+        Dictionary<DateTime, MovieDto[]> GetMoviesSoonInCinema();
 
         MovieDto GetMovieById(string id);
     }

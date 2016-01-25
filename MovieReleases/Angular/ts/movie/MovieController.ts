@@ -4,7 +4,7 @@
     }
 
     export interface RouteParams extends ng.route.IRouteParamsService {
-        imdb: string;
+        userId: number;
     }
 
     export class MovieController {
@@ -14,8 +14,8 @@
         movieDetails: Movie;
         vm = {
             viewtype: {
-                carousel: false,
-                mobile: true,
+                carousel: true,
+                mobile: false,
             }
         }
 

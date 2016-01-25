@@ -1,4 +1,4 @@
-﻿var MovieApp;
+var MovieApp;
 (function (MovieApp) {
     var Movie = (function () {
         function Movie() {
@@ -13,7 +13,6 @@
             enumerable: true,
             configurable: true
         });
-
         Object.defineProperty(Movie.prototype, "Year", {
             get: function () {
                 return this._year;
@@ -24,7 +23,6 @@
             enumerable: true,
             configurable: true
         });
-
         Object.defineProperty(Movie.prototype, "Thumbnail", {
             get: function () {
                 return this._thumbnail;
@@ -35,7 +33,6 @@
             enumerable: true,
             configurable: true
         });
-
         Object.defineProperty(Movie.prototype, "Plot", {
             get: function () {
                 return this._plot;
@@ -46,7 +43,6 @@
             enumerable: true,
             configurable: true
         });
-
         Object.defineProperty(Movie.prototype, "Duration", {
             get: function () {
                 return this._duration;
@@ -57,7 +53,6 @@
             enumerable: true,
             configurable: true
         });
-
         Object.defineProperty(Movie.prototype, "Downloaded", {
             get: function () {
                 return this._downloaded;
@@ -68,7 +63,6 @@
             enumerable: true,
             configurable: true
         });
-
         Object.defineProperty(Movie.prototype, "Title", {
             get: function () {
                 return this._title;
@@ -79,7 +73,6 @@
             enumerable: true,
             configurable: true
         });
-
         Object.defineProperty(Movie.prototype, "MovieType", {
             get: function () {
                 return this._movieType;
@@ -90,13 +83,22 @@
             enumerable: true,
             configurable: true
         });
-
         Object.defineProperty(Movie.prototype, "Imdb", {
             get: function () {
                 return this._imdb;
             },
             set: function (imdb) {
                 this._imdb = imdb;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Movie.prototype, "Id", {
+            get: function () {
+                return this._id;
+            },
+            set: function (id) {
+                this._imdb = id;
             },
             enumerable: true,
             configurable: true

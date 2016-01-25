@@ -1,31 +1,50 @@
 ﻿<div id="overview-background">
-    <div data-ng-repeat="m in movies">
-        {{m.date}}
+    <div data-ng-repeat="m in movies | orderBy: '-date'">
+        <div class="date">
+            {{m.date | date: 'EEEE d MMMM yyyy'}}
+        </div>
         <div class="wrapper">
             <div class="scrolls">
-                <div data-ng-repeat="y in m.movies"
-                     data-ng-class="{'moviebox': true}"
-                     id="{{y.Imdb}}">
-                    <div data-ng-class="{'title': true, 'in-download-list': movieCtrl.IsMoviePresentInDownloadlist(y)}" title="{{y.Title }}">
-                        <a ng-href="/#/Movie/{{y.Imdb}}">{{y.Title}}</a>
+                <div data-ng-repeat="y in m.movies" style="position:relative" data-ng-class="{'moviebox': true}">
+                    <div id="{{y.Imdb}}"
+                         class="info-slider">
+                        <!--<div data-ng-class="{'title': true, 'in-download-list': movieCtrl.IsMoviePresentInDownloadlist(y)}" title="{{y.Title }}">
+                            {{y.Title}}</a>
+                        </div>-->
+                        <div class="poster"
+                             draggable="{{y}}">
+                            <a ng-href="/#/Movie/{{y.Imdb}}">
+                                <movie-thumb data-thumbnail="{{y.Thumbnail}}"
+                                             imdb="{{y.Imdb}}"></movie-thumb>
+                            </a>
+                        </div>
+                        <div class="poster-button-bar">
+                            <button class="btn btn-primary btn-xs"
+                                    data-ng-click="movieCtrl.addMovieToDownloadList(y)"
+                                    data-ng-hide="movieCtrl.IsMoviePresentInDownloadlist(y)"
+                                    title="Volgen">
+                                <i class="fa fa-download"></i>
+                            </button>
+                            <button class="btn btn-warning btn-xs"
+                                    data-ng-click="movieCtrl.deleteMovieFromDownloadList(y)"
+                                    data-ng-show="movieCtrl.IsMoviePresentInDownloadlist(y)"
+                                    title="Verwijder uit downloadlijst">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                            <button class="btn btn-primary btn-xs"
+                                    data-ng-click="movieCtrl.shareWithFriends(y.Imdb)"
+                                    title="Delen met vrienden">
+                                <i class="fa fa-share-alt"></i>
+                            </button>
+                            <button class="btn btn-primary btn-xs"
+                                    data-ng-click="movieCtrl.toggleExtraInfo(y)"
+                                    title="Lees plot">
+                                <i class="fa fa-info"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div movie-tooltip class="poster"
-                         draggable="{{y}}">
-                        <movie-thumb imdb="{{y.Imdb}}"></movie-thumb>
-                    </div>
-                    <div class="poster-button-bar">
-                        <button class="btn btn-primary btn-xs"
-                                data-ng-click="movieCtrl.addMovieToDownloadList(y)"
-                                data-ng-hide="movieCtrl.IsMoviePresentInDownloadlist(y)"
-                                title="Volgen">
-                            <i class="fa fa-download"></i>
-                        </button>
-                        <button class="btn btn-warning btn-xs"
-                                data-ng-click="movieCtrl.deleteMovieFromDownloadList(y)"
-                                data-ng-show="movieCtrl.IsMoviePresentInDownloadlist(y)"
-                                title="Verwijder uit downloadlijst">
-                            <i class="fa fa-trash-o"></i>
-                        </button>
+                    <div class="movie-expand-info">
+                        {{y.Plot}}
                     </div>
                 </div>
             </div>

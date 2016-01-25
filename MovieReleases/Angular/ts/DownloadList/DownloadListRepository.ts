@@ -2,41 +2,58 @@
     export class DownloadListRepository {
         public static $inject = ['$http', '$q', '$window'];
 
-        private downloadList: Movie[];
+        private watchlist: WatchlistItem[];
 
         constructor(private $http: ng.IHttpService, private $q: ng.IQService, private $window: ng.IWindowService) {
-            this.downloadList = new Array<Movie>();
+            this.watchlist = new Array<WatchlistItem>();
         }
 
         public AddMovieToDownloadList(movie: Movie) {
-            return this.$http.post("/api/DownloadList/", movie).then(response => {
-
-                this.downloadList.push(movie);
-
-                //return response.data;
+            return this.$http.post("/api/DownloadList/", movie).then(response  => {
+                
+                this.watchlist.push(<WatchlistItem>response.data);
             });
+        }
+
+        public MarkMovieAsWatched = function (watchListItem: WatchlistItem){
+            this.$http.put('/api/DownloadList/MarkMovieAsWatched/', watchListItem);
         }
 
         public GetMoviesToDownload = function () {
             return this.$http.get("/api/DownloadList/").then(response => {
-                this.downloadList = response.data;
+                this.watchlist = response.data;
 
-                return this.downloadList;
+                return this.watchlist;
             });
         }
 
-        public DeleteMovieFromDownloadList = function (movie: Movie) {
-            return this.$http.delete("/api/DownloadList/" + movie.Imdb).then(response => {
-                angular.copy(_.without(this.downloadList, movie), this.downloadList);
+        public deleteFromDownloadListByMovie(movie: Movie) {
+            var watchlistItem = this.GetWatchlistItemByMovieId(movie.Id);
 
-                return response;
+            this.deleteFromDownloadListByWatchlist(watchlistItem);
+        }
+
+        public deleteFromDownloadListByWatchlist(watchlistItem: WatchlistItem) {
+            return this.$http.delete("/api/DownloadList/" + watchlistItem.Id).then(response => {
+                angular.copy(_.without(this.watchlist, watchlistItem), this.watchlist);
+                debugger;
             });
         }
 
-        public IsMovieInDownloadList(movie: Movie) : boolean {
-            var enlistedMovie = _.findWhere(this.downloadList, { Imdb: movie.Imdb });
+        public IsMovieInDownloadList(movie: Movie): boolean {
+            var enlistedMovie = _.filter(this.watchlist, function (item) {
+                return item.Movie.Imdb == movie.Imdb;
+            });
 
-            return angular.isDefined(enlistedMovie);
+            return enlistedMovie.length > 0;
+        }
+
+        private GetWatchlistItemByMovieId (movieId: string): WatchlistItem {
+            var enlistedMovie = _.filter(this.watchlist, function (item) {
+                return item.Movie.Id == movieId;
+            });
+
+            return enlistedMovie && enlistedMovie.length > 0 ? _.first(enlistedMovie) : null;
         }
     }
 }

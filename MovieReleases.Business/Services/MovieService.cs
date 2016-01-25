@@ -1,56 +1,97 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using MovieReleases.Business.DownloadList;
 using MovieReleases.Business.MovieScrapers;
 using MovieReleases.Business.MovieScrapers.MovieMeter;
 using MovieReleases.Business.MovieScrapers.RottenTomatoes;
 using MovieReleases.Business.MovieScrapers.TheMovieDB;
 using MovieReleases.Business.Repositories;
+using MovieReleases.Core.Movies;
 using MovieReleases.Domain.Uow;
 using MovieReleases.DTO;
+using MovieReleases.Business.Converters;
+using System;
 
 namespace MovieReleases.Business
 {
-    public class MovieService
+    public class MovieService : IMovieService
     {
-        private MovieRepository _movieRepository;
         private IMovieScraper _scraper;
-        private IMovieScraper _detailsMovieScraper;
+        private IMovieDetailsScraper _detailsMovieScraper;
         private IMovieTrailerScraper _trailerScraper;
         private IPlotScraper _plotScraper;
         private IFindScraper _findScraper;
+        private IOutOnDvdScraper _outOnDvdScraper;
+        private MovieRepository _movieRepository;
+        private MovieConverter _movieConverter;
 
-        public MovieService(MovieRepository movieRepository)
+        public MovieService(
+            IPlotScraper plotScraper, 
+            IFindScraper findScraper,
+            IMovieScraper movieScraper,
+            IMovieTrailerScraper trailerScraper,
+            IMovieDetailsScraper detailScraper,
+            IOutOnDvdScraper outOnDvdScraper,
+            MovieRepository movieRepository, 
+            MovieConverter movieConverter)
         {
+            _scraper = movieScraper;
+            _detailsMovieScraper = detailScraper;
+            _trailerScraper = trailerScraper;
+            _plotScraper = plotScraper;
+            _findScraper = findScraper;
+            _outOnDvdScraper = outOnDvdScraper;
             _movieRepository = movieRepository;
-            _scraper = new RottenTomatoesScraper();
-            _detailsMovieScraper = new TheMovieDBScraper();
-            _trailerScraper = new TrailerAddictTrailerScraper();
-            _plotScraper = new MovieMeterPlotScraper();
-            _findScraper = new RottenTomatiesFindScraper();
+            _movieConverter = movieConverter;
         }
 
-        public Dictionary<string, MovieDto[]> GetMoviesOutOnDvd()
+        public Dictionary<DateTime, MovieDto[]> GetMoviesOutOnDvd()
         {
-            var rentals = _scraper.GetMoviesOutOnDvd();
+            //var rentals = _outOnDvdScraper.GetMoviesOutOnDvd();
+            var moviesFromDb = _movieRepository.GetByMovieType(MovieType.Dvd).ToList();
+            var convertedMovies = _movieConverter.ConvertToMovieDto(moviesFromDb);
+            var rentals = convertedMovies.GroupBy(m => m.ReleaseDate).ToDictionary(k => k.Key, e => e.ToArray());
+
             return rentals;
         }
 
-        public Dictionary<string, MovieDto[]> GetMoviesInCinema()
+        public Dictionary<DateTime, MovieDto[]> GetMoviesInCinema()
         {
-            var inCiname = _scraper.GetMoviesInCinema();
-            return inCiname;
+            //var inCinema = _scraper.GetMoviesInCinema();
+            var moviesFromDb = _movieRepository.GetByMovieType(MovieType.InCinema).ToList();
+            var convertedMovies = _movieConverter.ConvertToMovieDto(moviesFromDb);
+            var inCinema = convertedMovies.GroupBy(m => m.ReleaseDate).ToDictionary(k => k.Key, e => e.ToArray());
+
+            return inCinema;
         }
 
-        public Dictionary<string, MovieDto[]> GetMoviesSoonInCinema()
+        public Dictionary<DateTime, MovieDto[]> GetMoviesSoonInCinema()
         {
-            var rentals = _scraper.GetMoviesSoonInCinema();
-            return rentals;
+            //var soonInCinema = _scraper.GetMoviesSoonInCinema();
+            var moviesFromDb = _movieRepository.GetByMovieType(MovieType.SoonInCinema).ToList();
+            var convertedMovies = _movieConverter.ConvertToMovieDto(moviesFromDb);
+            var soonInCinema = convertedMovies.GroupBy(m => m.ReleaseDate).ToDictionary(k => k.Key, e => e.ToArray());
+
+            return soonInCinema;
         }
 
-        public MovieDto GetFilmById(string id)
+        public virtual MovieDto GetMovieById(string id)
         {
-            var movie = _detailsMovieScraper.GetMovieById(id);// _dutchMovieScraper.GetMovieById(id);
-            movie.TrailerUrl = _trailerScraper.GetTrailerUrl(movie.Imdb);
+            if (!id.StartsWith("tt") && !IsDetailScraperSameAsMovieScraper())
+            {
+                id = _scraper.GetMovieById(id).Imdb;
+            }
+
+            var movie = _detailsMovieScraper.GetMovieById(id);
+            movie.TrailerUrl = _trailerScraper.GetTrailerUrl(movie.Imdb, movie.Title);
+
+            return movie;
+        }
+
+        public MovieDto GetMovieByImdb(string imdb)
+        {
+            var movie = _detailsMovieScraper.GetMovieById(imdb);
+            movie.TrailerUrl = _trailerScraper.GetTrailerUrl(movie.Imdb, movie.Title);
 
             return movie;
         }
@@ -60,6 +101,26 @@ namespace MovieReleases.Business
             var movies = _findScraper.Find(name);
 
             return movies;
+        }
+
+        public void UpdateMovies(IEnumerable<MovieDto> movies)
+        {
+            foreach (var movie in movies)
+            {
+                var movieDb = _movieRepository.GetById(movie.Id);
+
+                if (movieDb != null)
+                {
+                    movieDb.MovieType = movie.MovieType;
+                }
+            }
+
+            _movieRepository.SaveChanges();
+        }
+
+        private bool IsDetailScraperSameAsMovieScraper()
+        {
+            return _detailsMovieScraper.GetType().IsAssignableFrom(typeof(IMovieScraper));
         }
     }
 }

@@ -24,6 +24,7 @@ namespace MovieReleases
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 // Angular
                     "~/Scripts/angular.js",
+                    "~/Scripts/angular-locale_nl.js",
                     "~/Scripts/angular-route.js"
                 ));
 
@@ -39,7 +40,7 @@ namespace MovieReleases
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/site.css",
                 "~/Content/movie-details.css",
-                "~/Content/css/font-awesome.css"));
+                "~/css/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

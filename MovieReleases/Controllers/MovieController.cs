@@ -25,7 +25,7 @@ namespace MovieReleases.Controllers
             // More on exception handling: http://www.asp.net/web-api/overview/error-handling/exception-handling
             try
             {
-                var movie = _movieService.GetFilmById(movieMeterId);
+                var movie = _movieService.GetMovieById(movieMeterId);
                 return movie;
             }
             catch (MovieNotFoundException ex)
@@ -41,11 +41,27 @@ namespace MovieReleases.Controllers
         }
 
         [HttpGet]
-        //[Route("search{movieName}")]
+        [Route("Search/{movieName?}")]
         public IEnumerable<MovieFindDTO> Search(string movieName)
         {
             var movies = _movieService.SearchMovie(movieName);
             return movies;
+        }
+
+        [HttpGet]
+        public MovieDto GetById(string id)
+        {
+            var movie = _movieService.GetMovieById(id);
+
+            return movie;
+        }
+
+        [HttpGet]
+        [Route("Trailer/{imdb?}")]
+        public void Trailer(string imdb)
+        {
+            var scraper = new YoutubeTrailerScraper();
+            var res = scraper.GetTrailerUrl("", imdb);
         }
     }
 }

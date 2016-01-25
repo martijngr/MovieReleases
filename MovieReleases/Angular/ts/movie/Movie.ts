@@ -9,6 +9,7 @@
         private _title: string;
         private _movieType: number;
         private _imdb: string;
+        private _id: string;
 
         public get Url(): string {
             return this._url;
@@ -71,6 +72,13 @@
         }
         public set Imdb(imdb: string) {
             this._imdb = imdb;
+        }
+
+        public get Id(): string {
+            return this._id;
+        }
+        public set Id(id: string) {
+            this._imdb = id;
         }
     }
 }

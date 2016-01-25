@@ -35,7 +35,8 @@ namespace MovieReleases
 
             var container = new Container();
 
-            IoCRegistration.Register(container);
+            IoCRegistration.RegisterForWeb(container);
+            IoCRegistration.RegisterDefaults(container);
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             container.RegisterMvcIntegratedFilterProvider();

@@ -8,7 +8,7 @@ using MovieReleases.Hubs;
 
 namespace MovieReleases.Notification
 {
-    public class Notifier : INotificationService
+    public class Notifier 
     {
         public void Notify(int[] movieIds)
         {

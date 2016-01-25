@@ -18,7 +18,7 @@ namespace MovieReleases.Controllers
             _movieService = movieService;
         }
 
-        public Dictionary<string, MovieDto[]> Get()
+        public Dictionary<DateTime, MovieDto[]> Get()
         {
             var videos = _movieService.GetMoviesOutOnDvd();
             return videos;

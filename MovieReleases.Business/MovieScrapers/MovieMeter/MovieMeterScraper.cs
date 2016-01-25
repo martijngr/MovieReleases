@@ -14,12 +14,12 @@ namespace MovieReleases.Business.MovieScrapers.MovieMeter
     {
         private string _apikey = "85u0w0rdhnwxfvdyvw24657axpbmcfxa";
 
-        public Dictionary<string, DTO.MovieDto[]> GetMoviesOutOnDvd()
+        public Dictionary<DateTime, DTO.MovieDto[]> GetMoviesOutOnDvd()
         {
             throw new NotImplementedException();
         }
 
-        public Dictionary<string, DTO.MovieDto[]> GetMoviesInCinema()
+        public Dictionary<DateTime, DTO.MovieDto[]> GetMoviesInCinema()
         {
             throw new NotImplementedException();
         }
@@ -61,13 +61,12 @@ namespace MovieReleases.Business.MovieScrapers.MovieMeter
         }
 
 
-        public Dictionary<string, MovieDto[]> GetMoviesSoonInCinema()
+        public Dictionary<DateTime, MovieDto[]> GetMoviesSoonInCinema()
         {
             throw new NotImplementedException();
         }
 
-
-        public Dictionary<string, MovieDto[]> GetMoviesInCinema(IPlotScraper plotScraper)
+        public Dictionary<DateTime, MovieDto[]> GetMoviesInCinema(IPlotScraper plotScraper)
         {
             throw new NotImplementedException();
         }

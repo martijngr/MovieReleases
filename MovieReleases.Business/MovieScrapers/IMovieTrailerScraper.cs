@@ -8,6 +8,6 @@ namespace MovieReleases.Business.MovieScrapers
 {
     public interface IMovieTrailerScraper
     {
-        string GetTrailerUrl(string imdb);
+        string GetTrailerUrl(string imdb, string movieName);
     }
 }

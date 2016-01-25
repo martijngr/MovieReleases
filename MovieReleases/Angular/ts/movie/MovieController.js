@@ -1,4 +1,4 @@
-﻿var MovieApp;
+var MovieApp;
 (function (MovieApp) {
     var MovieController = (function () {
         function MovieController($scope, $routeParams, MovieService, movie) {
@@ -8,13 +8,14 @@
             this.movie = movie;
             this.vm = {
                 viewtype: {
-                    carousel: false,
-                    mobile: true
+                    carousel: true,
+                    mobile: false,
                 }
             };
             if (!_.isString(movie)) {
                 this.movieDetails = this.movie;
-            } else {
+            }
+            else {
                 this.vm.viewtype.carousel = false;
                 this.vm.viewtype.mobile = false;
                 this.showError = true;
@@ -24,7 +25,6 @@
         return MovieController;
     })();
     MovieApp.MovieController = MovieController;
-
     app.controller("MovieController", MovieApp.MovieController);
 })(MovieApp || (MovieApp = {}));
 //# sourceMappingURL=MovieController.js.map

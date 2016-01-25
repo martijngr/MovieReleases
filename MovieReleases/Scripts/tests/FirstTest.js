@@ -37,23 +37,23 @@ describe("Movie overview controller", function () {
         $controller('MovieOverviewController', { '$scope': $scope, 'movies': movies, 'DownloadListService': service });
     }));
 
-    it('should have created a movies array on the scope', function () {
-        //debugger;
-        expect($scope.movies).not.toBeNull();
-        expect(service).not.toBeNull();
-    })
+    //it('should have created a movies array on the scope', function () {
+    //    //debugger;
+    //    expect($scope.movies).not.toBeNull();
+    //    expect(service).not.toBeNull();
+    //})
 
-    it('should make a call to retrieve the movies to download', function () {
-        //debugger;
-        var mockedMovies = [{ id: 1, name: 'That time already?' }];
+    //it('should make a call to retrieve the movies to download', function () {
+    //    //debugger;
+    //    var mockedMovies = [{ id: 1, name: 'That time already?' }];
 
-        http.expectGET('/api/DownloadList/').respond(200, mockedMovies);
+    //    http.expectGET('/api/DownloadList/').respond(200, mockedMovies);
 
-        service.GetMoviesToDownload().then(function (response) {
-            //debugger;
-            expect(response.length > 0);
-        });
+    //    service.GetMoviesToDownload().then(function (response) {
+    //        //debugger;
+    //        expect(response.length > 0);
+    //    });
 
-        http.flush();
-    })
+    //    http.flush();
+    //})
 })

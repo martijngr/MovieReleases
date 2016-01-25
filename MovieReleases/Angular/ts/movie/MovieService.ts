@@ -90,6 +90,12 @@
             });
         }
 
+        public getMovieById = function (providerId: string) {
+            return this.$http.get("api/Movie/GetById?id="+providerId).then(function (response) {
+                return response.data;
+            });
+        }
+
         private HandleGetRequest(path: string): any {
             return this.$http.get(path).then(function (response) {
                 return response.data;

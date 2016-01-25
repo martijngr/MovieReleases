@@ -1,20 +1,46 @@
-﻿- Detailpagina voor films uitbreiden met: acteurs, rate, eigen mening, reacties van anderen (imdb, moviemeter)
-- toastr tonen bij toevoegen aan downloadlijst
-- titel kopieeren in geheugen (plakken in spot lite)
-- In downloadlijst dropdown kleine posters tonen
-- Reacties laden van moviemeter
-- Filmposter slepen in downloadlijst
+﻿====================================================================================================================
+						PRODUCT BACKLOG
+====================================================================================================================
+- Op overizhtpagina's een 'i' toevoegen en als daarop geklikt wordt, het plot tonen.
+
+- Melding als dvd in bioscoop draait
 - Melding als bioscoopfilm te huur wordt aangeboden
-- bij wisselen van pagina een loader tonen
-- bij toevoegen van film aan downloadlist, de betreffende lijst actief maken (filter)
+
+- Detailpagina voor films uitbreiden met: acteurs, rate, eigen mening, reacties van anderen (imdb, moviemeter)
+- Detailpagina uitbreiden met mogelijkheid voor eigen commentaar
+- Detailpagina afbeeldingen tonen bij de acteurs
+
+- Bij toevoegen aan downloadlijst toastr tonen
+- Bij toevoegen van film aan downloadlist, de betreffende lijst actief maken (filter)
 - Bij toevoegen film aan download list effect tonen/animatie
+
+- titel kopieeren in geheugen (plakken in spot lite)
+
+- In downloadlijst dropdown kleine posters tonen
+
 - Implementeren van de IoC container -> UnitOfWork perweb request
-- Compatible voor iPad maken --> zokbalk
+- Compatible voor iPad maken --> zoekbalk
+
 - Zoekresultaten geven verkeerd IMDB terug... zonder tt er voor --> uitzoeken
 
+- Wekelijks de nieuwe filminformatie opslaan in DB
+- Filminfo in DB aanpassen met data voor ReleaseInCinema, ReleaseOnDvd
+
+- Inlogfunctionaliteit
+- Lijsten delen met ander gebruikers
+- Inplannen filmavonden (/momenten?)
+- Datumpicker voor filmavond
+
+- Acteurpagina maken met daarin persoonlijke info over acteur + lijst met films met daarbij rolinformatie
+====================================================================================================================
 
 Actie
-			Overzicht in bios					Zoeken			GetByImdb
-Rotten			IMDB							  -				Nee
+			Overzicht in bios					Zoeken			GetByImdb	Release Date uit op DVD		Binnenkort in bios	Nu in bios
+Rotten			IMDB							  -				Nee							Ja				Ja				Ja
 The movieDB		IMDB							  -  			Ja
 Moviemeter		nvt												Ja
+
+
+Binnenkort in bioscoop release date = datum wanneer film gaat draaien in bios
+Nu in bioscoop release date = datum dat film draait in bios
+Uit op DVD release date = datum dat film uit komt op dvd

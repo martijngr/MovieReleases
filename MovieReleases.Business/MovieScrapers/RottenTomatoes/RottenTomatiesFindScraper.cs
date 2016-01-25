@@ -16,7 +16,7 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
         
         public IEnumerable<DTO.MovieFindDTO> Find(string movieName)
         {
-            var url = string.Format("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey={0}&q={1}&page_limit=1", _apikey, movieName);
+            var url = string.Format("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey={0}&q={1}&page_limit=50", _apikey, movieName);
             using (var client = new WebClient())
             {
                 try
@@ -25,14 +25,13 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
                     var jsonString = client.DownloadString(url).Trim();
                     var moviesJson = JObject.Parse(jsonString);
                     var jarray = (JArray)moviesJson["movies"];
-                    var regEx = new Regex(@"(\d*).json");
 
                     foreach (var movieJson in jarray)
                     {
-                        var id = regEx.Match(movieJson.GetValue<string>("links", "self")).Groups[1].Value;
                         var movie = new MovieFindDTO
                         {
-                            Id = id,
+                            ProviderId = movieJson.GetValue<string>("id"),
+                            Imdb = string.Format("tt{0}", movieJson.GetValue<string>("alternate_ids", "imdb")),
                             Title = movieJson.GetValue<string>("title"),
                             Year = movieJson.GetValue<string>("year"),
                         };

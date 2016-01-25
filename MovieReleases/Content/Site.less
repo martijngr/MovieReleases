@@ -1,0 +1,450 @@
+﻿@import (css) "bootstrap.css";
+
+@color-link: #F8F8F8;
+@color-orange: #D58A00;
+@color-darkest-color: #1C1C1C;
+
+body {
+    background-image: url('Images/background.png');
+    color: #F8F8F8;
+}
+
+body, h1 {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: @color-link;
+}
+
+a:hover, a:focus {
+    color: @color-orange;
+    text-decoration: none;
+}
+
+a:active, a:hover {
+    outline: 0;
+}
+
+.btn-primary {
+    color: #FFF;
+    background-color: @color-orange;
+    border-color: @color-orange;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    color: #EE5627;
+    background-color: #FFF;
+    border-color: #FFF;
+}
+
+.navbar-default {
+    background-color: #42464A;
+    border-color: #D58A00;
+    color: #D58A00;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #F8F8F8;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #D58A00;
+    background-color: transparent;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: @color-darkest-color;
+    background-color: @color-orange;
+}
+
+#view-container {
+    margin-top: 51px;
+}
+
+@media (max-width: 992px) {
+    #view-container {
+        margin-right: 0px;
+    }
+}
+
+@media (min-width: 992px) {
+    #view-container {
+        margin-right: 360px;
+    }
+}
+
+.full-view-container-width {
+    margin-right: 0 !important;
+}
+
+.wrapper {
+    width: 100%;
+    background: rgba(244, 244, 244, 0.1);
+    margin-bottom: 60px;
+}
+
+.scrolls {
+    width: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 5px;
+}
+
+div.moviebox {
+    display: inline-block;
+    margin-left: 15px;
+    margin-top: 15px;
+    min-height: 290px;
+
+    .title {
+        border-bottom: 1px solid black;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .poster {
+        img {
+            height: 306px;
+            width: 215px;
+        }
+    }
+
+    .poster-button-bar {
+        text-align: left;
+
+        button{
+            font-size:15px;
+            margin:15px 15px 15px 0;
+            height:26px;
+            width:26px;
+        }
+    }
+
+    &.expanded {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+.movie-expand-info {
+    position: absolute;
+    top: 20px;
+    left: 235px;
+    width: 300px;
+    bottom: 0;
+    text-align: left;
+    white-space: initial;
+    opacity: 1;
+    transition: opacity 0.5s linear;
+    display: none;
+    /*background-color: rgba(255, 255, 255, 0.3);*/
+    padding-top: 35px !important;
+    z-index: -1;
+}
+
+.movie-expand-info-visible {
+    position: absolute;
+    top: 35px;
+    left: 230px;
+    border-top: 1px solid black;
+    width: 300px;
+    bottom: 0;
+    text-align: left;
+    white-space: initial;
+    opacity: 1;
+    transition: opacity 0.5s linear;
+    display: block;
+}
+
+.movie-expand-info-hidden {
+    display: none;
+}
+
+div.moviebox div.moviebox .title {
+    width: 175px;
+    overflow: hidden;
+}
+
+div.in-download-list {
+    /*background-color: #5abd1e;*/
+    background: #1e5799; /* Old browsers */
+    background: -moz-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74D2CE 96%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(0%,#f4f4f4), color-stop(96%,#74D2CE), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+div.in-download-list a {
+    color: #371F45;
+}
+
+div.movie-tooltip {
+    position: absolute;
+    background-color: #FFF;
+    width: 400px;
+    border: 1px solid #b48c8c;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.to-download-item {
+    height: 40px;
+    line-height: 40px;
+}
+
+
+
+.fa-trash-o {
+    cursor: pointer;
+}
+
+.striked {
+    text-decoration: line-through;
+}
+
+.movie-dropdown {
+    padding: 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    background-color: rgba(28, 28, 28, 0.1);
+    color: @color-darkest-color;
+    -webkit-box-shadow: -3px 0px 7px 1px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: -3px 0px 7px 1px rgba(50, 50, 50, 0.5);
+    box-shadow: -3px 0px 7px 1px rgba(50, 50, 50, 0.5);
+
+    .btn-group-justified {
+        border-bottom: 1px solid @color-darkest-color;
+        height: 62px;
+
+        .active {
+            background: @color-link;
+        }
+    }
+
+    .btn, btn-primary {
+        border: none;
+        border-radius: 0;
+        background: @color-orange;
+        color: @color-darkest-color;
+    }
+
+    .to-download-item:hover {
+        background-color: @color-orange;
+
+        a {
+            color: @color-darkest-color;
+        }
+    }
+}
+
+
+.movie-dropdown .btn-download {
+    /*background: #74D2CE;*/
+    background: #1e5799; /* Old browsers */
+    background: -moz-linear-gradient(top, #1e5799 0%, #f4f4f4 0%, #74D2CE 96%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(0%,#f4f4f4), color-stop(96%,#74D2CE), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #1e5799 0%,#f4f4f4 0%,#74D2CE 96%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #1e5799 0%,#f4f4f4 4%,#74D2CE 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+#page-loader .centered {
+    background: #EAEAEA;
+    opacity: 0.5;
+    color: #FFF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10001;
+}
+
+#page-loader img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+#overview-background {
+    position: relative;
+}
+
+#overview-background {
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center 52px;
+        opacity: 0.5;
+        z-index: -1;
+    }
+
+    .date {
+        background-color: rgba(213, 138, 0, 1);
+        color: #FFF;
+        padding: 20px;
+    }
+}
+
+#download-list {
+    position: fixed;
+    top: 49px;
+    right: 0;
+    width: 360px;
+    overflow: auto;
+    bottom: 0;
+
+    #toggle-bar {
+        color: #337ab7;
+        height: 30px;
+        text-align: center;
+        font-size: 1.5em;
+        cursor: pointer;
+        background-color: rgba(195, 195, 195, 0.1);
+        box-shadow: 0px 2px 8px 0px rgba(195, 195, 195,1);
+        opacity: 0.8;
+    }
+}
+
+[ng-drop].drag-enter {
+    cursor: move;
+}
+
+.dropzone {
+    background-color: #C3C3C3;
+    height: 100%;
+    width: 100%;
+    border: 1px dashed black;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-flex-line-pack: center;
+    -ms-flex-line-pack: center;
+    -webkit-align-content: center;
+    align-content: center;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+}
+
+#movie-details {
+    color: #FFF;
+
+    #viewtype-block {
+        margin-left: 10px;
+        font-size: 1.3em;
+    }
+
+    .general-movie-info {
+        padding: 20px;
+    }
+
+    .viewtype-carousel-body {
+        margin-left: 150px;
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    #movie-details #viewtype-block {
+        font-size: 2em;
+    }
+}
+
+#movie-details #viewtype-block i {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.form-control-default {
+    width: auto;
+    display: inline;
+}
+
+.friendsDropdown {
+    margin-top: 10px;
+    margin-right: 10px;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dropdown-button {
+        position: relative;
+        cursor: pointer;
+
+        ul:not(.friends-submenu) {
+            display: none;
+        }
+
+        &:after {
+            font-family: FontAwesome;
+            content: "\f0d7";
+            font-size: 20px;
+        }
+    }
+
+    .active:after {
+        font-family: FontAwesome;
+        content: "\f0d8";
+        font-size: 20px;
+    }
+
+    .friends-submenu {
+        display: block;
+        position: absolute;
+        background-color: #44474B;
+        right: 0;
+        width: 160px;
+        border: 1px solid #AEB0B6;
+
+        li {
+            padding: 10px;
+        }
+    }
+}
+
+.friends-container {
+    padding: 20px;
+
+    .friends-list {
+        .friends-list-row {
+            padding: 10px 0;
+
+            &:hover {
+                cursor: pointer;
+                background: @color-orange;
+                color: @color-darkest-color;
+            }
+        }
+    }
+}

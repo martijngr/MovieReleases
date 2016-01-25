@@ -71,6 +71,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Uow\IUnitOfWork.cs" />
     <Compile Include="Uow\UnitOfWork.cs" />
+    <Compile Include="User.cs">
+      <DependentUpon>MovieModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Watchlist.cs">
+      <DependentUpon>MovieModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WatchListItem.cs">
+      <DependentUpon>MovieModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="MovieModel.edmx">
@@ -97,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MovieModel.edmx.sql" />
+    <Content Include="Scripts\migrate movies.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

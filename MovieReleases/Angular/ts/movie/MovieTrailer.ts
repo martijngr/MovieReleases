@@ -20,7 +20,8 @@
                 iframe.height = "383px";
                 iframe.frameBorder = "0";
                 iframe.scrolling = "false";
-                
+                iframe.setAttribute("allowfullscreen", "");
+
                 element.parent().append(iframe);
                 element.remove();
             }
