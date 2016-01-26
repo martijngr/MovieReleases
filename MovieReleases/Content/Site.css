@@ -75,7 +75,7 @@ a:hover {
   background: rgba(244, 244, 244, 0.1);
   margin-bottom: 60px;
 }
-.scrolls {
+.wrapper > .scrolls {
   width: auto;
   overflow-x: auto;
   overflow-y: hidden;
@@ -87,6 +87,7 @@ div.moviebox {
   margin-left: 15px;
   margin-top: 15px;
   min-height: 290px;
+  white-space: normal;
 }
 div.moviebox .title {
   border-bottom: 1px solid black;
@@ -100,7 +101,7 @@ div.moviebox .poster img {
 div.moviebox .poster-button-bar {
   text-align: left;
 }
-div.moviebox .poster-button-bar button {
+div.moviebox .poster-button-bar button.btn-xs {
   font-size: 15px;
   margin: 15px 15px 15px 0;
   height: 26px;
@@ -393,4 +394,7 @@ div.movie-tooltip {
   cursor: pointer;
   background: #d58a00;
   color: #1c1c1c;
+}
+.modal-content {
+  color: black;
 }

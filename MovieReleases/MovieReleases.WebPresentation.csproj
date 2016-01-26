@@ -229,7 +229,7 @@
     <Compile Include="Controllers\DownloadListController.cs" />
     <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Movie\MovieController.cs" />
     <Compile Include="Controllers\RentController.cs" />
     <Compile Include="Controllers\SoonInCinemaController.cs" />
     <Compile Include="Controllers\TVController.cs" />
@@ -238,6 +238,8 @@
     </Compile>
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Hubs\Startup.cs" />
+    <Compile Include="Movie\Sharing\MovieSharer.cs" />
+    <Compile Include="Movie\Sharing\ShareMovieModel.cs" />
     <Compile Include="Notification\Notifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -300,6 +302,7 @@
     <Content Include="Images\SoonInCinema.png" />
     <Content Include="Images\Dvd.png" />
     <Content Include="Images\InCinema.png" />
+    <Content Include="Movie\Sharing\movie-share-button.html" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
@@ -489,8 +492,11 @@
     <Content Include="Views\Shared\_ViewStart.cshtml" />
     <Content Include="Scripts\min\maps\all.min.js.map" />
     <Content Include="Partials\Movie\Movie-Details-Carousel.html" />
+    <TypeScriptCompile Include="Angular\ts\Validation\email.ts" />
+    <TypeScriptCompile Include="Movie\Sharing\movie-share-button.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular\angularjs-route-1.2-d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular\angularjs-1.2-d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\bootstrap\bootstrap.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
@@ -536,7 +542,7 @@
     <TypeScriptCompile Include="Angular\ts\movie\MovieThumb.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MoviePoster.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MoviePosterRepository.ts" />
-    <TypeScriptCompile Include="Angular\ts\movie\MovieService.ts" />
+    <TypeScriptCompile Include="Movie\MovieService.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MovieToolTip.ts" />
     <TypeScriptCompile Include="Angular\ts\movie\MovieTrailer.ts" />
     <TypeScriptCompile Include="Angular\ts\Overview\MovieOverview.ts" />
@@ -570,7 +576,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:4229/</IISUrl>
+          <IISUrl>http://localhost:4567/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

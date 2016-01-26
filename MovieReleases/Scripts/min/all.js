@@ -1,11 +1,3 @@
-// Type definitions for Angular JS 1.2+
-// Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-/// <reference path="../jquery/jquery.d.ts" />
-
-/// <reference path="angularjs-1.2-d.ts" />
-
 /// <reference path="../../../scripts/typings/angular/angularjs-1.2-d.ts" />
 /// <reference path="../../../scripts/typings/angular/angularjs-route-1.2-d.ts" />
 /// <reference path="../../../Scripts/typings/underscore/underscore.d.ts"/>
@@ -14,32 +6,74 @@
 ///// <reference path="../../scripts/typings/toastr/toastr.d.ts" />
 var app = angular.module('movieApp', ['ngRoute']);
 app.config(['$httpProvider', function ($httpProvider) {
-        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-    }]);
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+}]);
 app.run(['$http', '$rootScope', '$timeout', function ($http, $rootScope, $timeout) {
-        $.ajax({
-            async: false,
-            url: '/Home/GetStartupData',
-            success: function (response) {
-                $rootScope.userId = response.userId;
-                $rootScope.username = response.username;
-                $rootScope.friends = response.friends;
-            },
+    $.ajax({
+        async: false,
+        url: '/Home/GetStartupData',
+        success: function (response) {
+            $rootScope.userId = response.userId;
+            $rootScope.username = response.username;
+            $rootScope.friends = response.friends;
+        },
+    });
+    $rootScope.$on('$routeChangeStart', function () {
+        $("#page-loader").show();
+    });
+    $rootScope.$on('$routeChangeSuccess', function () {
+        $timeout(function () {
+            $("#page-loader").hide();
         });
-        $rootScope.$on('$routeChangeStart', function () {
-            $("#page-loader").show();
-        });
-        $rootScope.$on('$routeChangeSuccess', function () {
-            $timeout(function () {
-                $("#page-loader").hide();
-            });
-            hideMobileMenu();
-        });
-    }]);
+        hideMobileMenu();
+    });
+}]);
 function hideMobileMenu() {
     // check if window is small enough so dropdown is created
     jQuery(".navbar-collapse").removeClass("in").addClass("collapse");
 }
+//# sourceMappingURL=app.js.map
+var MovieApp;
+(function (MovieApp) {
+    var ShareForm = (function () {
+        function ShareForm() {
+            this.emailAddress = "";
+            this.message = "";
+        }
+        return ShareForm;
+    })();
+    function ShareButton(MovieService) {
+        return {
+            restrict: 'E',
+            templateUrl: '/Movie/Sharing/movie-share-button.html',
+            scope: {
+                movie: '=',
+            },
+            link: function (scope, element, attributes) {
+                scope.vm = {
+                    form: new ShareForm(),
+                    modelId: "share-movie-modal" + scope.movie.Imdb,
+                    showSharePopup: showSharePopup,
+                    sendMail: sendMail,
+                    isFormValid: isFormValid
+                };
+                function showSharePopup(movie) {
+                    scope.vm.form = new ShareForm();
+                    $("#" + scope.vm.modelId).modal('toggle');
+                }
+                function sendMail() {
+                    MovieService.shareMovieWithFriend(scope.vm.form.emailAddress, scope.vm.form.message);
+                }
+                function isFormValid() {
+                    return scope.shareForm.$valid;
+                }
+            }
+        };
+    }
+    MovieApp.ShareButton = ShareButton;
+})(MovieApp || (MovieApp = {}));
+MovieApp.ShareButton.$inject = ['MovieService'];
+app.directive("movieShareButton", MovieApp.ShareButton);
 
 app.config(["$routeProvider", function ($routeProvider) {
         $routeProvider.
@@ -136,7 +170,6 @@ var MovieApp;
             var _this = this;
             return this.$http.delete("/api/DownloadList/" + watchlistItem.Id).then(function (response) {
                 angular.copy(_.without(_this.watchlist, watchlistItem), _this.watchlist);
-                debugger;
             });
         };
         DownloadListRepository.prototype.IsMovieInDownloadList = function (movie) {
@@ -1099,6 +1132,38 @@ var MovieApp;
 
 var MovieApp;
 (function (MovieApp) {
+    function EmailValidation() {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                if (!ctrl) {
+                    return false;
+                }
+                function isValidEmail(value) {
+                    if (!value) {
+                        return false;
+                    }
+                    // Email Regex used by ASP.Net MVC
+                    var regex = /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i;
+                    return regex.exec(value) != null;
+                }
+                scope.$watch(ctrl, function () {
+                    ctrl.$validate();
+                });
+                ctrl.$validators.email = function (modelValue, viewValue) {
+                    return isValidEmail(viewValue);
+                };
+            }
+        };
+    }
+    MovieApp.EmailValidation = EmailValidation;
+})(MovieApp || (MovieApp = {}));
+MovieApp.EmailValidation.$inject = [];
+app.directive("email", MovieApp.EmailValidation);
+
+var MovieApp;
+(function (MovieApp) {
     var WatchlistItem = (function () {
         function WatchlistItem() {
         }
@@ -1126,3 +1191,112 @@ var MovieApp;
     })();
     MovieApp.WatchlistItem = WatchlistItem;
 })(MovieApp || (MovieApp = {}));
+
+// Type definitions for Angular JS 1.2+
+// Project: http://angularjs.org
+// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+/// <reference path="../jquery/jquery.d.ts" />
+
+/// <reference path="angularjs-1.2-d.ts" />
+
+var MovieApp;
+(function (MovieApp) {
+    var MovieService = (function () {
+        function MovieService($http, $q, $window, $location) {
+            this.$http = $http;
+            this.$q = $q;
+            this.$window = $window;
+            this.$location = $location;
+            this.GetMovieByImdb = function (imdb) {
+                return this.HandleGetRequest("api/Movie?movieMeterId=" + imdb).then(function (response) {
+                    return response;
+                }, function (rejection) {
+                    return rejection.data; // this will contain the error message.
+                });
+            };
+            this.SearchMovie = function (movieName) {
+                return this.HandleGetRequest("api/Movie/search?movieName=" + movieName).then(function (response) {
+                    return response;
+                });
+            };
+            this.GetMoviesForRent = function () {
+                var defer = this.$q.defer();
+                var movies = this.$window.sessionStorage.getItem('movies');
+                if (movies) {
+                    var data = angular.fromJson(movies);
+                    defer.resolve(data);
+                }
+                else {
+                    this.HandleGetRequest("/api/Rent").then(function (response) {
+                        var data = angular.toJson(response);
+                        sessionStorage.setItem('movies', data);
+                        defer.resolve(response);
+                    });
+                }
+                return defer.promise;
+            };
+            this.GetMoviesInCinema = function () {
+                var defer = this.$q.defer();
+                var movies = sessionStorage.getItem('cinemaMovies');
+                if (movies) {
+                    var data = angular.fromJson(movies);
+                    defer.resolve(data);
+                }
+                else {
+                    this.HandleGetRequest("api/Cinema").then(function (response) {
+                        var data = angular.toJson(response);
+                        sessionStorage.setItem('cinemaMovies', data);
+                        defer.resolve(response);
+                    });
+                }
+                return defer.promise;
+            };
+            this.GetMoviesSoonInCinema = function () {
+                var defer = this.$q.defer();
+                var movies; // = sessionStorage.getItem('soonInCinemaMovies');
+                if (movies) {
+                    var data = angular.fromJson(movies);
+                    defer.resolve(data);
+                }
+                else {
+                    this.HandleGetRequest("api/SoonInCinema").then(function (response) {
+                        var data = angular.toJson(response);
+                        sessionStorage.setItem('soonInCinemaMovies', data);
+                        defer.resolve(response);
+                    });
+                }
+                return defer.promise;
+            };
+            this.GetMoviePoster = function (imdbId) {
+                return this.$http.get("https://api.themoviedb.org/3/movie/tt" + imdbId + "?api_key=980071c1008d3dd64ab4a0893fe5a727").then(function (response) {
+                    return response.data;
+                });
+            };
+            this.getMovieById = function (providerId) {
+                return this.$http.get("api/Movie/GetById?id=" + providerId).then(function (response) {
+                    return response.data;
+                });
+            };
+            this.shareMovieWithFriend = function (email, message) {
+                var data = {
+                    Email: email,
+                    Message: message
+                };
+                return this.$http.post("api/Movie/ShareMovieWithFriend", data);
+            };
+        }
+        MovieService.prototype.ClearSessionStorage = function () {
+            sessionStorage.clear();
+        };
+        MovieService.prototype.HandleGetRequest = function (path) {
+            return this.$http.get(path).then(function (response) {
+                return response.data;
+            });
+        };
+        MovieService.$inject = ['$http', '$q', '$window', '$location'];
+        return MovieService;
+    })();
+    MovieApp.MovieService = MovieService;
+})(MovieApp || (MovieApp = {}));
+app.service("MovieService", MovieApp.MovieService);

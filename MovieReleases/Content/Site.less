@@ -83,14 +83,14 @@ a:active, a:hover {
     width: 100%;
     background: rgba(244, 244, 244, 0.1);
     margin-bottom: 60px;
-}
 
-.scrolls {
-    width: auto;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    padding: 5px;
+    > .scrolls {
+        width: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        padding: 5px;
+    }
 }
 
 div.moviebox {
@@ -98,6 +98,7 @@ div.moviebox {
     margin-left: 15px;
     margin-top: 15px;
     min-height: 290px;
+    white-space: normal;
 
     .title {
         border-bottom: 1px solid black;
@@ -115,11 +116,11 @@ div.moviebox {
     .poster-button-bar {
         text-align: left;
 
-        button{
-            font-size:15px;
-            margin:15px 15px 15px 0;
-            height:26px;
-            width:26px;
+        button.btn-xs {
+            font-size: 15px;
+            margin: 15px 15px 15px 0;
+            height: 26px;
+            width: 26px;
         }
     }
 
@@ -447,4 +448,8 @@ div.movie-tooltip {
             }
         }
     }
+}
+
+.modal-content {
+    color: black;
 }

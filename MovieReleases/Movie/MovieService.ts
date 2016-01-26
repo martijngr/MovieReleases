@@ -96,6 +96,14 @@
             });
         }
 
+        public shareMovieWithFriend = function (email: string, message: string) {
+            var data = {
+                Email: email,
+                Message: message
+            };
+            return this.$http.post("api/Movie/ShareMovieWithFriend", data);
+        };
+
         private HandleGetRequest(path: string): any {
             return this.$http.get(path).then(function (response) {
                 return response.data;
@@ -105,90 +113,3 @@
 }
 
 app.service("MovieService", MovieApp.MovieService);
-
-//angular.module('movieapp').service("movieservice", ['$http', '$q', function ($http, $q) {
-//    this.addmovietodownloadlist = function (movie) {
-//        return handlepostrequest("addmovietodownloadlist", movie);
-//    }
-
-//    this.clearsessionstorage = function () {
-//        sessionstorage.clear();
-//    }
-
-//    this.deletemoviefromdownloadlist = function (movie) {
-//        return $http.delete("/api/moviesapi/deletemoviefromdownloadlist?imdbid=" + movie.imdbid).then(function (response) {
-//            return response;
-//        });
-//    }
-
-//    this.getmoviesforrent = function () {
-
-//        //var item = {'2014-04-27': [{moviemeterid: 83495,
-//        //    title: 'samsara',
-//        //    thumbnail: "",
-//        //    imdbid: "0770802"}]};
-
-//        //var items = [item];
-//        //return item;
-
-//        var defer = $q.defer();
-//        var movies = sessionstorage.getitem('movies');
-
-//        if (movies) {
-//            var data = angular.fromjson(movies);
-//            defer.resolve(data);
-//        }
-//        else {
-//            handlegetrequest("getmoviesoutondvd").then(function (response) {
-//                var data = angular.tojson(response);
-//                sessionstorage.setitem('movies', data);
-
-//                defer.resolve(response);
-//            })
-//        }
-
-//        return defer.promise;
-//    }
-
-//    this.getmoviesincinema = function () {
-//        var defer = $q.defer();
-//        var movies = sessionstorage.getitem('cinemamovies');
-
-//        if (movies) {
-//            var data = angular.fromjson(movies);
-//            defer.resolve(data);
-//        }
-//        else {
-//            handlegetrequest("getmoviesincinema").then(function (response) {
-//                var data = angular.tojson(response);
-//                sessionstorage.setitem('cinemamovies', data);
-
-//                defer.resolve(response);
-//            })
-//        }
-
-//        return defer.promise;
-//    }
-
-//    this.getmovieposter = function (imdbid) {
-//        return $http.get("https://api.themoviedb.org/3/movie/tt" + imdbid + "?api_key=980071c1008d3dd64ab4a0893fe5a727").then(function (response) {
-//            return response.data;
-//        });
-//    }
-
-//    this.getmoviestodownload = function () {
-//        return handlegetrequest("getmoviestodownload");
-//    }
-
-//    function handlegetrequest(action, data) {
-//        return $http.get("/api/moviesapi/" + action, data).then(function (response) {
-//            return response.data;
-//        });
-//    }
-
-//    function handlepostrequest(action, data) {
-//        return $http.post("/api/moviesapi/" + action, data).then(function (response) {
-//            return response.data;
-//        });
-//    }
-//}]);

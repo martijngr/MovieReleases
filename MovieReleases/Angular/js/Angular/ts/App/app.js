@@ -1,5 +1,6 @@
 /// <reference path="../../../scripts/typings/angular/angularjs-1.2-d.ts" />
 /// <reference path="../../../scripts/typings/angular/angularjs-route-1.2-d.ts" />
+/// <reference path="../../../scripts/typings/bootstrap/bootstrap.d.ts" />
 /// <reference path="../../../Scripts/typings/underscore/underscore.d.ts"/>
 /// <reference path="../../../scripts/typings/jquery/jquery.d.ts" />
 /// <reference path="../../../scripts/typings/jqueryui/jqueryui.d.ts" />

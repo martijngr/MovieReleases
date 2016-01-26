@@ -36,7 +36,6 @@
         public deleteFromDownloadListByWatchlist(watchlistItem: WatchlistItem) {
             return this.$http.delete("/api/DownloadList/" + watchlistItem.Id).then(response => {
                 angular.copy(_.without(this.watchlist, watchlistItem), this.watchlist);
-                debugger;
             });
         }
 

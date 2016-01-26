@@ -13,7 +13,7 @@
 	
 	// Concatenate & Minify JS
 	gulp.task('scripts', function () {
-		return gulp.src(['Angular/js/**/*.js'])
+		return gulp.src(['Angular/ts/app/app.js', 'Movie/**/*.js','Angular/js/**/!(app)*.js'])
 			.pipe(sourcemaps.init())
 				.pipe(concat('all.js'))
 				.pipe(gulp.dest('Scripts/min'))
@@ -28,37 +28,10 @@
 			.pipe(less())
 			.pipe(gulp.dest('Content'));
 	});
-	//gulp.task('scripts', function () {
-	//    return gulp.src(['Angular/js/app.js',  'Angular/js/**/*.js'])
-	//        .pipe(concat('all.js'))
-	//        .pipe(gulp.dest('Scripts/min'))
-	//        .pipe(rename('all.min.js'))
-	//        .pipe(uglify())
-	//        .pipe(gulp.dest('Scripts/min'));
-	//});
-
-	
-
-/* 	gulp.task('test', function() {
-	  // Be sure to return the stream
-	  // NOTE: Using the fake './foobar' so as to run the files
-	  // listed in karma.conf.js INSTEAD of what was passed to
-	  // gulp.src !
-	  return gulp.src('Scripts/test/*.js')
-		.pipe(karma({
-		  configFile: 'karma.conf.js',
-		  action: 'watch'
-		}))
-		.on('error', function(err) {
-		  // Make sure failed tests cause gulp to exit non-zero
-		  console.log(err);
-		  throw err;
-		});
-	}); */
 
 	// Watch Files For Changes
 	gulp.task('watch', function () {
-		gulp.watch(['Angular/js/**/*.js', 'Content/Site.less', 'Content/bootstrap/variables.less'], ['scripts', 'styles', 'styles']);
+		gulp.watch(['Angular/js/**/*.js', 'Movie/**/*.js', 'Content/Site.less', 'Content/bootstrap/variables.less'], ['scripts', 'styles', 'styles']);
 	});
 	
 	// Default Task

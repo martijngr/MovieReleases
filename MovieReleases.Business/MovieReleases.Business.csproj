@@ -133,7 +133,9 @@
     <Compile Include="Grabbers\GrabberNotifierDecorator.cs" />
     <Compile Include="Grabbers\GrabberSaveDecorator.cs" />
     <Compile Include="Grabbers\IGrabberDecorator.cs" />
+    <Compile Include="Mailing\IMailClient.cs" />
     <Compile Include="Mailing\Mailer.cs" />
+    <Compile Include="Mailing\SmtpMailClient.cs" />
     <Compile Include="MovieScrapers\IFindScraper.cs" />
     <Compile Include="MovieScrapers\IMovieDetailsScraper.cs" />
     <Compile Include="MovieScrapers\IMovieScraper.cs" />

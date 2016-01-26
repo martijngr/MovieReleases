@@ -31,11 +31,7 @@
                                     title="Verwijder uit downloadlijst">
                                 <i class="fa fa-trash-o"></i>
                             </button>
-                            <button class="btn btn-primary btn-xs"
-                                    data-ng-click="movieCtrl.shareWithFriends(y.Imdb)"
-                                    title="Delen met vrienden">
-                                <i class="fa fa-share-alt"></i>
-                            </button>
+                            <movie-share-button data-movie="y"></movie-share-button>
                             <button class="btn btn-primary btn-xs"
                                     data-ng-click="movieCtrl.toggleExtraInfo(y)"
                                     title="Lees plot">

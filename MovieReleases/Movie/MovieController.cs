@@ -7,8 +7,9 @@ using System.Web.Http;
 using MovieReleases.Business;
 using MovieReleases.Business.MovieScrapers;
 using MovieReleases.DTO;
+using MovieReleases.Movie.Sharing;
 
-namespace MovieReleases.Controllers
+namespace MovieReleases.Movie
 {
     [RoutePrefix("api/Movie")]
     public class MovieController : ApiController
@@ -62,6 +63,14 @@ namespace MovieReleases.Controllers
         {
             var scraper = new YoutubeTrailerScraper();
             var res = scraper.GetTrailerUrl("", imdb);
+        }
+
+        [HttpPost]
+        public void ShareMovieWithFriend(ShareMovieModel model)
+        {
+            MovieSharer.Instance.SetEmail(model.Email)
+                                .SetMessage(model.Message)
+                                .SendMail();
         }
     }
 }
