@@ -11,6 +11,7 @@ using MovieReleases.Domain.Uow;
 using MovieReleases.DTO;
 using MovieReleases.Business.Converters;
 using System;
+using MovieReleases.Domain;
 
 namespace MovieReleases.Business
 {
@@ -26,13 +27,13 @@ namespace MovieReleases.Business
         private MovieConverter _movieConverter;
 
         public MovieService(
-            IPlotScraper plotScraper, 
+            IPlotScraper plotScraper,
             IFindScraper findScraper,
             IMovieScraper movieScraper,
             IMovieTrailerScraper trailerScraper,
             IMovieDetailsScraper detailScraper,
             IOutOnDvdScraper outOnDvdScraper,
-            MovieRepository movieRepository, 
+            MovieRepository movieRepository,
             MovieConverter movieConverter)
         {
             _scraper = movieScraper;
@@ -75,25 +76,20 @@ namespace MovieReleases.Business
             return soonInCinema;
         }
 
-        public virtual MovieDto GetMovieById(string id)
+        public virtual MovieDto GetMovieById(int id)
         {
-            if (!id.StartsWith("tt") && !IsDetailScraperSameAsMovieScraper())
-            {
-                id = _scraper.GetMovieById(id).Imdb;
-            }
+            var movieDb = _movieRepository.GetById(id);
+            var movieDto = GetMovie(movieDb, id.ToString());
 
-            var movie = _detailsMovieScraper.GetMovieById(id);
-            movie.TrailerUrl = _trailerScraper.GetTrailerUrl(movie.Imdb, movie.Title);
-
-            return movie;
+            return movieDto;
         }
 
         public MovieDto GetMovieByImdb(string imdb)
         {
-            var movie = _detailsMovieScraper.GetMovieById(imdb);
-            movie.TrailerUrl = _trailerScraper.GetTrailerUrl(movie.Imdb, movie.Title);
+            var movieDb = _movieRepository.GetByImdb(imdb);
+            var movieDto = GetMovie(movieDb, imdb);
 
-            return movie;
+            return movieDto;
         }
 
         public IEnumerable<MovieFindDTO> SearchMovie(string name)
@@ -118,9 +114,25 @@ namespace MovieReleases.Business
             _movieRepository.SaveChanges();
         }
 
-        private bool IsDetailScraperSameAsMovieScraper()
+        private MovieDto GetMovie(Movie movieDb, string id)
         {
-            return _detailsMovieScraper.GetType().IsAssignableFrom(typeof(IMovieScraper));
+            if (movieDb == null)
+            {
+                var movieDto = _detailsMovieScraper.GetMovieByImdb(id);
+                movieDb = _movieConverter.ConvertToMovie(movieDto);
+                AddAndSaveMovie(movieDb);
+            }
+
+            var movie = _movieConverter.ConvertToMovieDto(movieDb);
+            movie.TrailerUrl = _trailerScraper.GetTrailerUrl(movie.Imdb, movie.Title);
+
+            return movie;
+        }
+
+        private void AddAndSaveMovie(Movie movie)
+        {
+            _movieRepository.AddMovie(movie);
+            _movieRepository.SaveChanges();
         }
     }
 }

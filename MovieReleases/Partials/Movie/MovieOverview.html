@@ -19,18 +19,7 @@
                             </a>
                         </div>
                         <div class="poster-button-bar">
-                            <button class="btn btn-primary btn-xs"
-                                    data-ng-click="movieCtrl.addMovieToDownloadList(y)"
-                                    data-ng-hide="movieCtrl.IsMoviePresentInDownloadlist(y)"
-                                    title="Volgen">
-                                <i class="fa fa-download"></i>
-                            </button>
-                            <button class="btn btn-warning btn-xs"
-                                    data-ng-click="movieCtrl.deleteMovieFromDownloadList(y)"
-                                    data-ng-show="movieCtrl.IsMoviePresentInDownloadlist(y)"
-                                    title="Verwijder uit downloadlijst">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
+                            <watchlist-button data-movie="y"></watchlist-button>
                             <movie-share-button data-movie="y"></movie-share-button>
                             <button class="btn btn-primary btn-xs"
                                     data-ng-click="movieCtrl.toggleExtraInfo(y)"

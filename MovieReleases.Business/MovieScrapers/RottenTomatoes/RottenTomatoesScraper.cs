@@ -33,7 +33,7 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
                                let imdb = string.Format("tt{0}", r.GetValue<string>("alternate_ids", "imdb"))
                                select new MovieDto
                                {
-                                   ProviderId = r.GetValue<string>("id"),
+                                   ProviderId = r.GetValue<int>("id"),
                                    Title = r.GetValue<string>("title"),
                                    Year = r.GetValue<string>("year"),
                                    Duration = r.GetValue<string>("runtime"),
@@ -89,7 +89,7 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
                                     let imdb = string.Format("tt{0}", r.GetValue<string>("alternate_ids", "imdb"))
                                     select new MovieDto
                                     {
-                                        ProviderId = r.GetValue<string>("id"),
+                                        ProviderId = r.GetValue<int>("id"),
                                         Title = r.GetValue<string>("title"),
                                         Year = r.GetValue<string>("year"),
                                         Duration = r.GetValue<string>("runtime"),
@@ -103,7 +103,7 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
             }
         }
 
-        public DTO.MovieDto GetMovieById(string id)
+        public DTO.MovieDto GetMovieByImdb(string id)
         {
             var url = string.Format("http://api.rottentomatoes.com/api/public/v1.0/movies/{0}.json?apikey={1}&country=nl", id,_apikey);
             using (var client = new WebClient())
@@ -114,7 +114,7 @@ namespace MovieReleases.Business.MovieScrapers.RottenTomatoes
 
                 var movie = new MovieDetailsDto
                                     {
-                                        ProviderId = jObject.GetValue<string>("id"),
+                                        ProviderId = jObject.GetValue<int>("id"),
                                         Title = jObject.GetValue<string>("title"),
                                         Year = jObject.GetValue<string>("year"),
                                         Duration = jObject.GetValue<string>("runtime"),

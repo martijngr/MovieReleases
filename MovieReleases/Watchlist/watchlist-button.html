@@ -1,0 +1,12 @@
+﻿<button class="btn btn-primary btn-xs"
+        data-ng-click="vm.addMovieToDownloadList()"
+        data-ng-hide="vm.isMoviePresentInDownloadlist()"
+        title="Volgen">
+    <i class="fa fa-download"></i>
+</button>
+<button class="btn btn-warning btn-xs"
+        data-ng-click="vm.deleteMovieFromDownloadList()"
+        data-ng-show="vm.isMoviePresentInDownloadlist()"
+        title="Verwijder uit downloadlijst">
+    <i class="fa fa-trash-o"></i>
+</button>

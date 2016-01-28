@@ -5,7 +5,7 @@ namespace MovieReleases.Business
 {
     public interface IMovieService
     {
-        MovieDto GetMovieById(string id);
+        MovieDto GetMovieById(int id);
         MovieDto GetMovieByImdb(string imdb);
         Dictionary<DateTime, MovieDto[]> GetMoviesInCinema();
         Dictionary<DateTime, MovieDto[]> GetMoviesOutOnDvd();

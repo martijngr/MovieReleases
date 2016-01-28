@@ -8,8 +8,8 @@ var MovieApp;
             this.movie = movie;
             this.vm = {
                 viewtype: {
-                    carousel: true,
-                    mobile: false,
+                    carousel: false,
+                    mobile: true,
                 }
             };
             if (!_.isString(movie)) {

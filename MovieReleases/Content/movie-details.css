@@ -1,5 +1,6 @@
 ﻿#movie-details {
     position: relative;
+    margin-bottom: 20px;
 }
 
     #movie-details #movie-details-container {
@@ -35,8 +36,9 @@
         border-top: 1px solid black;
     }
 
-    #movie-details img {
-        width: 400px;
+    #movie-details .carousel img {
+        width: 260px;
+        padding-top: 20px;
     }
 
     #movie-details #trailer-container {
@@ -44,11 +46,16 @@
 
     #movie-details #button-bar {
         position: absolute;
-        width: 149px;
+        width: 65px;
         font-size: 2em;
         text-align: center;
         background-color: #D58A00;
-        height: 100%;
+        height: 430px;
+    }
+
+    #movie-details .text-content {
+        padding: 20px;
+        color: silver;
     }
 
         #movie-details #button-bar ul {
@@ -57,7 +64,7 @@
 
             #movie-details #button-bar ul li {
                 list-style-type: none;
-                padding: 20px 0 20px 0;
+                padding: 10px 0 10px 0;
             }
 
                 #movie-details #button-bar ul li:hover {
@@ -65,31 +72,48 @@
                     background-color: #F8F8F8;
                     color: black;
                 }
+    #movie-details .tab-view .tab-container {
+        padding:20px;
+        color: silver;
 
+    }
+
+    #movie-details .tab-view .btn-default {
+        background-color: #D58A00;
+        border-color: #31363A;
+    }
+    #movie-details .tab-view .btn-default.active {
+        background-color: #F8F8F8;
+    }
+
+        #movie-details .tab-view .btn-default:hover {
+            background-color: #F8F8F8;
+        }
 .movie-detail-box {
     display: inline-block;
     margin-right: 20px;
-    height: 530px !important;
+    height: 430px !important;
+    width: 700px;
     background: #000;
     border-radius: 5px;
     overflow: auto;
     white-space: normal;
 }
 
-    .movie-detail-box.text-content {
-        padding: 20px;
-        color: silver;
+    .movie-detail-box.text-content.big {
+        width: 450px;
     }
 
-        .movie-detail-box.text-content.big {
-            width: 450px;
-        }
-
-        .movie-detail-box.text-content.small {
-            width: 250px;
-            font-size: 100%;
-        }
+    .movie-detail-box.text-content.small {
+        width: 250px;
+        font-size: 100%;
+    }
 
     .movie-detail-box iframe {
-        margin-top: 20px;
+        margin-top: 25px;
+        margin-left: 10px;
     }
+
+.cycle-carousel-wrap {
+    margin-left: 120px !important;
+}

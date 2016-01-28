@@ -13,7 +13,7 @@
 	
 	// Concatenate & Minify JS
 	gulp.task('scripts', function () {
-		return gulp.src(['Angular/ts/app/app.js', 'Movie/**/*.js','Angular/js/**/!(app)*.js'])
+		return gulp.src(['Angular/ts/app/app.js', 'Movie/**/*.js', 'Watchlist/**/*.js', 'Angular/js/**/!(app)*.js'])
 			.pipe(sourcemaps.init())
 				.pipe(concat('all.js'))
 				.pipe(gulp.dest('Scripts/min'))
@@ -31,7 +31,7 @@
 
 	// Watch Files For Changes
 	gulp.task('watch', function () {
-		gulp.watch(['Angular/js/**/*.js', 'Movie/**/*.js', 'Content/Site.less', 'Content/bootstrap/variables.less'], ['scripts', 'styles', 'styles']);
+		gulp.watch(['Angular/js/**/*.js', 'Movie/**/*.js', 'Watchlist/**/*.js', 'Content/Site.less', 'Content/bootstrap/variables.less'], ['scripts', 'styles', 'styles']);
 	});
 	
 	// Default Task

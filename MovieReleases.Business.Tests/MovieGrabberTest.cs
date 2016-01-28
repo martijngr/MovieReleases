@@ -27,7 +27,7 @@ namespace MovieReleases.Business.Tests
             var movieScraper = Substitute.For<IMovieScraper>();
             var outOnDvd = Substitute.For<IOutOnDvdScraper>();
 
-            movieService.GetMovieById(Arg.Any<string>()).Returns(new MovieDto { ReleaseDate = new DateTime(2015, 5, 15) });
+            movieService.GetMovieById(Arg.Any<int>()).Returns(new MovieDto { ReleaseDate = new DateTime(2015, 5, 15) });
             movieRepository.GetByImdb("tt112233").Returns(new Movie { MovieType = Core.Movies.MovieType.InCinema, Title="Updated", ReleaseDate = DateTime.Now });
             movieScraper.GetMoviesSoonInCinema().Returns(CreateMoviesSoonInCinema());
             movieScraper.GetMoviesInCinema().Returns(CreateEmptyMovieList());

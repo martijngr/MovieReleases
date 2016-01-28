@@ -11,7 +11,7 @@ namespace MovieReleases.Business.MovieScrapers.MovieMeter
         public string GetPlot(string imdb)
         {
             var scraper = new MovieMeterScraper();
-            var movie = scraper.GetMovieById(imdb);
+            var movie = scraper.GetMovieByImdb(imdb);
             var plot = movie == null ? "" : movie.Plot;
 
             return plot;

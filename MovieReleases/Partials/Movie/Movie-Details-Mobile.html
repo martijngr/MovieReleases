@@ -1,44 +1,80 @@
-﻿<div id="movie-details">
-    <h2>{{movieCtrl.movieDetails.Title}}</h2>
+﻿<div id="movie-details" class="tab-view">
+    <div class="general-movie-info">
+        <h1>{{movieCtrl.movieDetails.Title}}</h1>
 
-    <div id="general-movie-info">
-        Duur: {{movieCtrl.movieDetails.Duration}} |
-        Imdb: {{movieCtrl.movieDetails.Imdb}}  |
-        Jaar: {{movieCtrl.movieDetails.Year}}
+        <div class="clearfix">
+            <div class="pull-left">
+                Duur:
+                {{movieCtrl.movieDetails.Duration}} | Imdb  : {{movieCtrl.movieDetails.Imdb}}  | Jaar: {{movieCtrl.movieDetails.Year}}
+            </div>
+            <div class="pull-right">
+                <movie-share-button data-movie="movieCtrl.movieDetails"></movie-share-button>
+                <watchlist-button data-movie="movieCtrl.movieDetails"></watchlist-button>
+            </div>
+        </div>
     </div>
-    <div class="btn-group btn-group-justified" role="group" data-ng-init="vm.tab.active='plot'">
+    <div class="btn-group btn-group-justified" role="group" data-ng-init="vm.tab.active='trailer'">
         <div class="btn-group" role="group" title="Plot">
-            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='plot'"><i class="fa fa-leanpub"></i></button>
+            <button type="button"
+                    data-ng-class="{'btn':true, 'btn-default':true, 'active': vm.tab.active=='plot'}"
+                    data-ng-click="vm.tab.active='plot'">
+                <i class="fa fa-leanpub"></i>
+            </button>
         </div>
         <div class="btn-group" role="group" title="Filmposter">
-            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='poster'"><i class="fa fa-camera"></i></button>
+            <button type="button"
+                    data-ng-class="{'btn':true, 'btn-default':true, 'active': vm.tab.active=='poster'}"
+                    data-ng-click="vm.tab.active='poster'">
+                <i class="fa fa-camera"></i>
+            </button>
         </div>
         <div class="btn-group" role="group" title="Recenties">
-            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='reviews'"><i class="fa fa-comments"></i></button>
+            <button type="button"
+                    data-ng-class="{'btn':true, 'btn-default':true, 'active': vm.tab.active=='reviews'}"
+                    data-ng-click="vm.tab.active='reviews'">
+                <i class="fa fa-comments"></i>
+            </button>
         </div>
         <div class="btn-group" role="group" title="Trailer">
-            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='trailer'"><i class="fa fa-video-camera"></i></button>
+            <button type="button"
+                    data-ng-class="{'btn':true, 'btn-default':true, 'active': vm.tab.active=='trailer'}"
+                    data-ng-click="vm.tab.active='trailer'">
+                <i class="fa fa-video-camera"></i>
+            </button>
         </div>
         <div class="btn-group" role="group" title="Acteurs">
-            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='actors'"><i class="fa fa-users"></i></button>
+            <button type="button"
+                    data-ng-class="{'btn':true, 'btn-default':true, 'active': vm.tab.active=='actors'}"
+                    data-ng-click="vm.tab.active='actors'">
+                <i class="fa fa-users"></i>
+            </button>
         </div>
         <div class="btn-group" role="group" title="Filminformatie">
-            <button type="button" class="btn btn-default" data-ng-click="vm.tab.active='info'"><i class="fa fa-info"></i></button>
+            <button type="button"
+                    data-ng-class="{'btn':true, 'btn-default':true, 'active': vm.tab.active=='info'}"
+                    data-ng-click="vm.tab.active='info'">
+                <i class="fa fa-info"></i>
+            </button>
         </div>
     </div>
 
-    <div style="margin-top:10px;">
+    <div class="tab-container">
         <div data-ng-show="vm.tab.active == 'plot'">
             <p>{{movieCtrl.movieDetails.Plot}}</p>
         </div>
-        <div data-ng-show="vm.tab.active == 'poster'">
-            <span><movie-poster imdb="{{movieCtrl.movieDetails.Imdb}}"></movie-poster></span>
+        <div data-ng-show="vm.tab.active == 'poster'" class="text-center">
+            <movie-poster imdb="{{movieCtrl.movieDetails.Imdb}}"></movie-poster>
         </div>
         <div data-ng-show="vm.tab.active == 'reviews'">
             Hier de recenties.... ;)
         </div>
         <div data-ng-show="vm.tab.active == 'trailer'">
-            <span><movie-trailer data-url="{{movieCtrl.movieDetails.TrailerUrl}}"></movie-trailer></span>
+            <div class="iframe-wrapper-responsive">
+                <div class="iframe-container-responsive">
+                    <img class="ratio" src="http://placehold.it/16x9" />
+                    <movie-trailer data-url="{{movieCtrl.movieDetails.TrailerUrl}}"></movie-trailer>
+                </div>
+            </div>
         </div>
         <div data-ng-show="vm.tab.active == 'actors'">
             Acteurs:

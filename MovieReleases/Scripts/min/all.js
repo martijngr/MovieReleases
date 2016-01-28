@@ -265,92 +265,6 @@ app.directive("droppable", MovieApp.Droppable);
 
 var MovieApp;
 (function (MovieApp) {
-    var FriendsController = (function () {
-        function FriendsController($scope, $routeParams, FriendsService, movie) {
-            this.$scope = $scope;
-            this.$routeParams = $routeParams;
-            this.FriendsService = FriendsService;
-            this.movie = movie;
-            this.friends = $scope.friends;
-            //var x = $scope.friends;
-        }
-        FriendsController.prototype.showFriendDetails = function (friend) {
-            var _this = this;
-            this.selectedFriend = friend;
-            this.FriendsService.GetFriendById(friend.UserId).then(function (response) {
-                _this.selectedFriend = response;
-            });
-        };
-        FriendsController.$inject = ['$scope', '$routeParams', 'FriendsService'];
-        return FriendsController;
-    })();
-    MovieApp.FriendsController = FriendsController;
-    app.controller("FriendsController", MovieApp.FriendsController);
-})(MovieApp || (MovieApp = {}));
-
-var MovieApp;
-(function (MovieApp) {
-    var FriendsService = (function () {
-        function FriendsService($http, $q, $location) {
-            this.$http = $http;
-            this.$q = $q;
-            this.$location = $location;
-            this.GetFriendById = function (id) {
-                return this.$http.get("/api/Friends/" + id).then(this.requestSucceeded);
-            };
-        }
-        FriendsService.prototype.requestSucceeded = function (response) {
-            return response.data;
-        };
-        FriendsService.$inject = ['$http', '$q', '$location'];
-        return FriendsService;
-    })();
-    MovieApp.FriendsService = FriendsService;
-})(MovieApp || (MovieApp = {}));
-app.service("FriendsService", MovieApp.FriendsService);
-
-var MovieApp;
-(function (MovieApp) {
-    var Friend = (function () {
-        function Friend() {
-        }
-        Object.defineProperty(Friend.prototype, "UserId", {
-            get: function () {
-                return this._id;
-            },
-            set: function (id) {
-                this._id = id;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Friend.prototype, "Username", {
-            get: function () {
-                return this._username;
-            },
-            set: function (username) {
-                this._username = username;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Friend.prototype, "List", {
-            get: function () {
-                return this._list;
-            },
-            set: function (list) {
-                this._list = list;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return Friend;
-    })();
-    MovieApp.Friend = Friend;
-})(MovieApp || (MovieApp = {}));
-
-var MovieApp;
-(function (MovieApp) {
     var HomeController = (function () {
         function HomeController($scope, $location, downloadListRepository) {
             var _this = this;
@@ -455,6 +369,179 @@ app.controller("HomeController", MovieApp.HomeController);
 //        }
 //    });
 //}]); 
+
+var MovieApp;
+(function (MovieApp) {
+    function MovieOverview() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                movies: '=',
+            },
+            templateUrl: "/Partials/Movie/MovieOverview.html",
+            link: function (scope, element, attributes) {
+            }
+        };
+    }
+    MovieApp.MovieOverview = MovieOverview;
+})(MovieApp || (MovieApp = {}));
+app.directive("movieOverview", MovieApp.MovieOverview);
+
+var MovieApp;
+(function (MovieApp) {
+    var MovieOverviewController = (function () {
+        function MovieOverviewController($scope, movies, downloadListRepository, moviePosterFactory, movieService) {
+            this.$scope = $scope;
+            this.movies = movies;
+            this.downloadListRepository = downloadListRepository;
+            this.moviePosterFactory = moviePosterFactory;
+            this.movieService = movieService;
+            this.currentImdb = "-1";
+            this.$scope.movies = [];
+            for (var date in this.movies) {
+                var list = this.movies[date];
+                var obj = { date: date, movies: list };
+                this.$scope.movies.push(obj);
+            }
+        }
+        MovieOverviewController.prototype.toggleExtraInfo = function (movie) {
+            var moviebox = $("#" + movie.Imdb);
+            var movieboxParent = $(moviebox).parent();
+            var nextMovieParent = $(movieboxParent).next();
+            var plot = moviebox.next();
+            // collapse previous opened movie box
+            if (this.currentImdb != "-1") {
+                var currentMoviebox = $("#" + this.currentImdb);
+                this.collapseDiv(currentMoviebox.parent(), 215);
+                currentMoviebox.parent().removeClass('expanded');
+                currentMoviebox.next().hide();
+            }
+            // collapse current opened moviebox
+            if (movie.Imdb == this.currentImdb) {
+                movieboxParent.removeClass('expanded');
+                this.collapseDiv(movieboxParent, 215);
+                plot.hide();
+                this.currentImdb = "-1";
+            }
+            else {
+                //expend new moviebox
+                movieboxParent.addClass('expanded');
+                this.expandDiv(movieboxParent, 600);
+                plot.show();
+                this.currentImdb = movie.Imdb;
+            }
+        };
+        MovieOverviewController.prototype.expandDiv = function (element, endSize) {
+            var totalWidth = element.width();
+            var stepSize = 10;
+            var handle = setInterval(function () {
+                element.css('width', totalWidth + stepSize + 'px');
+                totalWidth += stepSize;
+                if (totalWidth >= endSize) {
+                    clearInterval(handle);
+                }
+            }, 5);
+        };
+        MovieOverviewController.prototype.collapseDiv = function (element, endSize) {
+            var totalWidth = element.width();
+            var stepSize = 10;
+            var handle = setInterval(function () {
+                element.css('width', totalWidth - stepSize + 'px');
+                totalWidth -= stepSize;
+                if (totalWidth <= endSize) {
+                    clearInterval(handle);
+                }
+            }, 5);
+        };
+        MovieOverviewController.prototype.addMovieToDownloadList = function (movie) {
+            this.downloadListRepository.AddMovieToDownloadList(movie);
+        };
+        MovieOverviewController.prototype.deleteMovieFromDownloadList = function (movie) {
+            this.downloadListRepository.deleteFromDownloadListByMovie(movie);
+        };
+        MovieOverviewController.prototype.showMovieDetails = function (providerId) {
+            this.movieService.getMovieById(providerId);
+        };
+        MovieOverviewController.prototype.IsMoviePresentInDownloadlist = function (movie) {
+            return this.downloadListRepository.IsMovieInDownloadList(movie);
+        };
+        MovieOverviewController.$inject = ['$scope', 'movies', 'DownloadListRepository', 'moviePosterFactory', 'MovieService'];
+        return MovieOverviewController;
+    })();
+    MovieApp.MovieOverviewController = MovieOverviewController;
+    app.controller("MovieOverviewController", MovieApp.MovieOverviewController);
+})(MovieApp || (MovieApp = {}));
+
+var MovieApp;
+(function (MovieApp) {
+    function EmailValidation() {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                if (!ctrl) {
+                    return false;
+                }
+                function isValidEmail(value) {
+                    if (!value) {
+                        return false;
+                    }
+                    // Email Regex used by ASP.Net MVC
+                    var regex = /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i;
+                    return regex.exec(value) != null;
+                }
+                scope.$watch(ctrl, function () {
+                    ctrl.$validate();
+                });
+                ctrl.$validators.email = function (modelValue, viewValue) {
+                    return isValidEmail(viewValue);
+                };
+            }
+        };
+    }
+    MovieApp.EmailValidation = EmailValidation;
+})(MovieApp || (MovieApp = {}));
+MovieApp.EmailValidation.$inject = [];
+app.directive("email", MovieApp.EmailValidation);
+
+var MovieApp;
+(function (MovieApp) {
+    var WatchlistItem = (function () {
+        function WatchlistItem() {
+        }
+        Object.defineProperty(WatchlistItem.prototype, "Id", {
+            get: function () {
+                return this._id;
+            },
+            set: function (id) {
+                this._id = id;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(WatchlistItem.prototype, "Movie", {
+            get: function () {
+                return this._movie;
+            },
+            set: function (movie) {
+                this._movie = movie;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return WatchlistItem;
+    })();
+    MovieApp.WatchlistItem = WatchlistItem;
+})(MovieApp || (MovieApp = {}));
+
+// Type definitions for Angular JS 1.2+
+// Project: http://angularjs.org
+// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+/// <reference path="../jquery/jquery.d.ts" />
+
+/// <reference path="angularjs-1.2-d.ts" />
 
 var MovieApp;
 (function (MovieApp) {
@@ -576,8 +663,8 @@ var MovieApp;
             this.movie = movie;
             this.vm = {
                 viewtype: {
-                    carousel: true,
-                    mobile: false,
+                    carousel: false,
+                    mobile: true,
                 }
             };
             if (!_.isString(movie)) {
@@ -640,7 +727,7 @@ var MovieApp;
                 var img = new Image();
                 moviePosterFactory.GetMoviePoster(scope.imdb).then(function (imageUrl) {
                     img.src = imageUrl;
-                    img.style.height = "530px";
+                    //img.style.height = "530px";
                     element.parent().append(img);
                     element.remove();
                 });
@@ -1007,14 +1094,18 @@ var MovieApp;
             replace: true,
             scope: {
                 url: '@',
+                width: '@',
+                height: '@',
             },
             link: function (scope, element, attributes) {
                 if (!scope.url)
                     return;
                 var iframe = document.createElement("IFRAME");
                 iframe.src = scope.url;
-                iframe.width = "680px";
-                iframe.height = "383px";
+                if (scope.width)
+                    iframe.width = scope.width;
+                if (scope.height)
+                    iframe.height = scope.height;
                 iframe.frameBorder = "0";
                 iframe.scrolling = "false";
                 iframe.setAttribute("allowfullscreen", "");
@@ -1029,145 +1120,56 @@ app.directive("movieTrailer", MovieApp.MovieTrailer);
 
 var MovieApp;
 (function (MovieApp) {
-    function MovieOverview() {
-        return {
-            restrict: 'E',
-            replace: true,
-            scope: {
-                movies: '=',
-            },
-            templateUrl: "/Partials/Movie/MovieOverview.html",
-            link: function (scope, element, attributes) {
-            }
-        };
-    }
-    MovieApp.MovieOverview = MovieOverview;
-})(MovieApp || (MovieApp = {}));
-app.directive("movieOverview", MovieApp.MovieOverview);
-
-var MovieApp;
-(function (MovieApp) {
-    var MovieOverviewController = (function () {
-        function MovieOverviewController($scope, movies, downloadListRepository, moviePosterFactory, movieService) {
+    var FriendsController = (function () {
+        function FriendsController($scope, $routeParams, FriendsService, movie) {
             this.$scope = $scope;
-            this.movies = movies;
-            this.downloadListRepository = downloadListRepository;
-            this.moviePosterFactory = moviePosterFactory;
-            this.movieService = movieService;
-            this.currentImdb = "-1";
-            this.$scope.movies = [];
-            for (var date in this.movies) {
-                var list = this.movies[date];
-                var obj = { date: date, movies: list };
-                this.$scope.movies.push(obj);
-            }
+            this.$routeParams = $routeParams;
+            this.FriendsService = FriendsService;
+            this.movie = movie;
+            this.friends = $scope.friends;
+            //var x = $scope.friends;
         }
-        MovieOverviewController.prototype.toggleExtraInfo = function (movie) {
-            var moviebox = $("#" + movie.Imdb);
-            var movieboxParent = $(moviebox).parent();
-            var nextMovieParent = $(movieboxParent).next();
-            var plot = moviebox.next();
-            // collapse previous opened movie box
-            if (this.currentImdb != "-1") {
-                var currentMoviebox = $("#" + this.currentImdb);
-                this.collapseDiv(currentMoviebox.parent(), 215);
-                currentMoviebox.parent().removeClass('expanded');
-                currentMoviebox.next().hide();
-            }
-            // collapse current opened moviebox
-            if (movie.Imdb == this.currentImdb) {
-                movieboxParent.removeClass('expanded');
-                this.collapseDiv(movieboxParent, 215);
-                plot.hide();
-                this.currentImdb = "-1";
-            }
-            else {
-                //expend new moviebox
-                movieboxParent.addClass('expanded');
-                this.expandDiv(movieboxParent, 600);
-                plot.show();
-                this.currentImdb = movie.Imdb;
-            }
+        FriendsController.prototype.showFriendDetails = function (friend) {
+            var _this = this;
+            this.selectedFriend = friend;
+            this.FriendsService.GetFriendById(friend.UserId).then(function (response) {
+                _this.selectedFriend = response;
+            });
         };
-        MovieOverviewController.prototype.expandDiv = function (element, endSize) {
-            var totalWidth = element.width();
-            var stepSize = 10;
-            var handle = setInterval(function () {
-                element.css('width', totalWidth + stepSize + 'px');
-                totalWidth += stepSize;
-                if (totalWidth >= endSize) {
-                    clearInterval(handle);
-                }
-            }, 5);
-        };
-        MovieOverviewController.prototype.collapseDiv = function (element, endSize) {
-            var totalWidth = element.width();
-            var stepSize = 10;
-            var handle = setInterval(function () {
-                element.css('width', totalWidth - stepSize + 'px');
-                totalWidth -= stepSize;
-                if (totalWidth <= endSize) {
-                    clearInterval(handle);
-                }
-            }, 5);
-        };
-        MovieOverviewController.prototype.addMovieToDownloadList = function (movie) {
-            this.downloadListRepository.AddMovieToDownloadList(movie);
-        };
-        MovieOverviewController.prototype.deleteMovieFromDownloadList = function (movie) {
-            this.downloadListRepository.deleteFromDownloadListByMovie(movie);
-        };
-        MovieOverviewController.prototype.showMovieDetails = function (providerId) {
-            this.movieService.getMovieById(providerId);
-        };
-        MovieOverviewController.prototype.IsMoviePresentInDownloadlist = function (movie) {
-            return this.downloadListRepository.IsMovieInDownloadList(movie);
-        };
-        MovieOverviewController.$inject = ['$scope', 'movies', 'DownloadListRepository', 'moviePosterFactory', 'MovieService'];
-        return MovieOverviewController;
+        FriendsController.$inject = ['$scope', '$routeParams', 'FriendsService'];
+        return FriendsController;
     })();
-    MovieApp.MovieOverviewController = MovieOverviewController;
-    app.controller("MovieOverviewController", MovieApp.MovieOverviewController);
+    MovieApp.FriendsController = FriendsController;
+    app.controller("FriendsController", MovieApp.FriendsController);
 })(MovieApp || (MovieApp = {}));
 
 var MovieApp;
 (function (MovieApp) {
-    function EmailValidation() {
-        return {
-            restrict: 'A',
-            require: 'ngModel',
-            link: function (scope, elem, attrs, ctrl) {
-                if (!ctrl) {
-                    return false;
-                }
-                function isValidEmail(value) {
-                    if (!value) {
-                        return false;
-                    }
-                    // Email Regex used by ASP.Net MVC
-                    var regex = /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/i;
-                    return regex.exec(value) != null;
-                }
-                scope.$watch(ctrl, function () {
-                    ctrl.$validate();
-                });
-                ctrl.$validators.email = function (modelValue, viewValue) {
-                    return isValidEmail(viewValue);
-                };
-            }
-        };
-    }
-    MovieApp.EmailValidation = EmailValidation;
-})(MovieApp || (MovieApp = {}));
-MovieApp.EmailValidation.$inject = [];
-app.directive("email", MovieApp.EmailValidation);
-
-var MovieApp;
-(function (MovieApp) {
-    var WatchlistItem = (function () {
-        function WatchlistItem() {
+    var FriendsService = (function () {
+        function FriendsService($http, $q, $location) {
+            this.$http = $http;
+            this.$q = $q;
+            this.$location = $location;
+            this.GetFriendById = function (id) {
+                return this.$http.get("/api/Friends/" + id).then(this.requestSucceeded);
+            };
         }
-        Object.defineProperty(WatchlistItem.prototype, "Id", {
+        FriendsService.prototype.requestSucceeded = function (response) {
+            return response.data;
+        };
+        FriendsService.$inject = ['$http', '$q', '$location'];
+        return FriendsService;
+    })();
+    MovieApp.FriendsService = FriendsService;
+})(MovieApp || (MovieApp = {}));
+app.service("FriendsService", MovieApp.FriendsService);
+
+var MovieApp;
+(function (MovieApp) {
+    var Friend = (function () {
+        function Friend() {
+        }
+        Object.defineProperty(Friend.prototype, "UserId", {
             get: function () {
                 return this._id;
             },
@@ -1177,28 +1179,30 @@ var MovieApp;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(WatchlistItem.prototype, "Movie", {
+        Object.defineProperty(Friend.prototype, "Username", {
             get: function () {
-                return this._movie;
+                return this._username;
             },
-            set: function (movie) {
-                this._movie = movie;
+            set: function (username) {
+                this._username = username;
             },
             enumerable: true,
             configurable: true
         });
-        return WatchlistItem;
+        Object.defineProperty(Friend.prototype, "List", {
+            get: function () {
+                return this._list;
+            },
+            set: function (list) {
+                this._list = list;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return Friend;
     })();
-    MovieApp.WatchlistItem = WatchlistItem;
+    MovieApp.Friend = Friend;
 })(MovieApp || (MovieApp = {}));
-
-// Type definitions for Angular JS 1.2+
-// Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-/// <reference path="../jquery/jquery.d.ts" />
-
-/// <reference path="angularjs-1.2-d.ts" />
 
 var MovieApp;
 (function (MovieApp) {
@@ -1209,10 +1213,10 @@ var MovieApp;
             this.$window = $window;
             this.$location = $location;
             this.GetMovieByImdb = function (imdb) {
-                return this.HandleGetRequest("api/Movie?movieMeterId=" + imdb).then(function (response) {
+                return this.HandleGetRequest("api/Movie/GetByImdb?imdb=" + imdb).then(function (response) {
                     return response;
                 }, function (rejection) {
-                    return rejection.data; // this will contain the error message.
+                    return rejection.data; // this will contain the error message.  
                 });
             };
             this.SearchMovie = function (movieName) {
@@ -1300,3 +1304,35 @@ var MovieApp;
     MovieApp.MovieService = MovieService;
 })(MovieApp || (MovieApp = {}));
 app.service("MovieService", MovieApp.MovieService);
+
+var MovieApp;
+(function (MovieApp) {
+    function WatchlistButton(DownloadListRepository) {
+        return {
+            restrict: 'E',
+            templateUrl: '/Watchlist/watchlist-button.html',
+            scope: {
+                movie: '=',
+            },
+            link: function (scope, element, attributes) {
+                scope.vm = {
+                    addMovieToDownloadList: addMovieToDownloadList,
+                    deleteMovieFromDownloadList: deleteMovieFromDownloadList,
+                    isMoviePresentInDownloadlist: isMoviePresentInDownloadlist
+                };
+                function addMovieToDownloadList() {
+                    DownloadListRepository.AddMovieToDownloadList(scope.movie);
+                }
+                function deleteMovieFromDownloadList() {
+                    DownloadListRepository.deleteFromDownloadListByMovie(scope.movie);
+                }
+                function isMoviePresentInDownloadlist() {
+                    return DownloadListRepository.IsMovieInDownloadList(scope.movie);
+                }
+            }
+        };
+    }
+    MovieApp.WatchlistButton = WatchlistButton;
+})(MovieApp || (MovieApp = {}));
+MovieApp.ShareButton.$inject = ['DownloadListRepository'];
+app.directive("watchlistButton", MovieApp.WatchlistButton);

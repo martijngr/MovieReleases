@@ -24,7 +24,7 @@ namespace MovieReleases.Business.MovieScrapers.MovieMeter
             throw new NotImplementedException();
         }
 
-        public DTO.MovieDto GetMovieById(string id)
+        public DTO.MovieDto GetMovieByImdb(string id)
         {
             var url = string.Format("http://www.moviemeter.nl/api/film/{0}&api_key={1}", id, _apikey);
             using (var client = new WebClient())

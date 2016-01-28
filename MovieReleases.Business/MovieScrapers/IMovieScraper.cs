@@ -13,6 +13,6 @@ namespace MovieReleases.Business.MovieScrapers
 
         Dictionary<DateTime, MovieDto[]> GetMoviesSoonInCinema();
 
-        MovieDto GetMovieById(string id);
+        MovieDto GetMovieByImdb(string id);
     }
 }

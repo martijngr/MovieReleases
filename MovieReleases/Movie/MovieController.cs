@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using MovieReleases.Business;
 using MovieReleases.Business.MovieScrapers;
@@ -21,19 +19,20 @@ namespace MovieReleases.Movie
             _movieService = movieService;
         }
 
-        public MovieDto Get(string movieMeterId)
+        [HttpGet]
+        public MovieDto GetByImdb(string imdb)
         {
             // More on exception handling: http://www.asp.net/web-api/overview/error-handling/exception-handling
             try
             {
-                var movie = _movieService.GetMovieById(movieMeterId);
+                var movie = _movieService.GetMovieByImdb(imdb);
                 return movie;
             }
             catch (MovieNotFoundException ex)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                var resp = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.NotFound)
                 {
-                    Content = new StringContent(ex.Message),
+                    Content = new System.Net.Http.StringContent(ex.Message),
                     ReasonPhrase = "Film niet gevonden"
                 };
 
@@ -50,7 +49,8 @@ namespace MovieReleases.Movie
         }
 
         [HttpGet]
-        public MovieDto GetById(string id)
+        [Route("GetById/{imdb}")]
+        public MovieDto GetById(int id)
         {
             var movie = _movieService.GetMovieById(id);
 

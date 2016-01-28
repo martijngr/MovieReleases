@@ -12,7 +12,7 @@ namespace MovieReleases.DTO
     public class MovieDto
     {
         public int Id;
-        public string ProviderId { get; set; }
+        public int ProviderId { get; set; }
         public string Title;
         public string Year;
         public string Thumbnail { get; set; }

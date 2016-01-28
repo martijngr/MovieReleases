@@ -310,6 +310,9 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery.cycle2.center.min.js" />
+    <Content Include="Scripts\jquery.cycle2.min.js" />
+    <Content Include="Scripts\jquery.cycle2.carousel.min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\underscore.min.map" />
@@ -454,11 +457,10 @@
     <Content Include="Scripts\min\all.js" />
     <Content Include="Scripts\min\all.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\slick.js" />
-    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\tests\FirstTest.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Watchlist\watchlist-button.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -500,6 +502,7 @@
     <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
+    <TypeScriptCompile Include="Watchlist\watchlist-button.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -38,7 +38,7 @@ namespace MovieReleases.Business.MovieScrapers.TheMovieDB
                 foreach (var item in jarray)
                 {
                     var movie = new MovieDto();
-                    movie.ProviderId = item.GetValue<string>("id");
+                    movie.ProviderId = item.GetValue<int>("id");
                     movie.MovieType = MovieType.InCinema;
                     movie.ReleaseDate = item.GetValue<DateTime>("release_date");
                     movie.Title = item.GetValue<string>("original_title");
@@ -66,7 +66,7 @@ namespace MovieReleases.Business.MovieScrapers.TheMovieDB
                 foreach (var item in jarray)
                 {
                     var movie = new MovieDto();
-                    movie.ProviderId = item.GetValue<string>("id");
+                    movie.ProviderId = item.GetValue<int>("id");
                     movie.MovieType = MovieType.SoonInCinema;
                     movie.ReleaseDate = item.GetValue<DateTime>("release_date");
                     movie.Title = item.GetValue<string>("original_title");
@@ -80,12 +80,12 @@ namespace MovieReleases.Business.MovieScrapers.TheMovieDB
             }
         }
 
-        public DTO.MovieDto GetMovieById(string id)
+        public DTO.MovieDto GetMovieByImdb(string imdb)
         {
             using (var client = new WebClient())
             {
-                // https://api.themoviedb.org/3/movie/550?api_key=###&append_to_response=similar_movies,alternative_titles,keywords,releases,trailers
-                var url = string.Format("http://api.themoviedb.org/3/movie/{0}?api_key={1}&language=nl&append_to_response=credits,rating,reviews,similar,alternative_titles", id, _apikey);
+                // Id can be both: imdb or the id of 'the movie db'
+                var url = string.Format("http://api.themoviedb.org/3/movie/{0}?api_key={1}&language=nl&append_to_response=credits,rating,reviews,similar,alternative_titles", imdb, _apikey);
 
                 try
                 {

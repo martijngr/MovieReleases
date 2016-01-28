@@ -14,8 +14,8 @@
         movieDetails: Movie;
         vm = {
             viewtype: {
-                carousel: true,
-                mobile: false,
+                carousel: false,
+                mobile: true,
             }
         }
 
