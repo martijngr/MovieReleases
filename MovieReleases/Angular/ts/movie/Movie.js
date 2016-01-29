@@ -107,4 +107,3 @@ var MovieApp;
     })();
     MovieApp.Movie = Movie;
 })(MovieApp || (MovieApp = {}));
-//# sourceMappingURL=Movie.js.map

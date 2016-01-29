@@ -14,7 +14,7 @@
             return this.HandleGetRequest("api/Movie/GetByImdb?imdb=" + imdb).then(function (response) {
                 return response;
             }, function (rejection) {
-                return rejection.data; // this will contain the error message.  
+                return rejection.data; // this will contain the error message
             });
         }
 

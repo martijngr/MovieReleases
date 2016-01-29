@@ -1,12 +1,10 @@
-﻿<div data-ng-view id="view-container" data-ng-class="{'full-view-container-width': !showMovieDropdown}"></div>
+﻿<div data-ng-view id="view-container" data-ng-class="{'full-view-container-width': homeCtrl.isWatchlistVisible()}"></div>
 
 <div id="download-list"
-     class="visible-md-block visible-lg-block download-list"
+     class="visible-lg-block download-list"
      droppable>
     <div data-ng-hide="homeCtrl.dragPending">
-        <ul class="movie-dropdown"
-            data-ng-init="showMovieDropdown = true"
-            data-ng-show="showMovieDropdown">
+        <ul class="movie-dropdown">
             <li>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                     <a data-ng-class="{'btn':true, 'btn-default':true, 'active': movieTypeFilter == 1}" title="Binnenkort in de bioscoop" data-ng-click="movieTypeFilter = 1">

@@ -13,7 +13,7 @@ var MovieApp;
                 var img = new Image();
                 moviePosterFactory.GetMoviePoster(scope.imdb).then(function (imageUrl) {
                     img.src = imageUrl;
-                    img.style.height = "530px";
+                    //img.style.height = "530px";
                     element.parent().append(img);
                     element.remove();
                 });
@@ -24,4 +24,3 @@ var MovieApp;
 })(MovieApp || (MovieApp = {}));
 MovieApp.MoviePoster.$inject = ['moviePosterFactory'];
 app.directive("moviePoster", MovieApp.MoviePoster);
-//# sourceMappingURL=MoviePoster.js.map

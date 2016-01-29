@@ -3,10 +3,25 @@
 /// <reference path="../../../scripts/typings/bootstrap/bootstrap.d.ts" />
 /// <reference path="../../../Scripts/typings/underscore/underscore.d.ts"/>
 /// <reference path="../../../scripts/typings/jquery/jquery.d.ts" />
-
+/// <reference path="../../../scripts/typings/toastr/toastr.d.ts" />
 /// <reference path="../../../scripts/typings/jqueryui/jqueryui.d.ts" />
-///// <reference path="../../scripts/typings/toastr/toastr.d.ts" />
 
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-bottom-full-width",
+    "preventDuplicates": false,
+    "onclick": null,
+    "hideDuration": 1000,
+    "timeOut": 5000,
+    "extendedTimeOut": 1000,
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}
 
 var app = angular.module('movieApp', ['ngRoute']);
 

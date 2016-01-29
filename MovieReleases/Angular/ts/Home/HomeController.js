@@ -39,6 +39,9 @@ var MovieApp;
                 });
                 return count;
             };
+            $scope.isWatchlistVisible = function () {
+                return $("#download-list").is(":visible");
+            };
         }
         HomeController.prototype.setActiveUrlPart = function () {
             var parts = this.$location.path().split('/');

@@ -119,6 +119,14 @@
     $(document).ready(function () {
         $('#slides').cycle();
 
+        $('#slides').on('cycle-before', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var slideWidth = $(incomingSlideEl).width();
+            var sliderboxWidth = $("#slides").width();
+            var offset = (sliderboxWidth - slideWidth) / 2;
+
+            $(".cycle-carousel-wrap").css("margin-left", offset + "px");
+        });
+
         goToSlide(3);
     });
 

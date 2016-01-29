@@ -29,6 +29,8 @@
                 movie: '=',
             },
             link: function (scope: IMovieShareButtonScope, element: JQuery, attributes: any) {
+                
+
                 scope.vm = {
                     form: new ShareForm(),
                     modelId: "share-movie-modal" + scope.movie.Imdb,
@@ -39,15 +41,29 @@
                 
                 function showSharePopup(movie: Movie) {
                     scope.vm.form = new ShareForm();
-                    $("#" + scope.vm.modelId).modal('toggle');
+                    getPopup().modal('toggle');
                 }
 
                 function sendMail() {
-                    MovieService.shareMovieWithFriend(scope.vm.form.emailAddress, scope.vm.form.message);
+                    MovieService.shareMovieWithFriend(scope.vm.form.emailAddress, scope.vm.form.message).then(mailSendSuccess, mailSendFailed);
                 }
 
                 function isFormValid() {
                     return scope.shareForm.$valid;
+                }
+
+                function mailSendSuccess() {
+                    getPopup().modal('hide');
+                    toastr.success("Mail verzonden", "Je e-mail is verzondenaan je vriend(in)!");
+                }
+
+                function mailSendFailed() {
+                    getPopup().modal('hide');
+                    toastr.success("Hmm...", "Er is een fout opgetreden bij het verzenden van de mail... Kak");
+                }
+
+                function getPopup() {
+                    return angular.element("#" + scope.vm.modelId);
                 }
             }
         }

@@ -11,6 +11,8 @@
         filter(watchListItem: WatchlistItem): boolean;
 
         countMovieType(movieType: number): number;
+
+        isWatchlistVisible(): boolean;
     }
 
     export class HomeController {
@@ -67,6 +69,10 @@
                 });
 
                 return count;
+            }
+
+            $scope.isWatchlistVisible = function () {
+                return $("#download-list").is(":visible");
             }
         }
 
