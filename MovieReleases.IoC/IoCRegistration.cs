@@ -13,6 +13,7 @@ using MovieReleases.Business.Repositories;
 using MovieReleases.Domain.Uow;
 using SimpleInjector;
 using SimpleInjector.Extensions;
+using MovieReleases.Business.Mailing;
 
 namespace MovieReleases.IoC
 {
@@ -39,6 +40,7 @@ namespace MovieReleases.IoC
             container.Register<IOutOnDvdScraper, RottenTomatoesScraper>();
             container.Register<IMovieService, MovieService>();
             container.Register<IMovieRepository, MovieRepository>();
+            container.Register<IMailClient, SmtpMailClient>();
             
             container.Register<IGrabber, GrabbedMoviesHandler>();
             container.RegisterDecorator(typeof(IGrabber), typeof(GrabberNotifierDecorator));

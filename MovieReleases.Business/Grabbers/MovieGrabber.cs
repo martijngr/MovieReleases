@@ -4,6 +4,7 @@ using MovieReleases.Business.Grabbers;
 using MovieReleases.Business.Repositories;
 using MovieReleases.Core.Movies;
 using MovieReleases.DTO;
+using MovieReleases.Domain.Movies;
 
 namespace MovieReleases.Business.MovieScrapers
 {
@@ -103,7 +104,7 @@ namespace MovieReleases.Business.MovieScrapers
             }
         }
 
-        public void UpdateMovie(MovieType newMovieType, MovieDto movie, Domain.Movie movieFromDb)
+        public void UpdateMovie(MovieType newMovieType, MovieDto movie, Movie movieFromDb)
         {
             if (_grabberDecorator != null)
             {

@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MovieReleases.IoC</RootNamespace>
     <AssemblyName>MovieReleases.IoC</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -93,7 +94,7 @@
       <Name>MovieReleases.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\MovieReleases.Domain\MovieReleases.Domain.csproj">
-      <Project>{b9e9d7b5-f75e-45d7-af0f-271a6a9837c3}</Project>
+      <Project>{4722a1d6-56a9-4d73-8847-8c9d8ad991f5}</Project>
       <Name>MovieReleases.Domain</Name>
     </ProjectReference>
   </ItemGroup>

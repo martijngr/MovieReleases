@@ -11,6 +11,7 @@ using MovieReleases.Domain.Uow;
 using MovieReleases.DTO;
 using NSubstitute;
 using MovieReleases.Core.Movies;
+using MovieReleases.Domain.Movies;
 
 namespace MovieReleases.Business.Tests
 {

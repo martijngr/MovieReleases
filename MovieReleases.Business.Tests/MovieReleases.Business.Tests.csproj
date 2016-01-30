@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MovieReleases.Business.Tests</RootNamespace>
     <AssemblyName>MovieReleases.Business.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,7 +71,7 @@
       <Name>MovieReleases.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\MovieReleases.Domain\MovieReleases.Domain.csproj">
-      <Project>{b9e9d7b5-f75e-45d7-af0f-271a6a9837c3}</Project>
+      <Project>{4722a1d6-56a9-4d73-8847-8c9d8ad991f5}</Project>
       <Name>MovieReleases.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\MovieReleases.DTO\MovieReleases.DTO.csproj">

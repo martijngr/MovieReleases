@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MovieReleases.Domain;
 using MovieReleases.Domain.Uow;
+using MovieReleases.Domain.Users;
 
 namespace MovieReleases.Business.Users
 {

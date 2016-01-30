@@ -15,7 +15,14 @@
                 Vul het emailadres van je vriend(in) in om hem/haar op de hoogte te stellen van deze film!
 
                 <form data-ng-submit="vm.sendMail()" name="shareForm">
-
+                    <div class="form-group">
+                        <label for="email">Jouw naam</label>
+                        <input type="text"
+                               data-ng-model="vm.form.sendby"
+                               class="form-control"
+                               name="form.sendby"
+                               required />
+                    </div>
                     <div class="form-group">
                         <label for="email">Emailadres</label>
                         <input type="text"

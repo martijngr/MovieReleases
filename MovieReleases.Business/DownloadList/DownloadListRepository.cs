@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using MovieReleases.Business.Users;
 using MovieReleases.Domain;
 using MovieReleases.Domain.Uow;
+using MovieReleases.Domain.Watchlists;
+using MovieReleases.Domain.Movies;
 
 namespace MovieReleases.Business.DownloadList
 {
@@ -20,22 +22,16 @@ namespace MovieReleases.Business.DownloadList
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
         }
-
-        public void Add(Watchlist watchList)
+        public void Add(WatchlistItem watchListItem)
         {
-            _unitOfWork.Watchlists.Add(watchList);
-        }
-
-        public void Add(WatchListItem watchListItem)
-        {
-            _unitOfWork.WatchListItems.Add(watchListItem);
+            _unitOfWork.WatchlistItems.Add(watchListItem);
         }
 
         public void Delete(int watchlistItemId)
         {
-            var watchLIstItem = _unitOfWork.WatchListItems.First(w => w.Id == watchlistItemId);
+            var watchLIstItem = _unitOfWork.WatchlistItems.First(w => w.Id == watchlistItemId);
 
-            _unitOfWork.WatchListItems.Remove(watchLIstItem);
+            _unitOfWork.WatchlistItems.Remove(watchLIstItem);
         }
 
         public Movie GetByImdb(string imdb)
@@ -44,19 +40,19 @@ namespace MovieReleases.Business.DownloadList
             return movie;
         }
 
-        public WatchListItem GetById(int id)
+        public WatchlistItem GetById(int id)
         {
-            var watchlistItem = _unitOfWork.WatchListItems.FirstOrDefault(m => m.Id == id);
+            var watchlistItem = _unitOfWork.WatchlistItems.FirstOrDefault(m => m.Id == id);
             return watchlistItem;
         }
 
-        public IEnumerable<WatchListItem> GetMoviesToDownload()
+        public IEnumerable<WatchlistItem> GetMoviesToDownload()
         {
-            var movies = (from m in _unitOfWork.WatchListItems
-                          where m.Watchlist.User.Id == userId
-                          select m).ToArray();
+            var watchlistItems = (from w in _unitOfWork.WatchlistItems
+                                  where w.UserId == userId
+                                  select w).ToArray();
 
-            return movies;
+            return watchlistItems;
         }
 
         public int SaveChanges()

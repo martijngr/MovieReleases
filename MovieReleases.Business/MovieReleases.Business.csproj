@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MovieReleases.Business</RootNamespace>
     <AssemblyName>MovieReleases.Business</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -161,6 +162,7 @@
     <Compile Include="Services\MovieService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\MovieRepository.cs" />
+    <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Users\UserConverter.cs" />
     <Compile Include="Users\UserRepository.cs" />
     <Compile Include="Users\UserService.cs" />
@@ -175,7 +177,7 @@
       <Name>MovieReleases.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\MovieReleases.Domain\MovieReleases.Domain.csproj">
-      <Project>{b9e9d7b5-f75e-45d7-af0f-271a6a9837c3}</Project>
+      <Project>{4722a1d6-56a9-4d73-8847-8c9d8ad991f5}</Project>
       <Name>MovieReleases.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\MovieReleases.DTO\MovieReleases.DTO.csproj">

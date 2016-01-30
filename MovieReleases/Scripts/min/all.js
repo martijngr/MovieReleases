@@ -1089,10 +1089,12 @@ var MovieApp;
                     return response.data;
                 });
             };
-            this.shareMovieWithFriend = function (email, message) {
+            this.shareMovieWithFriend = function (email, message, sendby, movie) {
                 var data = {
                     Email: email,
-                    Message: message
+                    Message: message,
+                    Movie: movie,
+                    SendBy: sendby
                 };
                 return this.$http.post("api/Movie/ShareMovieWithFriend", data);
             };
@@ -1114,10 +1116,36 @@ app.service("MovieService", MovieApp.MovieService);
 
 var MovieApp;
 (function (MovieApp) {
+    function MovieTrailerButton() {
+        return {
+            restrict: 'E',
+            templateUrl: '/Movie/Trailer/view-trailer-button.html',
+            scope: {
+                movie: '=',
+            },
+            link: function (scope, element, attributes) {
+                scope.vm = {
+                    showTrailerPopup: showTrailerPopup,
+                    popupId: "popup-trailer-model-" + scope.movie.Imdb,
+                };
+                function showTrailerPopup() {
+                    $("#" + scope.vm.popupId).modal('toggle');
+                }
+            }
+        };
+    }
+    MovieApp.MovieTrailerButton = MovieTrailerButton;
+})(MovieApp || (MovieApp = {}));
+//MovieApp.MovieTrailerButton.$inject = [''];
+app.directive("movieTrailerButton", MovieApp.MovieTrailerButton);
+
+var MovieApp;
+(function (MovieApp) {
     var ShareForm = (function () {
         function ShareForm() {
             this.emailAddress = "";
             this.message = "";
+            this.sendby = "";
         }
         return ShareForm;
     })();
@@ -1141,7 +1169,7 @@ var MovieApp;
                     getPopup().modal('toggle');
                 }
                 function sendMail() {
-                    MovieService.shareMovieWithFriend(scope.vm.form.emailAddress, scope.vm.form.message).then(mailSendSuccess, mailSendFailed);
+                    MovieService.shareMovieWithFriend(scope.vm.form.emailAddress, scope.vm.form.message, scope.vm.form.sendby, scope.movie).then(mailSendSuccess, mailSendFailed);
                 }
                 function isFormValid() {
                     return scope.shareForm.$valid;

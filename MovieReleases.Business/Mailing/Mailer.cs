@@ -12,6 +12,7 @@ using MovieReleases.Core.Movies;
 using MovieReleases.Domain;
 using MovieReleases.DTO;
 using SimpleInjector;
+using MovieReleases.Domain.Movies;
 
 namespace MovieReleases.Business.Mailing.MovieMailer
 {

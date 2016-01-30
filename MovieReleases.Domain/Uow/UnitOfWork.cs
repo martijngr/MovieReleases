@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieReleases.Domain.Uow
 {
-    public class UnitOfWork : MovieContainer, IUnitOfWork
+    public class UnitOfWork : MovieContext, IUnitOfWork
     {
     }
 }

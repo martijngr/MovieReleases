@@ -2,6 +2,8 @@
 using System.Linq;
 using MovieReleases.Core.Movies;
 using MovieReleases.Domain;
+using MovieReleases.Domain.Movies;
+
 namespace MovieReleases.Business.Repositories
 {
     public interface IMovieRepository

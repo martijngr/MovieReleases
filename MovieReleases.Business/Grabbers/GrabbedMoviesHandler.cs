@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MovieReleases.Core.Movies;
 using MovieReleases.Domain;
 using MovieReleases.DTO;
+using MovieReleases.Domain.Movies;
 
 namespace MovieReleases.Business.Grabbers
 {

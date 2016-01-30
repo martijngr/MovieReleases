@@ -13,6 +13,8 @@ using MovieReleases.Notification;
 using SimpleInjector;
 using SimpleInjector.Integration.Web.Mvc;
 using SimpleInjector.Integration.WebApi;
+using MovieReleases.Business.Settings;
+using MovieReleases.Settings;
 
 namespace MovieReleases
 {
@@ -37,6 +39,7 @@ namespace MovieReleases
 
             IoCRegistration.RegisterForWeb(container);
             IoCRegistration.RegisterDefaults(container);
+            container.Register<ISettings, WebSettings>();
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             container.RegisterMvcIntegratedFilterProvider();

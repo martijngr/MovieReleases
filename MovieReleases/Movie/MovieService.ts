@@ -96,10 +96,12 @@
             });
         }
 
-        public shareMovieWithFriend = function (email: string, message: string) {
+        public shareMovieWithFriend = function (email: string, message: string, sendby:string, movie: Movie) {
             var data = {
                 Email: email,
-                Message: message
+                Message: message,
+                Movie: movie,
+                SendBy: sendby
             };
             return this.$http.post("api/Movie/ShareMovieWithFriend", data);
         };

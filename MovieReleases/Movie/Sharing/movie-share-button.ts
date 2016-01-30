@@ -14,10 +14,12 @@
     class ShareForm {
         emailAddress: string;
         message: string;
+        sendby: string;
 
         constructor() {
             this.emailAddress = "";
             this.message = "";
+            this.sendby = "";
         }
     }
 
@@ -45,7 +47,11 @@
                 }
 
                 function sendMail() {
-                    MovieService.shareMovieWithFriend(scope.vm.form.emailAddress, scope.vm.form.message).then(mailSendSuccess, mailSendFailed);
+                    MovieService.shareMovieWithFriend(
+                                    scope.vm.form.emailAddress,
+                                    scope.vm.form.message,
+                                    scope.vm.form.sendby,
+                                    scope.movie).then(mailSendSuccess, mailSendFailed);
                 }
 
                 function isFormValid() {

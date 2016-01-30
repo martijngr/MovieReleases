@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MovieReleases.Core.Movies;
-using MovieReleases.Domain;
+﻿using MovieReleases.Core.Movies;
+using MovieReleases.Domain.Movies;
 using MovieReleases.DTO;
+using System;
 
 namespace MovieReleases.Business.Grabbers
 {

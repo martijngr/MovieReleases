@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieReleases.WebPresentation", "MovieReleases\MovieReleases.WebPresentation.csproj", "{DF04139B-9BBD-42A9-9701-FA5DD651EDBE}"
 EndProject
@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieReleases.DTO", "MovieR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieReleases.Core", "MovieReleases.Core\MovieReleases.Core.csproj", "{BA235429-1811-4829-84F4-D15FACC83757}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieReleases.Domain", "MovieReleases.Domain\MovieReleases.Domain.csproj", "{B9E9D7B5-F75E-45D7-AF0F-271A6A9837C3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieReleases.IoC", "MovieReleases.IoC\MovieReleases.IoC.csproj", "{8BDFD44B-70AD-46F7-8704-2DA5A2B08C07}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieReleases.Scanner", "MovieReleases.Scanner\MovieReleases.Scanner.csproj", "{AEDDF916-A777-40BF-9175-587407AFF469}"
@@ -20,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieReleases.Grabber", "MovieReleases.Grabber\MovieReleases.Grabber.csproj", "{38EEF70A-2A8C-45FC-9C6F-4383B881AA92}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieReleases.Business.Tests", "MovieReleases.Business.Tests\MovieReleases.Business.Tests.csproj", "{B7766907-D1F6-4D08-9015-F538C1C8B32F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieReleases.Domain", "MovieReleases.Domain\MovieReleases.Domain.csproj", "{4722A1D6-56A9-4D73-8847-8C9D8AD991F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +43,6 @@ Global
 		{BA235429-1811-4829-84F4-D15FACC83757}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA235429-1811-4829-84F4-D15FACC83757}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA235429-1811-4829-84F4-D15FACC83757}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9E9D7B5-F75E-45D7-AF0F-271A6A9837C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9E9D7B5-F75E-45D7-AF0F-271A6A9837C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9E9D7B5-F75E-45D7-AF0F-271A6A9837C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9E9D7B5-F75E-45D7-AF0F-271A6A9837C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8BDFD44B-70AD-46F7-8704-2DA5A2B08C07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8BDFD44B-70AD-46F7-8704-2DA5A2B08C07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BDFD44B-70AD-46F7-8704-2DA5A2B08C07}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +59,10 @@ Global
 		{B7766907-D1F6-4D08-9015-F538C1C8B32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7766907-D1F6-4D08-9015-F538C1C8B32F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7766907-D1F6-4D08-9015-F538C1C8B32F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4722A1D6-56A9-4D73-8847-8C9D8AD991F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4722A1D6-56A9-4D73-8847-8C9D8AD991F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4722A1D6-56A9-4D73-8847-8C9D8AD991F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4722A1D6-56A9-4D73-8847-8C9D8AD991F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

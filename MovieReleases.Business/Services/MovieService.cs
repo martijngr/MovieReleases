@@ -12,6 +12,7 @@ using MovieReleases.DTO;
 using MovieReleases.Business.Converters;
 using System;
 using MovieReleases.Domain;
+using MovieReleases.Domain.Movies;
 
 namespace MovieReleases.Business
 {

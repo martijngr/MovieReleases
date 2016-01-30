@@ -6,6 +6,7 @@ using MovieReleases.Business.Repositories;
 using MovieReleases.Business.Users;
 using MovieReleases.Domain;
 using MovieReleases.DTO;
+using MovieReleases.Domain.Watchlists;
 
 namespace MovieReleases.Business.DownloadList
 {
@@ -71,14 +72,13 @@ namespace MovieReleases.Business.DownloadList
             _downloadListRepository.SaveChanges();
         }
 
-        private WatchListItem FromDto(MovieDto movie)
+        private WatchlistItem FromDto(MovieDto movie)
         {
-            return new WatchListItem
+            return new WatchlistItem
             {
                 InPosession = movie.Downloaded,
-                Movie = _movieRepository.GetById(movie.Id),
+                MovieId = movie.Id,
                 Watched = false,
-                WatchlistId = 1,
             };
         }
     }

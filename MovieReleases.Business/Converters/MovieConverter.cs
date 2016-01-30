@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MovieReleases.Domain;
+﻿using MovieReleases.Domain;
+using MovieReleases.Domain.Movies;
 using MovieReleases.DTO;
+using System.Collections.Generic;
 
 namespace MovieReleases.Business.Converters
 {

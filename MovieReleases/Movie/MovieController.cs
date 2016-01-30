@@ -13,10 +13,12 @@ namespace MovieReleases.Movie
     public class MovieController : ApiController
     {
         private MovieService _movieService;
+        private readonly MovieSharer _movieSharer;
 
-        public MovieController(MovieService movieService)
+        public MovieController(MovieService movieService, MovieSharer movieSharer)
         {
             _movieService = movieService;
+            _movieSharer = movieSharer;
         }
 
         [HttpGet]
@@ -68,9 +70,7 @@ namespace MovieReleases.Movie
         [HttpPost]
         public void ShareMovieWithFriend(ShareMovieModel model)
         {
-            MovieSharer.Instance.SetEmail(model.Email)
-                                .SetMessage(model.Message)
-                                .SendMail();
+            _movieSharer.SendMail(model);
         }
     }
 }
