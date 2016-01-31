@@ -10,21 +10,16 @@ using Newtonsoft.Json.Linq;
 
 namespace MovieReleases.Business.MovieScrapers.MovieMeter
 {
-    public class MovieMeterScraper : IMovieScraper
+    public class MovieMeterScraper : IMovieDetailsScraper
     {
         private string _apikey = "85u0w0rdhnwxfvdyvw24657axpbmcfxa";
 
-        public Dictionary<DateTime, DTO.MovieDto[]> GetMoviesOutOnDvd()
+        public MovieDto GetMovieByImdb(string imdb)
         {
-            throw new NotImplementedException();
+            return GetMovieByProviderId(imdb);
         }
 
-        public Dictionary<DateTime, DTO.MovieDto[]> GetMoviesInCinema()
-        {
-            throw new NotImplementedException();
-        }
-
-        public DTO.MovieDto GetMovieByImdb(string id)
+        public MovieDto GetMovieByProviderId(string id)
         {
             var url = string.Format("http://www.moviemeter.nl/api/film/{0}&api_key={1}", id, _apikey);
             using (var client = new WebClient())
@@ -58,17 +53,6 @@ namespace MovieReleases.Business.MovieScrapers.MovieMeter
                     return null;
                 }
             }
-        }
-
-
-        public Dictionary<DateTime, MovieDto[]> GetMoviesSoonInCinema()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Dictionary<DateTime, MovieDto[]> GetMoviesInCinema(IPlotScraper plotScraper)
-        {
-            throw new NotImplementedException();
         }
     }
 }

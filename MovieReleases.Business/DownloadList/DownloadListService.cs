@@ -17,6 +17,7 @@ namespace MovieReleases.Business.DownloadList
         private MovieRepository _movieRepository;
         private MovieConverter _movieConverter;
         private WatchlistItemConverter _watchlistItemConverter;
+        private int _userId = 1;
 
         public DownloadListService(
             DownloadListRepository downloadListRepository,
@@ -39,7 +40,7 @@ namespace MovieReleases.Business.DownloadList
             _downloadListRepository.Add(watchlist);
             _downloadListRepository.SaveChanges();
 
-            var watchlistDto = _watchlistItemConverter.ConvertToWatchListItemDTO(watchlist);
+            var watchlistDto = _watchlistItemConverter.ConvertToWatchListItemDTO(watchlist, movieDto);
 
             return watchlistDto;
         }
@@ -79,6 +80,7 @@ namespace MovieReleases.Business.DownloadList
                 InPosession = movie.Downloaded,
                 MovieId = movie.Id,
                 Watched = false,
+                UserId = _userId,
             };
         }
     }

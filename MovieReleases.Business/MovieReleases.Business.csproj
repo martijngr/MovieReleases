@@ -60,8 +60,9 @@
     <Reference Include="Google.Apis.YouTube.v3">
       <HintPath>..\packages\Google.Apis.YouTube.v3.1.9.0.1410\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.YouTube.v3.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
@@ -129,21 +130,26 @@
     <Compile Include="Converters\WatchlistItemConverter.cs" />
     <Compile Include="DownloadList\DownloadListRepository.cs" />
     <Compile Include="DownloadList\DownloadListService.cs" />
-    <Compile Include="Grabbers\GrabbedMoviesHandler.cs" />
-    <Compile Include="Grabbers\GrabberLogDecorator.cs" />
-    <Compile Include="Grabbers\GrabberNotifierDecorator.cs" />
-    <Compile Include="Grabbers\GrabberSaveDecorator.cs" />
-    <Compile Include="Grabbers\IGrabberDecorator.cs" />
+    <Compile Include="Grabbing\GrabberDecorators\GrabbedMoviesHandler.cs" />
+    <Compile Include="Grabbing\GrabberDecorators\GrabberLogDecorator.cs" />
+    <Compile Include="Grabbing\GrabberDecorators\GrabberNotifierDecorator.cs" />
+    <Compile Include="Grabbing\GrabberDecorators\GrabberSaveDecorator.cs" />
+    <Compile Include="Grabbing\GrabberDecorators\IGrabberDecorator.cs" />
+    <Compile Include="Grabbing\MovieGrabber.cs" />
+    <Compile Include="Grabbing\ReleaseGrabbers\MovieReleaseGrabber.cs" />
+    <Compile Include="Grabbing\ReleaseGrabbers\MoviesNowInCinemaGrabber.cs" />
+    <Compile Include="Grabbing\ReleaseGrabbers\MovieSoonInCinemaGrabber.cs" />
+    <Compile Include="Grabbing\ReleaseGrabbers\MoviesOutOnDvdGrabber.cs" />
     <Compile Include="Mailing\IMailClient.cs" />
     <Compile Include="Mailing\Mailer.cs" />
     <Compile Include="Mailing\SmtpMailClient.cs" />
     <Compile Include="MovieScrapers\IFindScraper.cs" />
+    <Compile Include="MovieScrapers\IGrabMoviesNowInCinema.cs" />
+    <Compile Include="MovieScrapers\IGrabMoviesSoonInCinema.cs" />
     <Compile Include="MovieScrapers\IMovieDetailsScraper.cs" />
-    <Compile Include="MovieScrapers\IMovieScraper.cs" />
     <Compile Include="MovieScrapers\IMovieTrailerScraper.cs" />
     <Compile Include="MovieScrapers\IOutOnDvdScraper.cs" />
     <Compile Include="MovieScrapers\IPlotScraper.cs" />
-    <Compile Include="Grabbers\MovieGrabber.cs" />
     <Compile Include="MovieScrapers\MovieMeter\MovieMeterFindScraper.cs" />
     <Compile Include="MovieScrapers\MovieMeter\MovieMeterPlotScraper.cs" />
     <Compile Include="MovieScrapers\MovieMeter\MovieMeterScraper.cs" />

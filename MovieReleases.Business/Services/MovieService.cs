@@ -18,26 +18,23 @@ namespace MovieReleases.Business
 {
     public class MovieService : IMovieService
     {
-        private IMovieScraper _scraper;
         private IMovieDetailsScraper _detailsMovieScraper;
         private IMovieTrailerScraper _trailerScraper;
         private IPlotScraper _plotScraper;
         private IFindScraper _findScraper;
-        private IOutOnDvdScraper _outOnDvdScraper;
+        private IGrabMoviesOutOnDvd _outOnDvdScraper;
         private MovieRepository _movieRepository;
         private MovieConverter _movieConverter;
 
         public MovieService(
             IPlotScraper plotScraper,
             IFindScraper findScraper,
-            IMovieScraper movieScraper,
             IMovieTrailerScraper trailerScraper,
             IMovieDetailsScraper detailScraper,
-            IOutOnDvdScraper outOnDvdScraper,
+            IGrabMoviesOutOnDvd outOnDvdScraper,
             MovieRepository movieRepository,
             MovieConverter movieConverter)
         {
-            _scraper = movieScraper;
             _detailsMovieScraper = detailScraper;
             _trailerScraper = trailerScraper;
             _plotScraper = plotScraper;
@@ -49,7 +46,6 @@ namespace MovieReleases.Business
 
         public Dictionary<DateTime, MovieDto[]> GetMoviesOutOnDvd()
         {
-            //var rentals = _outOnDvdScraper.GetMoviesOutOnDvd();
             var moviesFromDb = _movieRepository.GetByMovieType(MovieType.Dvd).ToList();
             var convertedMovies = _movieConverter.ConvertToMovieDto(moviesFromDb);
             var rentals = convertedMovies.GroupBy(m => m.ReleaseDate).ToDictionary(k => k.Key, e => e.ToArray());
@@ -59,7 +55,6 @@ namespace MovieReleases.Business
 
         public Dictionary<DateTime, MovieDto[]> GetMoviesInCinema()
         {
-            //var inCinema = _scraper.GetMoviesInCinema();
             var moviesFromDb = _movieRepository.GetByMovieType(MovieType.InCinema).ToList();
             var convertedMovies = _movieConverter.ConvertToMovieDto(moviesFromDb);
             var inCinema = convertedMovies.GroupBy(m => m.ReleaseDate).ToDictionary(k => k.Key, e => e.ToArray());
@@ -119,7 +114,7 @@ namespace MovieReleases.Business
         {
             if (movieDb == null)
             {
-                var movieDto = _detailsMovieScraper.GetMovieByImdb(id);
+                var movieDto = _detailsMovieScraper.GetMovieByProviderId(id);
                 movieDb = _movieConverter.ConvertToMovie(movieDto);
                 AddAndSaveMovie(movieDb);
             }

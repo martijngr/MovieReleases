@@ -44,3 +44,4 @@ var MovieApp;
 })(MovieApp || (MovieApp = {}));
 MovieApp.MoviePosterFactory.MoviePosterFactoryCreator.$inject = ['$q'];
 app.factory('moviePosterFactory', MovieApp.MoviePosterFactory.MoviePosterFactoryCreator);
+//# sourceMappingURL=MoviePosterRepository.js.map

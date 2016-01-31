@@ -49,7 +49,7 @@ function hideMobileMenu() {
     // check if window is small enough so dropdown is created
     jQuery(".navbar-collapse").removeClass("in").addClass("collapse");
 }
-
+//# sourceMappingURL=app.js.map
 app.config(["$routeProvider", function ($routeProvider) {
         $routeProvider.
             when('/Cinema', {
@@ -111,7 +111,7 @@ app.config(["$routeProvider", function ($routeProvider) {
             redirectTo: '/Rent'
         });
     }]);
-
+//# sourceMappingURL=routings.js.map
 var MovieApp;
 (function (MovieApp) {
     var DownloadListRepository = (function () {
@@ -165,7 +165,7 @@ var MovieApp;
     MovieApp.DownloadListRepository = DownloadListRepository;
 })(MovieApp || (MovieApp = {}));
 app.service("DownloadListRepository", MovieApp.DownloadListRepository);
-
+//# sourceMappingURL=DownloadListRepository.js.map
 var MovieApp;
 (function (MovieApp) {
     function Draggable($rootScope) {
@@ -194,7 +194,7 @@ var MovieApp;
     MovieApp.Draggable = Draggable;
 })(MovieApp || (MovieApp = {}));
 app.directive("draggable", MovieApp.Draggable);
-
+//# sourceMappingURL=draggable.js.map
 var MovieApp;
 (function (MovieApp) {
     function Droppable($rootScope) {
@@ -237,7 +237,7 @@ var MovieApp;
     MovieApp.Droppable = Droppable;
 })(MovieApp || (MovieApp = {}));
 app.directive("droppable", MovieApp.Droppable);
-
+//# sourceMappingURL=droppable.js.map
 var MovieApp;
 (function (MovieApp) {
     var FriendsController = (function () {
@@ -262,7 +262,7 @@ var MovieApp;
     MovieApp.FriendsController = FriendsController;
     app.controller("FriendsController", MovieApp.FriendsController);
 })(MovieApp || (MovieApp = {}));
-
+//# sourceMappingURL=FriendsController.js.map
 var MovieApp;
 (function (MovieApp) {
     var FriendsService = (function () {
@@ -283,7 +283,7 @@ var MovieApp;
     MovieApp.FriendsService = FriendsService;
 })(MovieApp || (MovieApp = {}));
 app.service("FriendsService", MovieApp.FriendsService);
-
+//# sourceMappingURL=FriendsService.js.map
 var MovieApp;
 (function (MovieApp) {
     var Friend = (function () {
@@ -323,7 +323,7 @@ var MovieApp;
     })();
     MovieApp.Friend = Friend;
 })(MovieApp || (MovieApp = {}));
-
+//# sourceMappingURL=User.js.map
 var MovieApp;
 (function (MovieApp) {
     var HomeController = (function () {
@@ -403,7 +403,7 @@ var MovieApp;
     MovieApp.HomeController = HomeController;
 })(MovieApp || (MovieApp = {}));
 app.controller("HomeController", MovieApp.HomeController);
-
+//# sourceMappingURL=HomeController.js.map
 //module MovieApp {
 //    export class ServerErrorInterceptor {
 //        public static Factory($q: ng.IQService) {
@@ -433,7 +433,7 @@ app.controller("HomeController", MovieApp.HomeController);
 //        }
 //    });
 //}]); 
-
+//# sourceMappingURL=ServerErrorInterceptor.js.map
 var MovieApp;
 (function (MovieApp) {
     var Movie = (function () {
@@ -543,7 +543,7 @@ var MovieApp;
     })();
     MovieApp.Movie = Movie;
 })(MovieApp || (MovieApp = {}));
-
+//# sourceMappingURL=Movie.js.map
 var MovieApp;
 (function (MovieApp) {
     var MovieController = (function () {
@@ -573,7 +573,7 @@ var MovieApp;
     MovieApp.MovieController = MovieController;
     app.controller("MovieController", MovieApp.MovieController);
 })(MovieApp || (MovieApp = {}));
-
+//# sourceMappingURL=MovieController.js.map
 var MovieApp;
 (function (MovieApp) {
     function MovieDetailsCarousel() {
@@ -587,7 +587,7 @@ var MovieApp;
     MovieApp.MovieDetailsCarousel = MovieDetailsCarousel;
 })(MovieApp || (MovieApp = {}));
 app.directive("movieDetailsCarousel", MovieApp.MovieDetailsCarousel);
-
+//# sourceMappingURL=MovieDetailsCarousel.js.map
 var MovieApp;
 (function (MovieApp) {
     function MovieDetailsMobile() {
@@ -602,7 +602,7 @@ var MovieApp;
     MovieApp.MovieDetailsMobile = MovieDetailsMobile;
 })(MovieApp || (MovieApp = {}));
 app.directive("movieDetailsMobile", MovieApp.MovieDetailsMobile);
-
+//# sourceMappingURL=MovieDetailsMobile.js.map
 var MovieApp;
 (function (MovieApp) {
     function MoviePoster(moviePosterFactory) {
@@ -629,7 +629,7 @@ var MovieApp;
 })(MovieApp || (MovieApp = {}));
 MovieApp.MoviePoster.$inject = ['moviePosterFactory'];
 app.directive("moviePoster", MovieApp.MoviePoster);
-
+//# sourceMappingURL=MoviePoster.js.map
 var MovieApp;
 (function (MovieApp) {
     var MoviePosterFactory = (function () {
@@ -676,7 +676,7 @@ var MovieApp;
 })(MovieApp || (MovieApp = {}));
 MovieApp.MoviePosterFactory.MoviePosterFactoryCreator.$inject = ['$q'];
 app.factory('moviePosterFactory', MovieApp.MoviePosterFactory.MoviePosterFactoryCreator);
-
+//# sourceMappingURL=MoviePosterRepository.js.map
 var MovieApp;
 (function (MovieApp) {
     var MovieSearchController = (function () {
@@ -691,7 +691,7 @@ var MovieApp;
     MovieApp.MovieSearchController = MovieSearchController;
     app.controller("MovieSearchController", MovieApp.MovieSearchController);
 })(MovieApp || (MovieApp = {}));
-
+//# sourceMappingURL=MovieSearchController.js.map
 var MovieApp;
 (function (MovieApp) {
     function MovieThumb(moviePosterFactory) {
@@ -723,7 +723,7 @@ var MovieApp;
 })(MovieApp || (MovieApp = {}));
 MovieApp.MovieThumb.$inject = ['moviePosterFactory'];
 app.directive("movieThumb", MovieApp.MovieThumb);
-
+//# sourceMappingURL=MovieThumb.js.map
 var MovieApp;
 (function (MovieApp) {
     function MovieTooltip($compile) {
@@ -813,7 +813,7 @@ app.directive("movieTooltip", MovieApp.MovieTooltip);
 //        }
 //    }
 //}]);  
-
+//# sourceMappingURL=MovieToolTip.js.map
 var MovieApp;
 (function (MovieApp) {
     function MovieTrailer() {
@@ -845,7 +845,7 @@ var MovieApp;
     MovieApp.MovieTrailer = MovieTrailer;
 })(MovieApp || (MovieApp = {}));
 app.directive("movieTrailer", MovieApp.MovieTrailer);
-
+//# sourceMappingURL=MovieTrailer.js.map
 var MovieApp;
 (function (MovieApp) {
     function MovieOverview() {
@@ -863,7 +863,7 @@ var MovieApp;
     MovieApp.MovieOverview = MovieOverview;
 })(MovieApp || (MovieApp = {}));
 app.directive("movieOverview", MovieApp.MovieOverview);
-
+//# sourceMappingURL=MovieOverview.js.map
 var MovieApp;
 (function (MovieApp) {
     var MovieOverviewController = (function () {
@@ -948,7 +948,7 @@ var MovieApp;
     MovieApp.MovieOverviewController = MovieOverviewController;
     app.controller("MovieOverviewController", MovieApp.MovieOverviewController);
 })(MovieApp || (MovieApp = {}));
-
+//# sourceMappingURL=MovieOverviewController.js.map
 var MovieApp;
 (function (MovieApp) {
     function EmailValidation() {
@@ -980,7 +980,7 @@ var MovieApp;
 })(MovieApp || (MovieApp = {}));
 MovieApp.EmailValidation.$inject = [];
 app.directive("email", MovieApp.EmailValidation);
-
+//# sourceMappingURL=email.js.map
 var MovieApp;
 (function (MovieApp) {
     var WatchlistItem = (function () {
@@ -1010,7 +1010,7 @@ var MovieApp;
     })();
     MovieApp.WatchlistItem = WatchlistItem;
 })(MovieApp || (MovieApp = {}));
-
+//# sourceMappingURL=WatchlistItem.js.map
 var MovieApp;
 (function (MovieApp) {
     var MovieService = (function () {
@@ -1113,32 +1113,7 @@ var MovieApp;
     MovieApp.MovieService = MovieService;
 })(MovieApp || (MovieApp = {}));
 app.service("MovieService", MovieApp.MovieService);
-
-var MovieApp;
-(function (MovieApp) {
-    function MovieTrailerButton() {
-        return {
-            restrict: 'E',
-            templateUrl: '/Movie/Trailer/view-trailer-button.html',
-            scope: {
-                movie: '=',
-            },
-            link: function (scope, element, attributes) {
-                scope.vm = {
-                    showTrailerPopup: showTrailerPopup,
-                    popupId: "popup-trailer-model-" + scope.movie.Imdb,
-                };
-                function showTrailerPopup() {
-                    $("#" + scope.vm.popupId).modal('toggle');
-                }
-            }
-        };
-    }
-    MovieApp.MovieTrailerButton = MovieTrailerButton;
-})(MovieApp || (MovieApp = {}));
-//MovieApp.MovieTrailerButton.$inject = [''];
-app.directive("movieTrailerButton", MovieApp.MovieTrailerButton);
-
+//# sourceMappingURL=MovieService.js.map
 var MovieApp;
 (function (MovieApp) {
     var ShareForm = (function () {
@@ -1192,7 +1167,41 @@ var MovieApp;
 })(MovieApp || (MovieApp = {}));
 MovieApp.ShareButton.$inject = ['MovieService'];
 app.directive("movieShareButton", MovieApp.ShareButton);
-
+//# sourceMappingURL=movie-share-button.js.map
+var MovieApp;
+(function (MovieApp) {
+    function MovieTrailerButton($timeout) {
+        return {
+            restrict: 'E',
+            templateUrl: '/Movie/Trailer/view-trailer-button.html',
+            scope: {
+                movie: '=',
+            },
+            link: function (scope, element, attributes) {
+                scope.vm = {
+                    showTrailerPopup: showTrailerPopup,
+                    popupId: "popup-trailer-model-" + scope.movie.Imdb,
+                    modalVisible: false,
+                };
+                function showTrailerPopup() {
+                    scope.vm.modalVisible = true;
+                    $timeout(function () {
+                        $("#" + scope.vm.popupId).modal('toggle');
+                    });
+                    $("#" + scope.vm.popupId).on('hidden.bs.modal', function () {
+                        scope.$apply(function () {
+                            scope.vm.modalVisible = false;
+                        });
+                    });
+                }
+            }
+        };
+    }
+    MovieApp.MovieTrailerButton = MovieTrailerButton;
+})(MovieApp || (MovieApp = {}));
+MovieApp.MovieTrailerButton.$inject = ['$timeout'];
+app.directive("movieTrailerButton", MovieApp.MovieTrailerButton);
+//# sourceMappingURL=view-trailer-button.js.map
 var MovieApp;
 (function (MovieApp) {
     function WatchlistButton(DownloadListRepository) {
@@ -1224,3 +1233,4 @@ var MovieApp;
 })(MovieApp || (MovieApp = {}));
 MovieApp.WatchlistButton.$inject = ['DownloadListRepository'];
 app.directive("watchlistButton", MovieApp.WatchlistButton);
+//# sourceMappingURL=watchlist-button.js.map

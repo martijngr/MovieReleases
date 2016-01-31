@@ -29,3 +29,4 @@ var MovieApp;
 })(MovieApp || (MovieApp = {}));
 MovieApp.MovieThumb.$inject = ['moviePosterFactory'];
 app.directive("movieThumb", MovieApp.MovieThumb);
+//# sourceMappingURL=MovieThumb.js.map

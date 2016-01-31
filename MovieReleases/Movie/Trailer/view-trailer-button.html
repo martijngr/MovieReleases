@@ -4,7 +4,7 @@
     <i class="fa fa-file-movie-o"></i>
 </button>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="{{vm.popupId}}">
+<div class="modal fade" tabindex="-1" role="dialog" id="{{vm.popupId}}" data-ng-if="vm.modalVisible">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,7 +12,12 @@
                 <h4 class="modal-title">{{movie.Title}}</h4>
             </div>
             <div class="modal-body">
-                
+                <div class="iframe-wrapper-responsive">
+                    <div class="iframe-container-responsive">
+                        <img class="ratio" src="http://placehold.it/16x9" />
+                        <movie-trailer data-url="{{movie.TrailerUrl}}"></movie-trailer>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

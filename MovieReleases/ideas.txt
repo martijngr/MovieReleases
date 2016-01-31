@@ -1,6 +1,8 @@
 ﻿====================================================================================================================
 						PRODUCT BACKLOG
 ====================================================================================================================
+- Per film bijhouden door welke scraper hij is binnengehaald + opslaan wat provider id is
+
 - Op overizhtpagina's een 'i' toevoegen en als daarop geklikt wordt, het plot tonen.
 
 - Melding als dvd in bioscoop draait

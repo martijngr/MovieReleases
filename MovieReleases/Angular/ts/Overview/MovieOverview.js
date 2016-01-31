@@ -15,3 +15,4 @@ var MovieApp;
     MovieApp.MovieOverview = MovieOverview;
 })(MovieApp || (MovieApp = {}));
 app.directive("movieOverview", MovieApp.MovieOverview);
+//# sourceMappingURL=MovieOverview.js.map

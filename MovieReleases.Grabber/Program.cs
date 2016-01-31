@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MovieReleases.Business.Grabbing.ReleaseGrabbers;
+using MovieReleases.Business.MovieScrapers;
+using MovieReleases.Business.Repositories;
+using MovieReleases.Domain.Uow;
+using MovieReleases.Grabber.Grabbers;
+using MovieReleases.IoC;
+using SimpleInjector;
+using System;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using MovieReleases.Business.Grabbers;
-using MovieReleases.Business.MovieScrapers;
-using MovieReleases.Core.Movies;
-using MovieReleases.DTO;
-using MovieReleases.IoC;
-using SimpleInjector;
 
 namespace MovieReleases.Grabber
 {
@@ -19,16 +17,24 @@ namespace MovieReleases.Grabber
     {
         static void Main(string[] args)
         {
-            HandleArgs(args);
-            var container = new Container();
-            IoCRegistration.RegisterForNonWeb(container);
-            IoCRegistration.RegisterDefaults(container);
-            var grabber = container.GetInstance<MovieGrabber>();
+            if (args.Any())
+            {
+                HandleArgs(args);
 
+                return;
+            }
+
+            Container container = CreateContainer();
+            var grabber = container.GetInstance<MovieGrabber>();
+            
             Console.WriteLine("Gegevens worden gedownload en opgeslagen...");
 
             try
             {
+                grabber.AddReleaseGrabber(container.GetInstance<MoviesNowInCinemaGrabber>());
+                grabber.AddReleaseGrabber(container.GetInstance<MovieSoonInCinemaGrabber>());
+                grabber.AddReleaseGrabber(container.GetInstance<MoviesOutOnDvdGrabber>());
+
                 grabber.GrabAndSaveNewReleases();
             }
             catch (DbEntityValidationException ex)
@@ -39,7 +45,6 @@ namespace MovieReleases.Grabber
                 {
                     writer.Write(ex);
                 }
-
             }
             catch (Exception ex)
             {
@@ -56,12 +61,34 @@ namespace MovieReleases.Grabber
             }
         }
 
+        private static Container CreateContainer()
+        {
+            var container = new Container();
+            IoCRegistration.RegisterForNonWeb(container);
+            IoCRegistration.RegisterDefaults(container);
+            return container;
+        }
+
         private static void HandleArgs(string[] args)
         {
-            if (args != null && args.Contains("testmail"))
+            if (args.Contains("testmail"))
             {
                 var c = new SmtpClient();
                 c.Send(new MailMessage("van@mij.nl", "martijngr@gmail.com", "test", "body"));
+            }
+            else if (args.Contains("setTrailerUrl"))
+            {
+                Container container = CreateContainer();
+
+                var uow = container.GetInstance<IUnitOfWork>();
+                var trailerScraper = container.GetInstance<IMovieTrailerScraper>();
+
+                foreach (var movie in uow.Movies.Where(m => m.TrailerUrl == null))
+                {
+                    movie.TrailerUrl = trailerScraper.GetTrailerUrl(movie.Imdb, movie.Title);
+                }
+
+                uow.SaveChanges();
             }
         }
     }

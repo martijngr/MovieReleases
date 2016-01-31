@@ -19,6 +19,7 @@ namespace MovieReleases.Business.Converters
                 ReleaseDate = movieDto.ReleaseDate,
                 Title = movieDto.Title,
                 Year = movieDto.Year,
+                TrailerUrl = movieDto.TrailerUrl,
             };
 
             if (string.IsNullOrEmpty(movie.Duration)) movie.Duration = "";
@@ -53,6 +54,7 @@ namespace MovieReleases.Business.Converters
                 Thumbnail = movie.PosterUrl,
                 Title = movie.Title,
                 Year = movie.Year,
+                TrailerUrl = movie.TrailerUrl,
             };
 
             return convertedMovie;

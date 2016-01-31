@@ -8,7 +8,7 @@ using MovieReleases.Domain;
 using MovieReleases.DTO;
 using MovieReleases.Domain.Movies;
 
-namespace MovieReleases.Business.Grabbers
+namespace MovieReleases.Business.Grabbing.GrabberDecorators
 {
     public class GrabbedMoviesHandler : IGrabber
     {

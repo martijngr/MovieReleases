@@ -3,7 +3,7 @@ using MovieReleases.Domain.Movies;
 using MovieReleases.DTO;
 using System;
 
-namespace MovieReleases.Business.Grabbers
+namespace MovieReleases.Business.Grabbing.GrabberDecorators
 {
     public interface IGrabber
     {

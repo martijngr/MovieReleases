@@ -87,6 +87,10 @@
       <Project>{ba235429-1811-4829-84f4-d15facc83757}</Project>
       <Name>MovieReleases.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MovieReleases.Domain\MovieReleases.Domain.csproj">
+      <Project>{4722a1d6-56a9-4d73-8847-8c9d8ad991f5}</Project>
+      <Name>MovieReleases.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MovieReleases.DTO\MovieReleases.DTO.csproj">
       <Project>{c5bc757a-21e7-4221-855f-efedf95f41a2}</Project>
       <Name>MovieReleases.DTO</Name>

@@ -49,3 +49,4 @@ function hideMobileMenu() {
     // check if window is small enough so dropdown is created
     jQuery(".navbar-collapse").removeClass("in").addClass("collapse");
 }
+//# sourceMappingURL=app.js.map

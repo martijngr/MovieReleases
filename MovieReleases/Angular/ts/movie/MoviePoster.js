@@ -24,3 +24,4 @@ var MovieApp;
 })(MovieApp || (MovieApp = {}));
 MovieApp.MoviePoster.$inject = ['moviePosterFactory'];
 app.directive("moviePoster", MovieApp.MoviePoster);
+//# sourceMappingURL=MoviePoster.js.map

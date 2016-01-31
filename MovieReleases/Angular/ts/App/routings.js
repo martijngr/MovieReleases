@@ -59,3 +59,4 @@ app.config(["$routeProvider", function ($routeProvider) {
             redirectTo: '/Rent'
         });
     }]);
+//# sourceMappingURL=routings.js.map

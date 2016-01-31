@@ -43,6 +43,7 @@
     <Compile Include="MovieDetailsDTO.cs" />
     <Compile Include="MovieDTO.cs" />
     <Compile Include="MovieFindDTO.cs" />
+    <Compile Include="MovieNotFoundDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDetailDTO.cs" />
     <Compile Include="UserDTO.cs" />

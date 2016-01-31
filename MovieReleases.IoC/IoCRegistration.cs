@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MovieReleases.Business;
-using MovieReleases.Business.Grabbers;
+﻿using MovieReleases.Business;
+using MovieReleases.Business.Grabbing.GrabberDecorators;
+using MovieReleases.Business.Grabbing.ReleaseGrabbers;
+using MovieReleases.Business.Mailing;
 using MovieReleases.Business.MovieScrapers;
 using MovieReleases.Business.MovieScrapers.MovieMeter;
 using MovieReleases.Business.MovieScrapers.RottenTomatoes;
@@ -13,7 +10,6 @@ using MovieReleases.Business.Repositories;
 using MovieReleases.Domain.Uow;
 using SimpleInjector;
 using SimpleInjector.Extensions;
-using MovieReleases.Business.Mailing;
 
 namespace MovieReleases.IoC
 {
@@ -31,21 +27,27 @@ namespace MovieReleases.IoC
         }
         public static void RegisterDefaults(Container container)
         {
+            container.Register<IMovieTrailerScraper, YoutubeTrailerScraper>();
             container.Register<IPlotScraper, MovieMeterPlotScraper>();
             container.Register<IFindScraper, RottenTomatiesFindScraper>();
-            container.Register<IMovieScraper, TheMovieDBScraper>();
-            container.Register<IMovieTrailerScraper, YoutubeTrailerScraper>();
-            //container.Register<IMovieTrailerScraper, TrailerAddictTrailerScraper>();
+            container.Register<IGrabMoviesOutOnDvd, RottenTomatoesScraper>();
+            container.Register<IGrabMoviesNowInCinema, TheMovieDBScraper>();
+            container.Register<IGrabMoviesSoonInCinema, TheMovieDBScraper>();
             container.Register<IMovieDetailsScraper, TheMovieDBScraper>();
-            container.Register<IOutOnDvdScraper, RottenTomatoesScraper>();
+
+            container.Register<MoviesNowInCinemaGrabber, MoviesNowInCinemaGrabber>();
+            container.Register<MovieSoonInCinemaGrabber, MovieSoonInCinemaGrabber>();
+            container.Register<MoviesOutOnDvdGrabber, MoviesOutOnDvdGrabber>();
+
             container.Register<IMovieService, MovieService>();
             container.Register<IMovieRepository, MovieRepository>();
+
             container.Register<IMailClient, SmtpMailClient>();
             
             container.Register<IGrabber, GrabbedMoviesHandler>();
-            container.RegisterDecorator(typeof(IGrabber), typeof(GrabberNotifierDecorator));
-            container.RegisterDecorator(typeof(IGrabber), typeof(GrabberLogDecorator));
-            container.RegisterDecorator(typeof(IGrabber), typeof(GrabberSaveDecorator));
+            container.RegisterSingleDecorator(typeof(IGrabber), typeof(GrabberNotifierDecorator));
+            container.RegisterSingleDecorator(typeof(IGrabber), typeof(GrabberLogDecorator));
+            container.RegisterSingleDecorator(typeof(IGrabber), typeof(GrabberSaveDecorator));
         }
     }
 }

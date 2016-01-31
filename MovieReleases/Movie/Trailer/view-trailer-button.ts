@@ -3,11 +3,12 @@
         movie: Movie;
         vm: {
             showTrailerPopup(),
-            popupId: string
+            popupId: string,
+            modalVisible: boolean
         };
     }
 
-    export function MovieTrailerButton(): ng.IDirective {
+    export function MovieTrailerButton($timeout: ng.ITimeoutService): ng.IDirective {
         return {
             restrict: 'E',
             templateUrl: '/Movie/Trailer/view-trailer-button.html',
@@ -18,16 +19,27 @@
                 scope.vm = {
                     showTrailerPopup: showTrailerPopup,
                     popupId: "popup-trailer-model-" + scope.movie.Imdb,
+                    modalVisible: false,
                 };
 
                 function showTrailerPopup() {
-                    $("#" + scope.vm.popupId).modal('toggle');
+                    scope.vm.modalVisible = true;
+
+                    $timeout(function () {
+                        $("#" + scope.vm.popupId).modal('toggle');
+                    });
+
+                    $("#" + scope.vm.popupId).on('hidden.bs.modal', function () {
+                        scope.$apply(function () {
+                            scope.vm.modalVisible = false;
+                        });
+                    })
                 }
             }
         }
     }
 }
 
-//MovieApp.MovieTrailerButton.$inject = [''];
+MovieApp.MovieTrailerButton.$inject = ['$timeout'];
 
 app.directive("movieTrailerButton", MovieApp.MovieTrailerButton);

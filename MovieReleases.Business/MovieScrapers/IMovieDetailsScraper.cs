@@ -7,12 +7,10 @@ using MovieReleases.DTO;
 
 namespace MovieReleases.Business.MovieScrapers
 {
-    public interface IMovieScraper
+    public interface IMovieDetailsScraper
     {
-        Dictionary<DateTime, MovieDto[]> GetMoviesInCinema();
+        MovieDto GetMovieByProviderId(string providerId);
 
-        Dictionary<DateTime, MovieDto[]> GetMoviesSoonInCinema();
-
-        MovieDto GetMovieByImdb(string id);
+        MovieDto GetMovieByImdb(string imdb);
     }
 }

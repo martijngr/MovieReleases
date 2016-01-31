@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace MovieReleases.Business.MovieScrapers
 {
-    public interface IGrabMoviesOutOnDvd
+    public interface IGrabMoviesNowInCinema
     {
-        IEnumerable<MovieDto> GetMoviesOutOnDvd();
+        IEnumerable<MovieDto> GetMoviesInCinema();
     }
 }

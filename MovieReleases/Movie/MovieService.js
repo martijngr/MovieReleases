@@ -100,3 +100,4 @@ var MovieApp;
     MovieApp.MovieService = MovieService;
 })(MovieApp || (MovieApp = {}));
 app.service("MovieService", MovieApp.MovieService);
+//# sourceMappingURL=MovieService.js.map

@@ -26,7 +26,7 @@ namespace MovieReleases.Business.MovieScrapers
             search.Type = "video";
 
             var result = search.Execute();
-            var url = string.Format("http://www.youtube.com/embed/{0}?autoplay=0&fs=1", result.Items.First().Id.VideoId);
+            var url = result.Items.Any() ? string.Format("http://www.youtube.com/embed/{0}?autoplay=0&fs=1", result.Items.First().Id.VideoId) : string.Empty;
 
             foreach (var searchResult in result.Items)
             {

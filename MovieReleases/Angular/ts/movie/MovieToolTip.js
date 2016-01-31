@@ -87,3 +87,4 @@ app.directive("movieTooltip", MovieApp.MovieTooltip);
 //        }
 //    }
 //}]);  
+//# sourceMappingURL=MovieToolTip.js.map

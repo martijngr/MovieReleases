@@ -51,3 +51,4 @@ var MovieApp;
     MovieApp.DownloadListRepository = DownloadListRepository;
 })(MovieApp || (MovieApp = {}));
 app.service("DownloadListRepository", MovieApp.DownloadListRepository);
+//# sourceMappingURL=DownloadListRepository.js.map

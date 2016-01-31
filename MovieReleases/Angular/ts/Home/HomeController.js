@@ -77,3 +77,4 @@ var MovieApp;
     MovieApp.HomeController = HomeController;
 })(MovieApp || (MovieApp = {}));
 app.controller("HomeController", MovieApp.HomeController);
+//# sourceMappingURL=HomeController.js.map

@@ -27,3 +27,4 @@ var MovieApp;
     MovieApp.MovieController = MovieController;
     app.controller("MovieController", MovieApp.MovieController);
 })(MovieApp || (MovieApp = {}));
+//# sourceMappingURL=MovieController.js.map
